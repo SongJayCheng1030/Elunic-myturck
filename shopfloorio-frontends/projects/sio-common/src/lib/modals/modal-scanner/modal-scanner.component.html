@@ -1,0 +1,27 @@
+<div class="modal-header align-items-center">
+  <h4 class="modal-title" *ngIf="title">{{ title | translate }}</h4>
+  <button type="button" class="btn btn-xs btn-icon btn-transparent ml-auto" (click)="onCancel()">
+    <i class="material-icons mi-18">close</i>
+  </button>
+</div>
+
+<div class="modal-body" [ngClass]="{ loading: loading }">
+  <div class="spinner-border" role="status" *ngIf="loading">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <zxing-scanner
+    [formats]="allowedFormats"
+    (scanSuccess)="onScanSuccess($event)"
+    (camerasNotFound)="onCamerasNotFound()"
+    (permissionResponse)="onPermissionResponse($event)"
+  ></zxing-scanner>
+  <svg class="view-border" viewBox="0 0 100 100" *ngIf="!warningMessage">
+    <path d="M25,2 L2,2 L2,25" fill="none" stroke="white" stroke-width="1" />
+    <path d="M2,75 L2,98 L25,98" fill="none" stroke="white" stroke-width="1" />
+    <path d="M75,98 L98,98 L98,75" fill="none" stroke="white" stroke-width="1" />
+    <path d="M98,25 L98,2 L75,2" fill="none" stroke="white" stroke-width="1" />
+  </svg>
+  <div class="warning-message" *ngIf="warningMessage">
+    {{ warningMessage | translate }}
+  </div>
+</div>

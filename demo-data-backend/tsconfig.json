@@ -1,0 +1,46 @@
+{
+  "extends": "./node_modules/@elunic/ecs-tsconfig/tsconfig.json",
+  "compilerOptions": {
+    "rootDirs": [
+      "./src/",
+      "./test/",
+      "../shared/"
+    ],
+    "outDir": "./build",
+    "lib": [
+      "esnext"
+    ],
+    "target": "es2019",
+    "baseUrl": "./",
+    "skipLibCheck": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "paths": {
+      "shared/common": [
+        "../shared/common/src"
+      ],
+      "shared/common/*": [
+        "../shared/common/src/*"
+      ],
+      "shared/backend": [
+        "../shared/backend/src"
+      ],
+      "shared/backend/*": [
+        "../shared/backend/src/*"
+      ],
+      "shared/nestjs": [
+        "../shared/nestjs/src"
+      ],
+      "shared/nestjs/*": [
+        "../shared/nestjs/src/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "test/**/*.ts",
+    "../shared/backend/**/*.ts",
+    "../shared/common/**/*.ts",
+    "../shared/nestjs/**/*.ts",
+  ]
+}

@@ -1,0 +1,30 @@
+.card-page {
+  background-color: #fff;
+  width: 100%;
+  min-height: 84vh;
+  .card-page-header {
+    height: 65px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #efefef;
+    padding: 0 1.5rem;
+    .back-arrow {
+      color: #000;
+      font-weight: bold;
+      font-size: 26px;
+      background-color: transparent;
+      border: none;
+      outline: none;
+    }
+    .card-page-title {
+      margin-left: 25px;
+      font-weight: bold;
+      font-size: 20px;
+    }
+  }
+  .card-page-body {
+    // width: 97%;
+    margin: 0 auto;
+    // padding: 50px 0;
+  }
+}

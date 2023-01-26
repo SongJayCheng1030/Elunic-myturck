@@ -1,0 +1,42 @@
+<ng-container *ngIf="config">
+  <button
+    *ngIf="mode === 'preview'"
+    class="btn btn-sm btn-transparent btn-icon visibility-control"
+    [title]="
+      (config.show === 1 ? 'SETTINGS.HIDE_IN_OVERVIEW_PAGE' : 'SETTINGS.SHOW_IN_OVERVIEW_PAGE')
+        | translate
+    "
+    (click)="toggleVisibility()"
+  >
+    <i class="material-icons">{{ config.show === 1 ? 'visibility' : 'visibility_off' }}</i>
+  </button>
+  <a [target]="anchorTarget" (click)="open($event, input)">
+    <div
+      class="card service rounded-0"
+      [ngStyle]="{ 'background-color': config && config.tileColor }"
+      [ngClass]="{ preview: mode === 'preview' }"
+    >
+      <div
+        class="image-placeholder d-flex justify-content-center align-items-center"
+        [ngClass]="{ 'no-desc': !config.desc }"
+      >
+        <img [src]="config.iconUrl | iconUrl" />
+      </div>
+      <div class="card-body" [ngStyle]="{ color: config && config.tileTextColor }">
+        <h5 class="card-title text-center" [ngStyle]="{ color: config && config.tileTextColor }">
+          <b>{{ config.tileName || 'SETTINGS.EMPTY_NAME' | translate }}</b>
+        </h5>
+        <p class="card-text text-center" *ngIf="config.desc">
+          {{ config.desc }}
+        </p>
+      </div>
+    </div>
+  </a>
+  <input
+    #input
+    (change)="customEventHandler($event.target.files)"
+    type="file"
+    class="hidden-input"
+    multiple
+  />
+</ng-container>

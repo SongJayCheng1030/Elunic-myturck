@@ -1,0 +1,57 @@
+<ng-container *ngIf="activeNode">
+  <app-chart-panel class="panel-actions">
+    <app-chart-panel-header>
+      <button (click)="onBack()" class="btn btn-transparent btn-icon">
+        <i class="material-icons">navigate_before</i>
+      </button>
+      <a href="javascript:void(0)" (click)="onBack()"><h4 [multilang]="activeNode.name"></h4></a>
+      <div class="ml-4 eq-status-badge {{ activeNode.status }}">
+        {{ activeNode.status | translate }}
+      </div>
+      <app-chart-panel-header-actions>
+        <lib-time-range
+          (rangeSelect)="dateRangeSelected($event)"
+          [dateRange]="defaultDateRange"
+        ></lib-time-range>
+      </app-chart-panel-header-actions>
+    </app-chart-panel-header>
+  </app-chart-panel>
+
+  <div class="main-wrapper mt-4">
+    <div class="content-scrollable">
+      <div *ngIf="loadingDetails" class="loading"></div>
+      <div class="content-scroll grid-wrapper grid-column-4">
+        <app-equipment-kpi-multiple
+          [title]="'VIEWS.OEE_DETAILS.AVERAGE_VALUE'"
+          [property]="currentDetailData?.kpi"
+          [kpiKeys]="['oee', 'yield']"
+        ></app-equipment-kpi-multiple>
+
+        <app-oee-daily-trend
+          class="grid-column-span-3"
+          [title]="'VIEWS.OEE_DETAILS.OEE_DAILY_TREND'"
+          [property]="currentDetailData"
+        ></app-oee-daily-trend>
+        <app-equipment-kpi-multiple
+          [title]="'VIEWS.OEE_DETAILS.AVERAGE_VALUE'"
+          [property]="currentDetailData?.kpi"
+          [kpiKeys]="['utilization', 'availability']"
+        ></app-equipment-kpi-multiple>
+        <app-equipment-status-history
+          class="grid-column-span-3"
+          [title]="'VIEWS.OEE_DETAILS.EQUIPMENT_STATUS_HISTORY'"
+          [property]="currentDetailData"
+        ></app-equipment-status-history>
+        <app-equipment-throughput
+          [title]="'VIEWS.OEE_DETAILS.THROUGHPUT'"
+          [property]="currentDetailData?.throughput"
+        ></app-equipment-throughput>
+        <app-throughput-daily-trend
+          class="grid-column-span-3"
+          [title]="'VIEWS.OEE_DETAILS.THROUGHPUT_DAILY_TREND'"
+          [property]="currentDetailData"
+        ></app-throughput-daily-trend>
+      </div>
+    </div>
+  </div>
+</ng-container>

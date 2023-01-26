@@ -1,0 +1,51 @@
+<header class="d-flex">
+  <h4 class="mt-auto" [multilang]="assetTreeNode.name"></h4>
+  <!--<span class="oee-id">14606</span> -->
+  <div class="ml-auto"></div>
+  <button class="btn btn-outline-secondary" (click)="onEquipmentFilter()">
+    {{ 'TOOLBAR.BUTTONS.EQUIPMENT' | translate }}
+    <span class="badge badge-pill badge-secondary ml-2" *ngIf="getFilterCount(equipmentGroups)">
+      {{ getFilterCount(equipmentGroups) }}
+    </span>
+  </button>
+  <button class="btn btn-outline-secondary ml-2" (click)="onConversionKitFilter()">
+    {{ 'TOOLBAR.BUTTONS.CONVERSION_KIT' | translate }}
+    <span class="badge badge-pill badge-secondary ml-2" *ngIf="getFilterCount(conversionKitGroups)">
+      {{ getFilterCount(conversionKitGroups) }}
+    </span>
+  </button>
+  <div
+    ngbDropdown
+    class="dropdown form-dropdown ml-2"
+    *ngIf="getSelectedKpiSubject() | async as kpi"
+  >
+    <button ngbDropdownToggle class="btn btn-outline-secondary">
+      {{ 'TOOLBAR.BUTTONS.KPI' | translate }}: {{ 'KPI.' + kpi | translate }}
+    </button>
+    <div ngbDropdownMenu class="form-dropdown-menu">
+      <button ngbDropdownItem *ngFor="let posKpi of allKpiValues" (click)="setSelectedKpi(posKpi)">
+        {{ 'KPI.' + posKpi | translate }}
+      </button>
+    </div>
+  </div>
+  <lib-time-range
+    class="ml-2"
+    (rangeSelect)="dateRangeSelected($event)"
+    [dateRange]="defaultDateRange"
+    [allowLive]="true"
+    defaultRange="live"
+  ></lib-time-range>
+</header>
+<div class="main-wrapper mt-4">
+  <div class="grid-wrapper grid-column-2 eq-bar-charts">
+    <app-equipment-status></app-equipment-status>
+    <app-equipment-oee></app-equipment-oee>
+  </div>
+
+  <div
+    class="content-scroll grid-wrapper grid-column-4 mt-4"
+    style="overflow-y: scroll; max-height: 70vh"
+  >
+    <app-equipment-kpi *ngFor="let equipment of kpiAssets" [asset]="equipment"></app-equipment-kpi>
+  </div>
+</div>

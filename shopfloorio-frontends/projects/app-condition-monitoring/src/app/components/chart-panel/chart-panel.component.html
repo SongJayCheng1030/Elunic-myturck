@@ -1,0 +1,7 @@
+<div class="chart-panel">
+  <ng-content select="app-chart-panel-header"></ng-content>
+
+  <div class="chart-panel-body-container" [class.container-scrollable]="scrollable">
+    <ng-content select="app-chart-panel-body"></ng-content>
+  </div>
+</div>

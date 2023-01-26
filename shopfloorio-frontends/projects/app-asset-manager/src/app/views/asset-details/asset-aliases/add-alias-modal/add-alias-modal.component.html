@@ -1,0 +1,41 @@
+<div class="modal-header align-items-center">
+  <h4 class="modal-title">{{ 'MODALS.ADD_ALIAS.TITLE' | translate }}</h4>
+
+  <button type="button" class="btn btn-xs btn-icon btn-transparent" (click)="onCancel()">
+    <i class="material-icons mi-18">close</i>
+  </button>
+</div>
+
+<div class="modal-body" [formGroup]="form">
+  <div class="form-group">
+    <label for="alias"> {{ 'VIEWS.ASSET_DETAILS.ALIAS' | translate }} * </label>
+    <input type="text" id="alias" class="form-control" formControlName="alias" />
+  </div>
+  <div class="form-group">
+    <label for="type"> {{ 'VIEWS.ASSET_DETAILS.TYPE' | translate }} * </label>
+    <ng-select [items]="aliasTypes" bindValue="type" labelForId="type" formControlName="type">
+      <ng-template ng-label-tmp let-item="item">{{ item.title | translate }}</ng-template>
+      <ng-template ng-option-tmp let-item="item">{{ item.title | translate }}</ng-template>
+    </ng-select>
+  </div>
+  <div class="form-group mb-0">
+    <label for="aliasDescription">
+      {{ 'VIEWS.ASSET_DETAILS.DESCRIPTION' | translate }}
+    </label>
+    <textarea
+      id="aliasDescription"
+      class="form-control"
+      rows="4"
+      formControlName="description"
+    ></textarea>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-secondary" (click)="onCancel()">
+    {{ 'MODALS.ADD_ALIAS.ABORT' | translate }}
+  </button>
+  <button type="button" class="btn btn-primary" [disabled]="form.invalid" (click)="onSubmit()">
+    {{ 'MODALS.ADD_ALIAS.CONFIRM' | translate }}
+  </button>
+</div>

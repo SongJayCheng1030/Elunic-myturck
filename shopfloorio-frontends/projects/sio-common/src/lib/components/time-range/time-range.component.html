@@ -1,0 +1,160 @@
+<div class="main-wrapper" ngbDropdown #timeRangeDrop="ngbDropdown" placement="bottom-right">
+  <button class="btn btn-outline-secondary time-range-btn" ngbDropdownToggle>
+    {{ timeRangeText }}
+  </button>
+  <div class="time-range-container" ngbDropdownMenu>
+    <div class="row px-2" *ngIf="allowLive">
+      <div class="col-12">
+        <button
+          class="btn btn-outline-secondary w-100 justify-content-center"
+          [ngClass]="{ active: defaultRange === 'live' }"
+          (click)="onRange('live')"
+        >
+          {{ 'TIME_RANGE.LIVE' | translate }}
+        </button>
+      </div>
+    </div>
+    <div class="row px-2">
+      <div class="col-6">
+        <div class="relative-time-btn">
+          <button
+            class="btn btn-outline-secondary"
+            [ngClass]="{ active: defaultRange === 'last24' }"
+            (click)="onRange('last24')"
+          >
+            {{ 'TIME_RANGE.LAST_24_HOURS' | translate }}
+          </button>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="relative-time-btn">
+          <button
+            class="btn btn-outline-secondary"
+            [ngClass]="{ active: defaultRange === 'lastWeek' }"
+            (click)="onRange('lastWeek')"
+          >
+            {{ 'TIME_RANGE.LAST_WEEK' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="row px-2">
+      <div class="col-6">
+        <div class="relative-time-btn">
+          <button
+            class="btn btn-outline-secondary"
+            [ngClass]="{ active: defaultRange === 'lastMonth' }"
+            (click)="onRange('lastMonth')"
+          >
+            {{ 'TIME_RANGE.LAST_MONTH' | translate }}
+          </button>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="relative-time-btn">
+          <button
+            class="btn btn-outline-secondary"
+            [ngClass]="{ active: defaultRange === 'lastYear' }"
+            (click)="onRange('lastYear')"
+          >
+            {{ 'TIME_RANGE.LAST_YEAR' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <form *ngIf="form" [formGroup]="form" novalidate (submit)="onSubmit()">
+      <div class="row px-2">
+        <div class="col-6">
+          <div class="form-group">
+            <label for="startDate">
+              {{ 'TIME_RANGE.START_DATE' | translate }}
+            </label>
+            <div class="input-group">
+              <input
+                class="form-control"
+                id="startDate"
+                maxlength="12"
+                formControlName="startDate"
+                type="date"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="endDate">
+              {{ 'TIME_RANGE.END_DATE' | translate }}
+            </label>
+            <div class="input-group">
+              <input
+                class="form-control"
+                id="endDate"
+                maxlength="12"
+                formControlName="endDate"
+                type="date"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row px-2">
+        <div class="col-6">
+          <div class="form-group">
+            <label for="startTime">
+              {{ 'TIME_RANGE.START_TIME' | translate }}
+            </label>
+            <div class="input-group">
+              <input
+                type="text"
+                id="startTime"
+                class="form-control"
+                maxlength="8"
+                formControlName="startTime"
+                type="time"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="endTime">
+              {{ 'TIME_RANGE.END_TIME' | translate }}
+            </label>
+            <div class="input-group">
+              <input
+                type="text"
+                id="endTime"
+                class="form-control"
+                maxlength="8"
+                formControlName="endTime"
+                type="time"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row px-2">
+        <div class="col-12 mb-3">
+          <button
+            type="submit"
+            *ngFor="let range of previousRanges"
+            class="btn btn-outline-secondary btn-sm mb-1 col-12 justify-content-center"
+            (click)="onPreviousRangeClick(range)"
+          >
+            {{ range.fromDate }} {{ range.fromTime }} {{ 'TIME_RANGE.TO' | translate }}
+            {{ range.toDate }} {{ range.toTime }}
+          </button>
+        </div>
+      </div>
+      <div class="action-buttons">
+        <button type="button" class="btn btn-transparent btn-reset" (click)="onReset()">
+          {{ 'TIME_RANGE.RESET' | translate }}
+        </button>
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+          {{ 'TIME_RANGE.APPLY' | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

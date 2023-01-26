@@ -1,0 +1,14 @@
+/.vs*
+/nbproject*
+.DS_Store
+Thumbs.db
+/.idea*
+**/node_modules*
+**/build*
+**/dist*
+**/temp*
+**/coverage*
+**/test-reports*
+**/.nyc_output*
+.git
+Dockerfile

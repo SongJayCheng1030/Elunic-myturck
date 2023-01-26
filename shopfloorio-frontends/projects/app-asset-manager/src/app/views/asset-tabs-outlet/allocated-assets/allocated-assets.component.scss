@@ -1,0 +1,50 @@
+@import 'variables';
+
+:host {
+  width: 100%;
+  padding: 2rem;
+  background-color: $light;
+}
+
+.header-row {
+  position: relative;
+
+  .toggle-tree {
+    position: absolute;
+    display: flex;
+    padding: 0.5rem 0;
+    right: 0;
+
+    a {
+      font-weight: bold;
+      &:not(:last-child) {
+        padding-right: 20px;
+      }
+    }
+  }
+}
+
+.actions {
+  flex: 0 1 50px !important;
+  padding: 0 !important;
+}
+
+.dropdown-cell {
+  flex: 0 1 220px !important;
+  padding: 0 !important;
+}
+
+.shadow-right {
+  width: 100%;
+  box-shadow: 1px 0px 0px 0px rgb(0 0 0 / 19%);
+}
+
+.shadow-left {
+  box-shadow: 0px 0px 3px 0px rgb(0 0 0 / 19%);
+  z-index: 11;
+}
+
+.name-column {
+  display: flex;
+  align-items: center;
+}

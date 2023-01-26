@@ -1,0 +1,15 @@
+<div ngbDropdown class="dropdown form-dropdown" (openChange)="onOpenChange($event)">
+  <button type="button" ngbDropdownToggle class="btn btn-outline-secondary" [disabled]="disabled">
+    {{ value?.label | translate }}
+  </button>
+  <div ngbDropdownMenu class="form-dropdown-menu" *ngIf="filteredItems?.length && !disabled">
+    <button
+      type="button"
+      ngbDropdownItem
+      *ngFor="let item of filteredItems"
+      (click)="onSelect(item)"
+    >
+      {{ item.label | translate }}
+    </button>
+  </div>
+</div>

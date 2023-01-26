@@ -1,0 +1,76 @@
+<lib-panel>
+  <lib-panel-header>
+    <h4>{{ 'VIEWS.ASSET_TYPE_DETAILS.DYNAMIC_PROPERTIES' | translate }}</h4>
+
+    <lib-panel-header-actions>
+      <button class="btn btn-outline-primary" (click)="onAdd()" *ngIf="assetTypeId">
+        <i class="material-icons">add</i>
+        <span>
+          {{ 'VIEWS.ASSET_TYPE_DETAILS.ADD_NEW_PROPERTY' | translate }}
+        </span>
+      </button>
+    </lib-panel-header-actions>
+  </lib-panel-header>
+
+  <lib-panel-body class="p-0" cdkDropListGroup>
+    <lib-table
+      class="w-100"
+      [data]="properties"
+      [scrollable]="true"
+      cdkDropList
+      [cdkDropListData]="properties"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <lib-row *libHeaderRowDef>
+        <lib-header-cell></lib-header-cell>
+        <lib-header-cell libHeaderSort="name" [isMultilang]="true">
+          {{ 'VIEWS.ASSET_TYPE_DETAILS.NAME' | translate }}
+        </lib-header-cell>
+        <lib-header-cell libHeaderSort="value">
+          {{ 'VIEWS.ASSET_TYPE_DETAILS.DEFAULT_VALUE' | translate }}
+        </lib-header-cell>
+        <lib-header-cell libHeaderSort="key">
+          {{ 'VIEWS.ASSET_TYPE_DETAILS.KEY' | translate }}
+        </lib-header-cell>
+        <lib-header-cell libHeaderSort="isRequired">
+          {{ 'VIEWS.ASSET_TYPE_DETAILS.MANDATORY' | translate }}
+        </lib-header-cell>
+        <lib-header-cell libHeaderSort="isHidden">
+          {{ 'VIEWS.ASSET_TYPE_DETAILS.DISPLAY' | translate }}
+        </lib-header-cell>
+        <lib-header-cell></lib-header-cell>
+        <lib-header-cell></lib-header-cell>
+      </lib-row>
+
+      <lib-row libDataRow *libDataRowDef="let property" cdkDrag>
+        <lib-cell><i class="material-icons mi-18" cdkDragHandle>storage</i></lib-cell>
+
+        <lib-cell [multilang]="property.name"></lib-cell>
+        <lib-cell>{{ property.value }}</lib-cell>
+        <lib-cell>{{ property.key }}</lib-cell>
+        <lib-cell>
+          <i class="material-icons mi-18" *ngIf="property.isRequired">check</i>
+        </lib-cell>
+        <lib-cell>
+          <i class="material-icons mi-18" *ngIf="!property.isHidden">check</i>
+        </lib-cell>
+
+        <lib-cell class="p-0 justify-content-center">
+          <button class="btn btn-sm btn-transparent btn-icon" (click)="onDelete(property.id)">
+            <i class="material-icons mi-18">delete_outline</i>
+          </button>
+        </lib-cell>
+
+        <lib-cell class="p-0 justify-content-center">
+          <button class="btn btn-sm btn-transparent btn-icon" (click)="onEdit(property)">
+            <i class="material-icons mi-18">mode_edit</i>
+          </button>
+        </lib-cell>
+      </lib-row>
+
+      <lib-row libEmptyRow *libEmptyRowDef>
+        <span>No properties found</span>
+      </lib-row>
+    </lib-table>
+  </lib-panel-body>
+</lib-panel>

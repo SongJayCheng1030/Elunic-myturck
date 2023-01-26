@@ -1,0 +1,107 @@
+<div class="tile-list" *ngIf="tileConfiguration">
+  <div
+    *ngFor="let tileConfig of tileConfiguration; index as i"
+    class="tile-row d-flex flex-lg-row flex-column mb-4 mx-0 pt-lg-0 pt-3"
+  >
+    <div class="d-flex align-items-center justify-content-center">
+      <div class="positioning d-flex flex-column">
+        <img
+          src="assets/images/arrow-down.svg"
+          (click)="changePosition(tileConfig.id, tileConfiguration[i - 1].id)"
+        />
+        <img src="assets/images/delete.svg" (click)="deleteTile(tileConfig.id)" />
+        <img
+          src="assets/images/arrow-down.svg"
+          (click)="changePosition(tileConfig.id, tileConfiguration[i + 1].id)"
+        />
+      </div>
+      <app-tile-card [mode]="'preview'" [config]="tileConfig"></app-tile-card>
+    </div>
+    <form #form class="tile-form ms-lg-5 ms-0 d-flex flex-lg-row flex-column">
+      <div class="custom-input-group ms-lg-5 ms-0">
+        <div class="input-wrap">
+          <app-input
+            [configs]="{
+              defaultValue: tileConfig.tileName,
+              maxLength: 255,
+              required: true,
+              minLength: 1
+            }"
+            (blurInput)="setTileConfigValues({ tileName: $event }, tileConfig.id)"
+            >{{ 'SETTINGS.TILE_NAME' | translate }}*</app-input
+          >
+        </div>
+        <div class="input-wrap">
+          <app-input
+            [configs]="{
+              defaultValue: tileConfig.desc,
+              minLength: 1,
+              maxLength: 255
+            }"
+            (blurInput)="setTileConfigValues({ desc: $event }, tileConfig.id)"
+            >{{ 'SETTINGS.DESCRIPTION' | translate }}</app-input
+          >
+        </div>
+        <div class="input-wrap">
+          <app-checkbox
+            [configs]="{ defaultChecked: tileConfig.integratedView }"
+            (changeCheckbox)="setTileConfigValues({ integratedView: $event }, tileConfig.id)"
+            >{{ 'SETTINGS.INTEGRATE_VIEW' | translate }}</app-checkbox
+          >
+        </div>
+      </div>
+      <div class="custom-input-group ms-lg-5 ms-0 mt-2 mt-lg-0">
+        <div class="input-wrap">
+          <app-input
+            [configs]="{
+              defaultValue: tileConfig.appUrl,
+              required: true,
+              minLength: 1,
+              maxLength: 4096
+            }"
+            (blurInput)="setTileConfigValues({ appUrl: $event }, tileConfig.id)"
+            >{{ 'SETTINGS.APP_URL' | translate }}*</app-input
+          >
+        </div>
+        <div class="input-wrap">
+          <app-input
+            [configs]="{
+              mode: 'url',
+              autoClear: true,
+              defaultValue: tileConfig.iconUrl,
+              type: 'file'
+            }"
+            (changeInput)="setTileConfigValues({ iconUrl: $event }, tileConfig.id)"
+            >{{ 'SETTINGS.ICON' | translate }}</app-input
+          >
+        </div>
+      </div>
+      <div class="custom-input-group ms-lg-5 ms-0 mt-2 mt-lg-0">
+        <div class="input-wrap">
+          <app-input
+            [configs]="{
+              mode: 'color',
+              defaultValue: tileConfig.tileColor || '#ffffff',
+              required: true,
+              validateAs: 'color'
+            }"
+            (changeInput)="setTileConfigValues({ tileColor: $event }, tileConfig.id)"
+            >{{ 'SETTINGS.TILE_COLOR' | translate }}*</app-input
+          >
+        </div>
+        <div class="input-wrap">
+          <app-input
+            [configs]="{
+              mode: 'color',
+              defaultValue: tileConfig.tileTextColor || '#000000',
+              validateAs: 'color',
+              required: true
+            }"
+            (changeInput)="setTileConfigValues({ tileTextColor: $event }, tileConfig.id)"
+            >{{ 'SETTINGS.TILE_TEXT_COLOR' | translate }}*</app-input
+          >
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

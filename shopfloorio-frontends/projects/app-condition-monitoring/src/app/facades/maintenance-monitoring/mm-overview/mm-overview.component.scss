@@ -1,0 +1,81 @@
+@import 'variables';
+
+.grid-wrapper {
+  lib-panel {
+    height: auto !important;
+  }
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+
+  &::ng-deep {
+    .panel-actions {
+      .panel {
+        background-color: transparent;
+        border: 0;
+      }
+
+      .panel-header {
+        border: 0;
+        padding: 0;
+      }
+    }
+
+    .chart-wrapper {
+      margin-bottom: 26px;
+
+      app-panel {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+
+        .panel {
+          flex-direction: row;
+
+          .panel-header {
+            align-items: flex-start;
+            max-width: 150px;
+            padding: 20px 0 1.5rem 20px;
+            border: none;
+
+            h4 {
+              opacity: 1;
+            }
+          }
+
+          .panel-body {
+            padding: 0 0 !important;
+            display: flex;
+            flex-direction: row;
+          }
+        }
+      }
+    }
+
+    .chart-legend {
+      &.chart-history {
+        app-status-legend {
+          &:not(:last-child) {
+            padding-bottom: 23px !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.grid-wrapper {
+  grid-auto-rows: minmax(min-content, max-content);
+  gap: 26px;
+}

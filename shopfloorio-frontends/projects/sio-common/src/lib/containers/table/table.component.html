@@ -1,0 +1,35 @@
+<div class="table" [class.table-elevated]="elevated">
+  <ng-content></ng-content>
+
+  <div
+    class="table-header"
+    [class.scrollable]="isBodyOverflown"
+    *ngIf="headerRow && (filteredItems$ | async)"
+  >
+    <ng-container [ngTemplateOutlet]="headerRow.template"></ng-container>
+  </div>
+
+  <div class="table-body-container" [class.container-scrollable]="scrollable">
+    <div class="table-body" #body>
+      <ng-content select="[libDataRow][before]"></ng-content>
+
+      <ng-container
+        *ngFor="
+          let item of data
+            | filter: searchTerm:searchCols:filteredItems$
+            | sortBy: (sortOptions$ | async);
+          template: dataRow && dataRow.template;
+          trackBy: trackBy
+        "
+      >
+      </ng-container>
+
+      <ng-content select="[libDataRow]"></ng-content>
+
+      <ng-container
+        *ngIf="emptyRow && (filteredItems$ | async) === 0"
+        [ngTemplateOutlet]="emptyRow.template"
+      ></ng-container>
+    </div>
+  </div>
+</div>

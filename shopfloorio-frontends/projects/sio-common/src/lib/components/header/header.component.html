@@ -1,0 +1,79 @@
+<header class="navbar">
+  <div *ngIf="appSwitcherApps" class="btn-group" ngbDropdown placement="bottom-left">
+    <button (click)="onMenu()" class="btn btn-sm btn-transparent btn-icon btn-white">
+      <i class="material-icons">apps</i>
+    </button>
+  </div>
+
+  <i *ngIf="!appSwitcherApps" class="material-icons">apps</i>
+
+  <div class="brand">
+    <a [href]="hubFrontendUrl">
+      <img *ngIf="logoImage" [src]="logoImage | iconUrl" alt="Logo" class="logo" />
+    </a>
+    <h1 class="divider">{{ appName || '' }}</h1>
+  </div>
+
+  <div class="ml-auto">
+    <button *ngIf="showStatus" class="service-contract-status-btn mr-3">
+      <span class="service-contract-status-btn-text">{{
+        'HEADER.SERVICE_CONTRACT_STATUS' | translate
+      }}</span>
+      <span class="service-contract-status-btn-status">{{ 'HEADER.GOLD' | translate }}</span>
+    </button>
+
+    <div *ngIf="scanner" class="btn-group mr-2">
+      <button class="btn btn-transparent btn-icon btn-white" (click)="onScanner()">
+        <i class="material-icons mi-26">qr_code_scanner</i>
+      </button>
+    </div>
+
+    <div *ngIf="settingsItems" ngbDropdown display="dynamic" class="btn-group mr-3">
+      <button ngbDropdownToggle class="btn btn-transparent btn-icon btn-white">
+        <i class="material-icons mi-26">settings</i>
+      </button>
+      <div ngbDropdownMenu class="text-right">
+        <button
+          *ngFor="let item of settingsItems"
+          (click)="onHandleSettingsClick(item)"
+          ngbDropdownItem
+        >
+          {{ item.tileName | translate }}
+        </button>
+        <div class="dropdown-divider" *ngIf="settingsItems.length && allowDefaults"></div>
+        <ng-container *ngIf="allowDefaults">
+          <button
+            *ngFor="let item of defaultSettingsItems"
+            (click)="onHandleSettingsClick(item)"
+            ngbDropdownItem
+          >
+            {{ item.tileName | translate }}
+          </button>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="btn-group" ngbDropdown display="dynamic">
+      <button ngbDropdownToggle class="btn btn-sm btn-transparent btn-icon">
+        <div
+          class="userpic-stub"
+          [ngStyle]="{ 'background-image': 'url(' + userImgUrl + ')' }"
+        ></div>
+      </button>
+
+      <div ngbDropdownMenu class="text-right">
+        <a [href]="getUserProfileLink()">
+          <div ngbDropdownItem class="current-user-name">
+            {{ userDisplayName }}
+          </div>
+        </a>
+        <div class="dropdown-divider"></div>
+        <button ngbDropdownItem (click)="selectLanguage('en_EN')">English</button>
+        <button ngbDropdownItem (click)="selectLanguage('de_DE')">Deutsch</button>
+        <div class="dropdown-divider"></div>
+        <!-- <button *ngIf="isInTenant" ngbDropdownItem (click)="onLeaveTenant()">Leave Tenant</button> -->
+        <button ngbDropdownItem (click)="onLogout()">Logout</button>
+      </div>
+    </div>
+  </div>
+</header>

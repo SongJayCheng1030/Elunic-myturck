@@ -1,0 +1,9 @@
+<lib-header *ngIf="!hideHeader"></lib-header>
+<div class="page" [ngStyle]="backgroundImageStyle">
+  <div class="content-wrapper">
+    <lib-page-title [title]="title" *ngIf="title" [back]="back">
+      <ng-content select="[header]"></ng-content>
+    </lib-page-title>
+    <ng-content></ng-content>
+  </div>
+</div>

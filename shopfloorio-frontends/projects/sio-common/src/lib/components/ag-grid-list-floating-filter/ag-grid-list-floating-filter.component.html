@@ -1,0 +1,12 @@
+<ng-select
+  appendTo="body"
+  class="pill-select"
+  [(ngModel)]="selectedIds"
+  [multiple]="true"
+  (change)="onFilterSelection()"
+>
+  <ng-option *ngFor="let option of options" [value]="option | objectValue: bindValue">
+    <span [ngClass]="option.class"></span>
+    {{ option | objectValue: bindLabel | multilang | translate }}
+  </ng-option>
+</ng-select>

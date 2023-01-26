@@ -1,0 +1,7 @@
+<div class="checkbox-wrapper">
+  <input [id]="id" type="checkbox" [disabled]="disabled" [checked]="value" (change)="onChange()" />
+  <label class="checkbox-label" [for]="id">
+    <span class="checkbox-tick"></span>
+    <span class="checkbox-text">{{ label }}</span>
+  </label>
+</div>

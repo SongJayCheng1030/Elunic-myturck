@@ -1,0 +1,121 @@
+<div class="modal-header align-items-center">
+  <h4 class="modal-title">
+    {{ 'MODALS.LIMIT_RULES.LIMIT_RULE_FOR' | translate }}:
+    <span class="name">{{ property?.name }}</span>
+  </h4>
+
+  <button type="button" class="btn btn-xs btn-icon btn-transparent" (click)="onCancel()">
+    <i class="material-icons mi-18">close</i>
+  </button>
+</div>
+
+<form *ngIf="form" [formGroup]="form" novalidate (submit)="onSubmit()">
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-6">
+        <div class="legend"></div>
+        <div class="form-group">
+          <label>{{
+            'VIEWS.MAINTENANCE_MONITORING.COMPONENT_ANALYTICS.CHOOSE_INDICATOR' | translate
+          }}</label>
+          <app-single-select [items]="indicators" formControlName="indicator"></app-single-select>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-6">
+        <app-status-legend
+          class="legend"
+          backgroundColor="#fcc83d80"
+          width="20"
+          height="20"
+        ></app-status-legend>
+        <div class="form-group">
+          <label for="warningLimitMin">{{
+            'MODALS.LIMIT_RULES.WARNING_LIMIT_MIN' | translate
+          }}</label>
+          <input
+            type="number"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': warningLimitMin?.invalid && warningLimitMin?.touched }"
+            id="warningLimitMin"
+            maxlength="3"
+            formControlName="warningLimitMin"
+          />
+        </div>
+      </div>
+      <div class="col-6">
+        <app-status-legend
+          class="legend"
+          backgroundColor="#f0484f80"
+          width="20"
+          height="20"
+        ></app-status-legend>
+        <div class="form-group">
+          <label for="criticalLimitMin">{{
+            'MODALS.LIMIT_RULES.CRITICAL_LIMIT_MIN' | translate
+          }}</label>
+          <input
+            type="number"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': criticalLimitMin?.invalid && criticalLimitMin?.touched }"
+            id="criticalLimitMin"
+            maxlength="3"
+            formControlName="criticalLimitMin"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <app-status-legend
+          class="legend"
+          backgroundColor="#fcc83d80"
+          width="20"
+          height="20"
+        ></app-status-legend>
+        <div class="form-group">
+          <label for="warningLimitMax">{{
+            'MODALS.LIMIT_RULES.WARNING_LIMIT_MAX' | translate
+          }}</label>
+          <input
+            type="number"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': warningLimitMax?.invalid && warningLimitMax?.touched }"
+            id="warningLimitMax"
+            maxlength="3"
+            formControlName="warningLimitMax"
+          />
+        </div>
+      </div>
+      <div class="col-6">
+        <app-status-legend
+          class="legend"
+          backgroundColor="#f0484f80"
+          width="20"
+          height="20"
+        ></app-status-legend>
+        <div class="form-group">
+          <label for="criticalLimitMax">{{
+            'MODALS.LIMIT_RULES.CRITICAL_LIMIT_MAX' | translate
+          }}</label>
+          <input
+            type="number"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': criticalLimitMax?.invalid && criticalLimitMax?.touched }"
+            id="criticalLimitMax"
+            maxlength="3"
+            formControlName="criticalLimitMax"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary" [disabled]="form?.invalid">
+      {{ 'MODALS.LIMIT_RULES.CONFIRM' | translate }}
+    </button>
+  </div>
+</form>

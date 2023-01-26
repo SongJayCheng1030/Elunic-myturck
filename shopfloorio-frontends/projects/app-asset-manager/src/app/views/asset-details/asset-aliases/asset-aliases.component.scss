@@ -1,0 +1,14 @@
+.table-row {
+  padding: 0 1.5rem;
+
+  .table-cell,
+  .table-header-cell {
+    &:last-child {
+      justify-content: flex-end;
+    }
+  }
+
+  .table-header-cell {
+    overflow: visible;
+  }
+}

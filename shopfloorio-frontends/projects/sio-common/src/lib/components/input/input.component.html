@@ -1,0 +1,57 @@
+<div class="label"><ng-content></ng-content></div>
+<ng-container [ngSwitch]="config.type">
+  <ng-container *ngSwitchCase="'file'">
+    <h4 *ngIf="uploadedFileName">{{ uploadedFileName }}</h4>
+    <lib-button *ngIf="!input.value" (click)="$event.preventDefault(); inputFile.click()">
+      Upload file
+    </lib-button>
+    <lib-button *ngIf="input.value" (click)="clearInput()" [mode]="'outline'">
+      Delete file
+    </lib-button>
+  </ng-container>
+
+  <div class="input-wrapper" *ngSwitchDefault>
+    <div
+      class="color-circle"
+      *ngIf="config.mode === 'color'"
+      [ngStyle]="{ 'background-color': color }"
+    ></div>
+    <input
+      *ngIf="config.mode !== 'color'"
+      [readonly]="disabled"
+      [type]="config.type || 'text'"
+      [maxlength]="config.maxLength || 100"
+      class="inside-input"
+      [formControl]="input"
+      (blur)="blurInput.emit(input.value)"
+    />
+    <input
+      *ngIf="config.mode === 'color'"
+      [readonly]="disabled"
+      [(colorPicker)]="color"
+      class="inside-input"
+      [value]="color"
+      (colorPickerChange)="changeInput.emit($event)"
+      (colorPickerSelect)="blurInput.emit(color)"
+      [formControl]="input"
+    />
+    <div class="clear-button" (click)="clearInput()" *ngIf="config.autoClear">
+      <img src="assets/images/delete-input.svg" />
+    </div>
+  </div>
+</ng-container>
+
+<div class="error-placeholder">
+  <div class="error-message" *ngIf="input.touched && !input.valid">
+    {{ 'inputErrorMessage' | translate: { value: config.validateAs || 'value' } }}
+  </div>
+</div>
+<input
+  #inputFile
+  [readonly]="disabled"
+  (change)="handleFileInput($event.target.files)"
+  type="file"
+  class="hidden-input"
+  multiple
+  [accept]="config.acceptFilesTypes || 'image/png,image/jpeg,image/jpg'"
+/>

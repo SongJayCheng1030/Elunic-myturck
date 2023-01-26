@@ -1,0 +1,46 @@
+@import 'variables';
+
+$gray-light: #d2d2d2;
+
+:host {
+  display: block;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: $gray-light;
+  padding: 0.5rem 1rem;
+}
+
+.hidden-input {
+  position: absolute;
+  visibility: hidden;
+}
+
+.document-item {
+  display: grid;
+  padding: 0.5rem 1rem;
+  gap: 16px;
+  grid-template-columns: auto 60px;
+  align-items: center;
+
+  &.odd-row {
+    background-color: $gray-100;
+  }
+
+  &.even-row {
+    background-color: $white;
+  }
+}
+
+.document-name,
+.document-delete {
+  text-decoration: underline;
+}
+
+.document-delete {
+  cursor: pointer;
+  font-weight: bold;
+}

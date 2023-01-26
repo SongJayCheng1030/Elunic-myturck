@@ -1,0 +1,45 @@
+<div class="p-4 pb-5">
+  <lib-page-card-layout [title]="pageTitle">
+    <div header class="header ml-auto d-flex align-items-center">
+      <button *ngIf="!isNew" (click)="deleteRole()" class="btn btn-secondary-outline">
+        <span class="material-icons"> delete_outline </span>
+      </button>
+      <a class="mr-5" role="button" [routerLink]="'/roles'">
+        <b>
+          <u>{{ 'CANCEL' | translate }}</u>
+        </b>
+      </a>
+      <lib-button (click)="submit()">{{ 'SAVE' | translate }}</lib-button>
+    </div>
+
+    <div *ngIf="role" body class="container-fluid">
+      <div class="row justify-content-between form-wrapper">
+        <div class="inputs w-100 p-4 p-xl-5 mt-2">
+          <div class="row w-100 justify-content-between p-0 px-xl-5">
+            <lib-input class="w-100" [config]="{ formControl: name }">
+              {{ 'NAME' | translate }}
+            </lib-input>
+          </div>
+          <div class="column w-100 pt-3 mt-3 p-0 px-xl-5">
+            <label> {{ 'ASSIGNED_RIGHTS' | translate }}: </label>
+
+            <div class="form-check" *ngFor="let r of allRights$ | async; let i = index">
+              <input
+                class="form-check-input"
+                [checked]="hasRight(r)"
+                (change)="updateRights(r, $event.target.checked)"
+                type="checkbox"
+                [value]="r.key"
+                [id]="'right_' + i"
+              />
+              <label class="form-check-label" [for]="'right_' + i">
+                <span [multilang]="r.description"></span><br />
+                <span class="text-muted">{{ r.key }}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </lib-page-card-layout>
+</div>

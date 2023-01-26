@@ -1,0 +1,34 @@
+$material-design-icons-font-directory-path: '~material-design-icons-iconfont/dist/fonts/';
+
+@import '~material-design-icons-iconfont/src/material-design-icons';
+
+$sizes: 16, 18, 20, 22, 24, 26, 28, 30, 36, 48;
+
+.material-icons {
+  @each $size in $sizes {
+    &.mi-#{$size} {
+      width: #{$size}px;
+      height: #{$size}px;
+      line-height: #{$size}px;
+      font-size: #{$size}px;
+
+      @if $size < 24 {
+        // Fix: icon appears cropped/blurry when its size is under recommended size (24px)
+        // https://github.com/google/material-design-icons/issues/648#issuecomment-335735429
+        transform: rotate(0.03deg);
+      }
+    }
+  }
+
+  &.mi-animate {
+    transition: transform 0.15s ease-in-out;
+
+    &.mi-flip {
+      transform: scaleY(-1);
+    }
+
+    &.mi-rotate {
+      transform: rotate(90deg);
+    }
+  }
+}

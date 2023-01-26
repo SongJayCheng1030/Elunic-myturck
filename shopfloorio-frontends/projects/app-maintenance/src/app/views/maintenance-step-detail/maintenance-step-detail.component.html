@@ -1,0 +1,58 @@
+<ng-container *ngIf="step">
+  <div class="step-details">
+    <h4>Description</h4>
+    <div class="images-and-description" [ngClass]="{ 'has-images': galleryImages?.length }">
+      <gallery
+        *ngIf="galleryImages?.length"
+        [items]="galleryImages"
+        [dots]="true"
+        [thumb]="false"
+      ></gallery>
+      <div class="desciption">{{ step.description }}</div>
+    </div>
+    <div *ngIf="!hideMachineData && step.machineVariableId as machineVariableId">
+      <h4>{{ 'VIEWS.MAINTENANCE_EXECUTION_DETAIL.MACHINE_DATA' | translate }}</h4>
+      <div class="machine-variable-value" [ngClass]="{ 'in-range': (this.dataInRange$ | async) }">
+        <div *ngIf="!errorLoadingMachineData; else machineDataError">
+          <div>
+            {{ 'VIEWS.MAINTENANCE_EXECUTION_DETAIL.MACHINE_VARIABLE' | translate }}
+            {{ machineVariableName$ | async }}
+            {{
+              'VIEWS.MAINTENANCE_EXECUTION_DETAIL.' +
+                ((this.dataInRange$ | async) ? 'IN_RANGE' : 'OUT_OF_RANGE') | translate
+            }}
+            ({{ getRange() }}).
+          </div>
+          <div>
+            {{
+              'VIEWS.MAINTENANCE_EXECUTION_DETAIL.VALUE_AT_DATE'
+                | translate
+                  : {
+                      value: deviceDataValue$ | async
+                    }
+            }}
+            {{ deviceDataTime$ | async | date: 'medium' }}
+          </div>
+        </div>
+        <ng-template #machineDataError>{{
+          'VIEWS.MAINTENANCE_EXECUTION_DETAIL.MACHINE_VARIABLE_ERROR' | translate
+        }}</ng-template>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="section-header">Attached documents</h3>
+  <div
+    *ngFor="let doc of documents$ | async; let i = index"
+    class="d-flex flex-row align-items-center"
+  >
+    <a
+      class="document-item"
+      [ngClass]="{ 'odd-row': !(i % 2) }"
+      target="_blank"
+      [href]="fileService.getFileUrl(doc.fileId, true)"
+    >
+      {{ doc.name | multilang }}
+    </a>
+  </div>
+</ng-container>

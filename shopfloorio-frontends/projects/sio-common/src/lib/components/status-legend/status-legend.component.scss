@@ -1,0 +1,29 @@
+@import 'variables';
+
+.item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .status {
+    line-height: normal;
+
+    &.circle {
+      border-radius: 50%;
+    }
+  }
+
+  .bordered {
+    border: 3px solid $white;
+    box-shadow: 0px 2px 4px rgba($black, 20%);
+  }
+
+  .label-left {
+    padding-right: 12px;
+  }
+
+  .label,
+  .label-right {
+    padding-left: 12px;
+  }
+}

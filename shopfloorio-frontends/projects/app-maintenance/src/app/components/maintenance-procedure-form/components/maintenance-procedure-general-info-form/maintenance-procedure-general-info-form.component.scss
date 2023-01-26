@@ -1,0 +1,18 @@
+@import 'variables';
+
+:host {
+  display: block;
+  background-color: $gray-100;
+  padding: 1.4rem 0;
+}
+
+input,
+input:focus {
+  background-color: $white;
+}
+
+textarea,
+textarea:focus {
+  background-color: $white;
+  height: 7.4rem;
+}

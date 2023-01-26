@@ -1,0 +1,113 @@
+@import 'variables';
+
+:host {
+  &::ng-deep {
+    app-checkbox {
+      .checkbox-text:not(:empty) {
+        margin-left: 20px !important;
+      }
+
+      .checkbox-tick {
+        &::before {
+          border-color: $body-color !important;
+        }
+      }
+    }
+
+    .list-group-item {
+      &.active {
+        .checkbox-tick {
+          &::before {
+            border-color: $white !important;
+          }
+        }
+
+        input[type='checkbox'] {
+          &:checked + .checkbox-label .checkbox-tick {
+            &::after {
+              border-top-color: $white !important;
+              border-right-color: $white !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.modal-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 520px;
+  opacity: 0.87;
+
+  span {
+    font-weight: normal;
+  }
+}
+
+.select-all {
+  font-weight: bold;
+  text-decoration: underline;
+  align-self: center;
+  white-space: nowrap;
+  padding: 0 70px 0 20px;
+}
+
+.modal-header {
+  padding: 0.75rem 1.75rem;
+}
+
+.modal-body {
+  padding: 0;
+
+  .body-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    .items {
+      .title {
+        font-size: 16px;
+        color: $white;
+        opacity: 0.87;
+        background-color: #6ca1cc;
+        padding: 1.25rem 1.75rem;
+      }
+
+      .list-group-item {
+        display: flex;
+        padding: 0.85rem 1.5rem;
+        cursor: pointer;
+        border: none;
+
+        &.active {
+          margin: 0;
+          background-color: #6ca1cc8f;
+          border-color: #6ca1cc8f;
+        }
+      }
+
+      .arrow-next {
+        position: absolute;
+        display: flex;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      &:not(:last-child) {
+        border-right: 1px solid $gray-500;
+      }
+    }
+
+    .content-scrollable {
+      min-height: 400px;
+
+      .content-scroll {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+}

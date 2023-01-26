@@ -1,0 +1,153 @@
+{
+  "ABORT": "Abbrechen",
+  "SAVE": "Speichern",
+  "CLEAR_IMAGE": "Bild löschen",
+  "REPLACE_IMAGE": "Bild ersetzen",
+  "USER_NAME": "Benutzername",
+  "FIRST_NAME": "Vorname",
+  "SURNAME": "Nachname",
+  "EMAIL": "E-mail",
+  "ROLE": "Rolle",
+  "SET_A_NEW_PASSWORD": "Neues Passwort festlegen",
+  "REPEAT_PASSWORD": "Passwort wiederholen",
+  "CREATE_A_NEW_USER": "Neuen Nutzer erstellen",
+  "USER_MANAGEMENT": "Nutzerverwaltung",
+  "PRIVACY": "Privatsphäre",
+  "USER": "Nutzer",
+  "TENANT_MANAGEMENT": "Tenant Management",
+  "ASSET_MANAGEMENT": "Asset Management",
+  "LOGOUT": "Ausloggen",
+  "SELECT_CONTAINS_ERRORS": "Auswahl enthält Fehler",
+  "HUB": "Hub",
+  "EMPTY_NAME": "Leerer Name",
+  "NEW_USER": "Neuer Benutzer",
+  "FIELD_SHOULD_BE_VALID": "Feld sollte gültig sein",
+  "FIELD_IS_TOO_SHORT": "Feld ist zu kurz",
+  "PASSWORDS_DO_NOT_MATCH": "Passwörter stimmen nicht überein",
+  "THE_FIELD_IS_REQUIRED": "Das Feld ist erforderlich",
+  "SEARCH": "Suche",
+  "MODALS": {
+    "DOCUMENT": {
+      "TITLE": "Dokument hinzufügen",
+      "TITLE_EDIT": "Dokument bearbeiten",
+      "CONFIRM": "Abschicken",
+      "CONFIRM_EDIT": "Speichern",
+      "ABORT": "Abbrechen"
+    },
+    "DELETE_DOCUMENT_CONFIRM": {
+      "TITLE": "Dokuemnt löschen?",
+      "BODY": "Gelöschte Dokumente werden dauerhaft aus der List entfernt",
+      "CONFIRM": "Löschen",
+      "ABORT": "Abbrechen"
+    },
+    "DELETE_DOCUMENT_ERROR_MESSAGE": {
+      "TITLE": "Ungültige Aktion",
+      "BODY": "Aktion kann nicht abgeschlossen werden",
+      "DISMISS": "Schließen"
+    },
+    "DELETE_DOCUMENT_TYPE_CONFIRM": {
+      "TITLE": "Dokumenttyp löschen?",
+      "BODY": "Gelöschte Dokumentenkategorien werden dauerhaft aus der Liste entfernt",
+      "CONFIRM": "Löschen",
+      "ABORT": "Abbrechen"
+    },
+    "DELETE_DOCUMENT_TYPE_CONFLICT_MESSAGE": {
+      "TITLE": "Ungültige Aktion",
+      "BODY": "Dokumentenkategory mit kann nicht gelöscht werden solange Dokument von dieser Kategorie existieren",
+      "DISMISS": "Schließen"
+    }
+  },
+  "VIEWS": {
+    "DOCUMENT_TABS": {
+      "DOCUMENTS": "Dokumente",
+      "ALL_DOCUMENTS": "Alle Dokumente",
+      "DOCUMENT_TYPES": "Dokumentkategorien",
+      "CREATE_NEW_DOCUMENT": "Dokument hinzfügen",
+      "CREATE_NEW_DOCUMENT_TYPE": "Dokumentenkategorie hinzufügen"
+    },
+    "DOCUMENTS": {
+      "NAME": "Name",
+      "TYPE": "Typ",
+      "LINK_TO_ASSETS": "Verknüpfte Assets",
+      "LAST_CHANGED": "Zuletzt geändert",
+      "CREATED_BY": "Erstellt von",
+      "EDIT": "Bearbeiten",
+      "DELETE": "Löschen",
+      "NO_DOCUMENT_FOUND": "Keine Dokumente gefunden"
+    },
+    "DOCUMENT_DETAILS": {
+      "EDIT": "Bearbeiten",
+      "REMOVE": "Entfernen",
+      "CANCEL": "Abbrechen",
+      "SAVE_CHANGES": "Änderungen speichern",
+      "ADD_DOCUMENT": "Dokument hinzufügen",
+      "DOCUMENT_HISTORY": "Dokumentenhistorie",
+      "DOCUMENT_NAME": "Dokumentenbezeichnung",
+      "DOCUMENT_TYPE": "Dokumententyp",
+      "DOCUMENT_CATEGORY": "Dokumentenkategorie",
+      "DOCUMENT_DETAILS": "Dokumentendetails",
+      "DOCUMENT_LINKED_ASSETS": "Verknüpfte Assets",
+      "ASSET_NAME": "Asset Name",
+      "ASSET_HIERARCHY": "Asset Hierarchie",
+      "NO_ASSET_LINKED_FOUND": "Keine verknüpften Assets",
+      "NAME": "Name",
+      "TYPE": "Typ",
+      "VIEW_FILE": "Datei einsehen",
+      "RENAME": "Umbenennen",
+      "DELETE": "Löschen",
+      "DATE_OR_TIME": "Datum/Uhrzeit",
+      "CHANGES_MADE": "Änderungen",
+      "CHANGED_BY": "Geändert von",
+      "CREATED_AT": "Erstellt am",
+      "CREATED_BY": "Erstellt von",
+      "NO_ACTIVITIES": "Keine Historie",
+      "DOCUMENT": "Dokument",
+      "DOCUMENT_ID": "Dokument ID",
+      "CREATE_DOCUMENT": "Dokument erstellen",
+      "UPLOAD_FILE": "Neue Datei hochladen",
+      "PLEASE_CHOOSE": "Bitte wählen",
+      "CATEGORY_FILTER": "Nach Kategorie filtern",
+      "ASSET_FILTER": "Nach Asset filtern"
+    },
+    "DOCUMENT_TYPES": {
+      "NAME": "Name",
+      "LINKED_DOCUMENTS": "Verlinkte Dokumente",
+      "LAST_CHANGED": "Letzte Änderung",
+      "CREATED_BY": "Erstellt von",
+      "EDIT": "Bearbeiten",
+      "DELETE": "Löschen",
+      "NO_DOCUMENT_TYPES_FOUND": "Keine Dokumentenkategorie gefunden"
+    },
+    "DOCUMENT_TYPE_DETAILS": {
+      "DOCUMENT_TYPE_DETAILS": "Dokumentenkategorie Details",
+      "CATEGORY_NAME": "Kategorie",
+      "DOCUMENT_TYPE_HISTORY": "Kategorienhistorie",
+      "DATE_OR_TIME": "Datum/Uhrzeit",
+      "CHANGES_MADE": "Änderungen",
+      "CHANGED_BY": "Geändert von",
+      "DOCUMENT_NAME": "Dokumentenname",
+      "LINKED_DOCUMENTS": "Verknüpfte Dokumente",
+      "NO_DOCUMENT_TYPES_FOUND": "Keine verlinkten Dokumente gefunden",
+      "CANCEL": "Abbrechen",
+      "SAVE_CHANGES": "Änderungen speichern",
+      "CREATE_DOCUMENT_TYPE": "Dokumentenkategorie erstellen",
+      "NO_ACTIVITIES": "Keine Historie",
+      "NO_DOCUMENTS": "Keine Dokumente"
+    }
+  },
+  "MESSAGES": {
+    "CHANGES_SAVED": "Änderungen gespeichert",
+    "CHANGES_ARE_NOT_SAVED_DUE_TO_SOME_ERROR": "Änderungen wegen eines Fehlers nicht gespeichert",
+    "ERROR": "Fehler",
+    "SUCCESS": "Erfolgreich"
+  },
+  "ACTIVITY": {
+    "CREATED": "Erstellt",
+    "UPDATED": "Aktualisiert",
+    "TYPE_CHANGED": "Kategorie geändert",
+    "FILE_REPLACED": "Datei ersetzt",
+    "REF_ASSIGNED": "Referenz erstellt",
+    "REF_UNASSIGNED": "Referenz aufgelöst",
+    "DELETED": "Gelöscht"
+  }
+}

@@ -1,0 +1,17 @@
+.qr-codes,
+.qr-code {
+  display: flex;
+  align-items: center;
+}
+
+.qr-codes {
+  flex-wrap: wrap;
+  .qr-code {
+    flex: 1 1 25%;
+    justify-content: center;
+    flex-direction: column;
+    .name {
+      margin-bottom: 0;
+    }
+  }
+}

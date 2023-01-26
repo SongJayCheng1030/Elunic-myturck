@@ -1,0 +1,63 @@
+:host {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.inside-input {
+  border: none;
+  outline: none;
+  font-size: 14px;
+  width: 100%;
+  padding-right: 10px;
+}
+.input-wrapper {
+  border: 1px solid #efefef;
+  padding: 10px 20px;
+  min-width: 160px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  .color-circle {
+    width: 20px;
+    height: 18px;
+    border-radius: 100%;
+    margin-left: -5px;
+    margin-right: 10px;
+    border: 1px solid #bbb;
+  }
+  .clear-button {
+    border-radius: 100%;
+    width: 18px;
+    height: 18px;
+    background-color: #9f9f9f;
+    color: #efefef;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    line-height: 0;
+  }
+}
+
+.label:not(:empty) {
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.error-placeholder {
+  margin-top: 4px;
+  min-height: 15px;
+}
+
+.error-message {
+  font-size: 10px;
+  color: red;
+}
+
+.hidden-input {
+  position: absolute;
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}

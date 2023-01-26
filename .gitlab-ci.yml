@@ -1,0 +1,1020 @@
+stages:
+  - audit
+  - test
+  - build
+  - push
+  #- k8s-apply
+
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: ""
+  DOCKER_HOST: "tcp://127.0.0.1:2375"
+  MYSQL_DATABASE: testing
+  MYSQL_ROOT_PASSWORD: toor
+  APP_TEST_DB_HOST: mysql
+  APP_TEST_DB_USER: root
+  APP_TEST_DB_PASS: toor
+  APP_TEST_DB_NAME: testing
+
+# =======================================================================================
+# Audit stage
+# =======================================================================================
+
+# Template ------------------------------------------------------------------------------
+
+.audits-micro-service: &audit-micro-service
+  stage: audit
+  image: node:14
+  allow_failure: true
+  tags:
+    - kubernetes
+  script:
+    - echo "Audit $SERVICE_NAME"
+    - cd "$SERVICE_NAME"
+    - echo "Audit ONLY for production (will fail pipeline if any)"
+    - npm audit --production
+    - echo "Audit all"
+    - npm audit || true
+
+# Implementations -----------------------------------------------------------------------
+
+audit-base:
+  stage: audit
+  image: node:14
+  allow_failure: true
+  tags:
+    - kubernetes
+  script:
+    - echo "Audit ONLY for production (will fail pipeline if any)"
+    - npm audit --production
+    - echo "Audit all"
+    - npm audit || true
+
+audit-shopfloorio-frontends:
+  rules:
+    - changes:
+        - "shopfloorio-frontends/**/*"
+  variables:
+    SERVICE_NAME: shopfloorio-frontends
+  <<: *audit-micro-service
+
+audit-asset-manager-backend:
+  rules:
+    - changes:
+        - "asset-manager-backend/**/*"
+        - "shared/**/*"
+  variables:
+    SERVICE_NAME: asset-manager-backend
+  <<: *audit-micro-service
+
+audit-file-backend:
+  rules:
+    - changes:
+        - "file-backend/**/*"
+        - "shared/**/*"
+  variables:
+    SERVICE_NAME: file-backend
+  <<: *audit-micro-service
+
+audit-hub-backend:
+  rules:
+    - changes:
+        - "hub-backend/**/*"
+        - "shared/**/*"
+  variables:
+    SERVICE_NAME: hub-backend
+  <<: *audit-micro-service
+
+audit-identity-backend:
+  rules:
+    - changes:
+        - "identity-backend/**/*"
+        - "shared/**/*"
+  variables:
+    SERVICE_NAME: identity-backend
+  <<: *audit-micro-service
+
+audit-condition-monitoring-backend:
+  rules:
+    - changes:
+        - "condition-monitoring-backend/**/*"
+        - "shared/**/*"
+  variables:
+    SERVICE_NAME: condition-monitoring-backend
+  <<: *audit-micro-service
+
+audit-data-backend:
+  rules:
+    - changes:
+        - "data-backend/**/*"
+        - "shared/**/*"
+  variables:
+    SERVICE_NAME: data-backend
+  <<: *audit-micro-service
+
+audit-maintenance-backend:
+  rules:
+    - changes:
+        - "maintenance-backend/**/*"
+        - "shared/**/*"
+  variables:
+    SERVICE_NAME: maintenance-backend
+  <<: *audit-micro-service
+
+# =======================================================================================
+# Test stage
+# =======================================================================================
+
+# Template ------------------------------------------------------------------------------
+
+.test-unit: &test-unit
+  stage: test
+  image: node:14
+  services:
+    - name: mysql:8
+      alias: mysql
+      command:
+        - "--character-set-server=utf8mb4"
+        - "--collation-server=utf8mb4_unicode_ci"
+        - "--default-authentication-plugin=mysql_native_password"
+  script:
+    - "apt update && apt install -y git bash jq"
+    - "npm ci --unsafe"
+    - "cd ${SERVICE_NAME}"
+    - "npm ci --unsafe"
+    - "npm run test:once"
+    - "echo Overall code coverage: $(jq '.total | map_values(.pct) | add / (. | length)' coverage/coverage-summary.json) %"
+  coverage: '/Overall test coverage: ([\d.]+) %/'
+  artifacts:
+    expire_in: 90 days
+    name: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+    reports:
+      junit: "${SERVICE_NAME}/test-reports/unit/junit/junit.xml"
+    paths:
+      - "${SERVICE_NAME}/coverage"
+      - "${SERVICE_NAME}/test-reports"
+
+.test-e2e: &test-e2e
+  stage: test
+  image: cypress/browsers:latest
+  tags:
+    - kubernetes
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+  before_script:
+    - cd "test/e2e"
+  script:
+    - npm ci
+    - npx cypress run --browser=chrome
+#  services:
+#    - name: mysql:8
+#      alias: mysql
+#      command:
+#        - "--character-set-server=utf8mb4"
+#        - "--collation-server=utf8mb4_unicode_ci"
+#        - "--default-authentication-plugin=mysql_native_password"
+#  script:
+#    - "apt update && apt install -y git"
+#    - "npm ci --unsafe"
+#    - "cd ${SERVICE_NAME}"
+#    - "npm ci --unsafe"
+#    - "npm run e2e:once"
+#  artifacts:
+#    expire_in: 90 days
+#    name: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+#    reports:
+#      junit: "${SERVICE_NAME}/test-reports/e2e/junit/junit.xml"
+#    paths:
+#      - "${SERVICE_NAME}/test-reports"
+
+# Implementations -----------------------------------------------------------------------
+
+test-unit-file-backend:
+  # Run on every commit
+  variables:
+    SERVICE_NAME: file-backend
+  <<: *test-unit
+
+test-e2e-cypress:
+  <<: *test-e2e
+
+#test-e2e-file-backend:
+# Run on every commit
+#  variables:
+#    SERVICE_NAME: file-backend
+#  <<: *test-e2e
+
+test-unit-maintenance-backend:
+  # Run on every commit
+  variables:
+    SERVICE_NAME: maintenance-backend
+  <<: *test-unit
+
+# =======================================================================================
+# Build stage
+# =======================================================================================
+
+# Template ------------------------------------------------------------------------------
+
+.build-docker-image: &build-docker-image
+  stage: build
+  image: docker:stable
+  tags:
+    - kubernetes
+  services:
+    - docker:19.03.0-dind
+  script:
+    - docker build -f ${SERVICE_NAME}/Dockerfile -t ${IMAGE_NAME}:${IMAGE_VERSION} --build-arg BUILD_ENVIRONMENT=${BUILD_ENVIRONMENT} .
+    - docker save ${IMAGE_NAME}:${IMAGE_VERSION} | gzip > ${ARTIFACTS_BASE_PATH:-./}image.tgz
+    - ls -lah ${ARTIFACTS_BASE_PATH:-./}image.tgz
+  artifacts:
+    expire_in: 1 hrs
+    paths:
+      - ${ARTIFACTS_BASE_PATH:-./}image.tgz
+
+# Implementations -----------------------------------------------------------------------
+
+build-frontends-docker-images:
+  stage: build
+  image: node:18-alpine
+  services:
+    - docker:19.03.0-dind
+  tags:
+    - kubernetes
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      changes:
+        - "shopfloorio-frontends/**/*"
+      variables:
+        IMAGE_VERSION: latest
+    - if: $CI_COMMIT_BRANCH == "release"
+      changes:
+        - "shopfloorio-frontends/**/*"
+      variables:
+        IMAGE_VERSION: stable
+    - if: $CI_COMMIT_TAG =~ /^v[0-9]+\.[0-9]+\.[0-9]+.*$/
+      changes:
+        - "shopfloorio-frontends/**/*"
+      variables:
+        IMAGE_VERSION: $CI_COMMIT_TAG
+  script:
+    - |
+      echo "Installing DinD ..."
+      wget https://download.docker.com/linux/static/stable/x86_64/docker-19.03.0.tgz -O /tmp/docker.tgz
+      tar --extract --file /tmp/docker.tgz --strip-components 1 --directory /usr/local/bin/
+      rm /tmp/docker.tgz
+    - dockerd --version ; docker --version ; node -v
+    - cd shopfloorio-frontends
+    - ./build-all.sh "${IMAGE_VERSION}"
+  artifacts:
+    expire_in: 1 hrs
+    paths:
+      - ${ARTIFACTS_BASE_PATH:-./}*.tgz
+
+build-docs:
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      changes:
+        - "docs/**/*"
+      variables:
+        IMAGE_VERSION: latest
+    - if: $CI_COMMIT_BRANCH == "release"
+      changes:
+        - "docs/**/*"
+      variables:
+        IMAGE_VERSION: stable
+    - if: $CI_COMMIT_TAG =~ /^v[0-9]+\.[0-9]+\.[0-9]+.*$/
+      changes:
+        - "docs/**/*"
+      variables:
+        BUILD_ENVIRONMENT: production
+        IMAGE_VERSION: $CI_COMMIT_TAG
+  variables:
+    SERVICE_NAME: docs
+    BUILD_ENVIRONMENT: production
+    IMAGE_NAME: shopfloor-docs-frontend
+    IMAGE_VERSION: latest
+  <<: *build-docker-image
+
+build-file-backend:
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      changes:
+        - "file-backend/**/*"
+        - "shared/**/*"
+      variables:
+        BUILD_ENVIRONMENT: production
+        IMAGE_VERSION: latest
+    - if: $CI_COMMIT_BRANCH == "release"
+      changes:
+        - "file-backend/**/*"
+        - "shared/**/*"
+      variables:
+        BUILD_ENVIRONMENT: production
+        IMAGE_VERSION: stable
+    - if: $CI_COMMIT_TAG =~ /^v[0-9]+\.[0-9]+\.[0-9]+.*$/
+      changes:
+        - "file-backend/**/*"
+        - "shared/**/*"
+      variables:
+        BUILD_ENVIRONMENT: production
+        IMAGE_VERSION: $CI_COMMIT_TAG
+  variables:
+    SERVICE_NAME: file-backend
+    IMAGE_NAME: file-backend
+  <<: *build-docker-image
+
+build-asset-manager-backend:
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      changes:
+        - "asset-manager-backend/**/*"
+        - "shared/**/*"
+      variables:
+        BUILD_ENVIRONMENT: production
+        IMAGE_VERSION: latest
+    - if: $CI_COMMIT_BRANCH == "release"
+      changes:
+        - "asset-manager-backend/**/*"
+        - "shared/**/*"
+      variables:
+        BUILD_ENVIRONMENT: production
+        IMAGE_VERSION: stable
+    - if: $CI_COMMIT_TAG =~ /^v[0-9]+\.[0-9]+\.[0-9]+.*$/
+      changes:
+        - "asset-manager-backend/**/*"
+        - "shared/**/*"
+      variables:
+        BUILD_ENVIRONMENT: production
+        IMAGE_VERSION: $CI_COMMIT_TAG
+  variables:
+    SERVICE_NAME: asset-manager-backend
+    IMAGE_NAME: asset-manager-backend
+  <<: *build-docker-image
+
+build-hub-backend:
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      changes:
+        - "hub-backend/**/*"
+        - "shared/**/*"
+      variables:
+        BUILD_ENVIRONMENT: production
+        IMAGE_VERSION: latest
+    - if: $CI_COMMIT_BRANCH == "release"
+      changes:
+        - "hub-backend/**/*"
+        - "shared/**/*"
+      variables:
+        BUILD_ENVIRONMENT: production
+        IMAGE_VERSION: stable
+    - if: $CI_COMMIT_TAG =~ /^v[0-9]+\.[0-9]+\.[0-9]+.*$/
+      changes:
+        - "hub-backend/**/*"
+        - "shared/**/*"
+      variables:
+        BUILD_ENVIRONMENT: production
+        IMAGE_VERSION: $CI_COMMIT_TAG
+  variables:
+    SERVICE_NAME: hub-backend
+    IMAGE_NAME: hub-backend
+  <<: *build-docker-image
+
+build-keycloak-themes:
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      changes:
+        - "keycloak/**/*"
+        - "shared/**/*"
+      variables:
+        BUILD_ENVIRONMENT: production
+        IMAGE_VERSION: latest
+    - if: $CI_COMMIT_BRANCH == "release"
+      changes:
+        - "keycloak/**/*"
+        - "shared/**/*"
+      variables:
+        BUILD_ENVIRONMENT: production
+        IMAGE_VERSION: stable
+    - if: $CI_COMMIT_TAG =~ /^v[0-9]+\.[0-9]+\.[0-9]+.*$/
+      changes:
+        - "keycloak/**/*"
+        - "shared/**/*"
+      variables:
+        BUILD_ENVIRONMENT: production
+        IMAGE_VERSION: $CI_COMMIT_TAG
+  variables:
+    SERVICE_NAME: keycloak
+    IMAGE_NAME: keycloak-themes
+  <<: *build-docker-image
+
+build-identity-backend:
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      changes:
+        - "identity-backend/**/*"
+        - "shared/**/*"
+      variables:
+        BUILD_ENVIRONMENT: production
+        IMAGE_VERSION: latest
+    - if: $CI_COMMIT_BRANCH == "release"
+      changes:
+        - "identity-backend/**/*"
+        - "shared/**/*"
+      variables:
+        BUILD_ENVIRONMENT: production
+        IMAGE_VERSION: stable
+    - if: $CI_COMMIT_TAG =~ /^v[0-9]+\.[0-9]+\.[0-9]+.*$/
+      changes:
+        - "identity-backend/**/*"
+        - "shared/**/*"
+      variables:
+        BUILD_ENVIRONMENT: production
+        IMAGE_VERSION: $CI_COMMIT_TAG
+  variables:
+    SERVICE_NAME: identity-backend
+    IMAGE_NAME: identity-backend
+  <<: *build-docker-image
+
+build-condition-monitoring-backend:
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      changes:
+        - "condition-monitoring-backend/**/*"
+        - "shared/**/*"
+      variables:
+        BUILD_ENVIRONMENT: production
+        IMAGE_VERSION: latest
+    - if: $CI_COMMIT_BRANCH == "release"
+      changes:
+        - "condition-monitoring-backend/**/*"
+        - "shared/**/*"
+      variables:
+        BUILD_ENVIRONMENT: production
+        IMAGE_VERSION: stable
+    - if: $CI_COMMIT_TAG =~ /^v[0-9]+\.[0-9]+\.[0-9]+.*$/
+      changes:
+        - "condition-monitoring-backend/**/*"
+        - "shared/**/*"
+      variables:
+        BUILD_ENVIRONMENT: production
+        IMAGE_VERSION: $CI_COMMIT_TAG
+  variables:
+    SERVICE_NAME: condition-monitoring-backend
+    IMAGE_NAME: condition-monitoring-backend
+  <<: *build-docker-image
+
+build-data-backend:
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      changes:
+        - "data-backend/**/*"
+        - "shared/**/*"
+      variables:
+        BUILD_ENVIRONMENT: production
+        IMAGE_VERSION: latest
+    - if: $CI_COMMIT_BRANCH == "release"
+      changes:
+        - "data-backend/**/*"
+        - "shared/**/*"
+      variables:
+        BUILD_ENVIRONMENT: production
+        IMAGE_VERSION: stable
+    - if: $CI_COMMIT_TAG =~ /^v[0-9]+\.[0-9]+\.[0-9]+.*$/
+      changes:
+        - "data-backend/**/*"
+        - "shared/**/*"
+      variables:
+        BUILD_ENVIRONMENT: production
+        IMAGE_VERSION: $CI_COMMIT_TAG
+  variables:
+    SERVICE_NAME: data-backend
+    IMAGE_NAME: data-backend
+  <<: *build-docker-image
+
+build-maintenance-backend:
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      changes:
+        - "maintenance-backend/**/*"
+        - "shared/**/*"
+      variables:
+        BUILD_ENVIRONMENT: production
+        IMAGE_VERSION: latest
+    - if: $CI_COMMIT_BRANCH == "release"
+      changes:
+        - "maintenance-backend/**/*"
+        - "shared/**/*"
+      variables:
+        BUILD_ENVIRONMENT: production
+        IMAGE_VERSION: stable
+    - if: $CI_COMMIT_TAG =~ /^v[0-9]+\.[0-9]+\.[0-9]+.*$/
+      changes:
+        - "maintenance-backend/**/*"
+        - "shared/**/*"
+      variables:
+        BUILD_ENVIRONMENT: production
+        IMAGE_VERSION: $CI_COMMIT_TAG
+  variables:
+    SERVICE_NAME: maintenance-backend
+    IMAGE_NAME: maintenance-backend
+  <<: *build-docker-image
+
+# =======================================================================================
+# Push stage (to ACR)
+# =======================================================================================
+
+# Template ------------------------------------------------------------------------------
+
+.push-docker-image: &push-docker-image
+  stage: push
+  image: docker:stable
+  tags:
+    - kubernetes
+  services:
+    - docker:19.03.0-dind
+  variables:
+    DOCKER_REG_URL: $DOCKER_REGISTRY_URL
+    DOCKER_REG_USR: $DOCKER_REGISTRY_USERNAME
+    DOCKER_REG_PWD: $DOCKER_REGISTRY_PASSWORD
+  script:
+    - 'echo "Current branch: ${CI_COMMIT_BRANCH}"'
+    - 'echo "Push to: $DOCKER_REG_URL as $DOCKER_REG_USR"'
+    - gunzip -c ${ARTIFACTS_BASE_PATH:-./}image.tgz | docker load
+    - docker login "${DOCKER_REG_URL}" --username "${DOCKER_REG_USR}" --password "${DOCKER_REG_PWD}"
+    - docker tag ${IMAGE_NAME}:${IMAGE_VERSION} "${DOCKER_REG_URL}"/${IMAGE_NAME}:${IMAGE_VERSION}
+    - docker push "${DOCKER_REG_URL}"/${IMAGE_NAME}:${IMAGE_VERSION}
+
+# Implementations -----------------------------------------------------------------------
+
+push-frontends-docker-images:
+  stage: push
+  image: docker:19.03.0
+  services:
+    - docker:19.03.0-dind
+  tags:
+    - kubernetes
+  variables:
+    DOCKER_REG_URL: $DOCKER_REGISTRY_URL
+    DOCKER_REG_USR: $DOCKER_REGISTRY_USERNAME
+    DOCKER_REG_PWD: $DOCKER_REGISTRY_PASSWORD
+  before_script:
+    - echo "${DOCKER_REG_URL}"
+    - echo "${DOCKER_REG_USR}"
+    - echo "${DOCKER_REG_PWD}"
+  script:
+    - 'echo "Image version: ${IMAGE_VERSION}"'
+    - 'echo "Push to: ${DOCKER_REG_URL} as ${DOCKER_REG_USR}"'
+    - docker login ${DOCKER_REG_URL} --username "${DOCKER_REG_USR}" --password "${DOCKER_REG_PWD}"
+    - |
+      for IMG in $(ls -1 *.tgz); do
+        gunzip -c ${ARTIFACTS_BASE_PATH:-./}${IMG} | docker load
+        IMAGE_NAME=$(basename $IMG ".tgz")
+        docker tag ${IMAGE_NAME}:${IMAGE_VERSION} "${DOCKER_REG_URL}"/${IMAGE_NAME}:${IMAGE_VERSION}
+        docker push "${DOCKER_REG_URL}"/${IMAGE_NAME}:${IMAGE_VERSION}
+      done
+    - echo "DONE"
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      changes:
+        - "shopfloorio-frontends/**/*"
+      variables:
+        IMAGE_VERSION: latest
+    - if: $CI_COMMIT_BRANCH == "release"
+      changes:
+        - "shopfloorio-frontends/**/*"
+      variables:
+        IMAGE_VERSION: stable
+    - if: $CI_COMMIT_TAG =~ /^v[0-9]+\.[0-9]+\.[0-9]+.*$/
+      changes:
+        - "shopfloorio-frontends/**/*"
+      variables:
+        IMAGE_VERSION: $CI_COMMIT_TAG
+  needs:
+    - job: build-frontends-docker-images
+      artifacts: true
+
+push-docs:
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      changes:
+        - "docs/**/*"
+      variables:
+        IMAGE_NAME: shopfloor-docs-frontend
+        IMAGE_VERSION: latest
+    - if: $CI_COMMIT_BRANCH == "release"
+      changes:
+        - "docs/**/*"
+      variables:
+        IMAGE_NAME: shopfloor-docs-frontend
+        IMAGE_VERSION: stable
+    - if: $CI_COMMIT_TAG =~ /^v[0-9]+\.[0-9]+\.[0-9]+.*$/
+      changes:
+        - "docs/**/*"
+      variables:
+        IMAGE_NAME: shopfloor-docs-frontend
+        IMAGE_VERSION: $CI_COMMIT_TAG
+  needs:
+    - job: build-docs
+      artifacts: true
+  <<: *push-docker-image
+
+push-file-backend:
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      changes:
+        - "file-backend/**/*"
+        - "shared/**/*"
+      variables:
+        IMAGE_NAME: file-backend
+        IMAGE_VERSION: latest
+    - if: $CI_COMMIT_BRANCH == "release"
+      changes:
+        - "file-backend/**/*"
+        - "shared/**/*"
+      variables:
+        IMAGE_NAME: file-backend
+        IMAGE_VERSION: stable
+    - if: $CI_COMMIT_TAG =~ /^v[0-9]+\.[0-9]+\.[0-9]+.*$/
+      changes:
+        - "file-backend/**/*"
+        - "shared/**/*"
+      variables:
+        IMAGE_NAME: file-backend
+        IMAGE_VERSION: $CI_COMMIT_TAG
+  needs:
+    - job: build-file-backend
+      artifacts: true
+  <<: *push-docker-image
+
+push-asset-manager-backend:
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      changes:
+        - "asset-manager-backend/**/*"
+        - "shared/**/*"
+      variables:
+        IMAGE_NAME: asset-manager-backend
+        IMAGE_VERSION: latest
+    - if: $CI_COMMIT_BRANCH == "release"
+      changes:
+        - "asset-manager-backend/**/*"
+        - "shared/**/*"
+      variables:
+        IMAGE_NAME: asset-manager-backend
+        IMAGE_VERSION: stable
+    - if: $CI_COMMIT_TAG =~ /^v[0-9]+\.[0-9]+\.[0-9]+.*$/
+      changes:
+        - "asset-manager-backend/**/*"
+        - "shared/**/*"
+      variables:
+        IMAGE_NAME: asset-manager-backend
+        IMAGE_VERSION: $CI_COMMIT_TAG
+  needs:
+    - job: build-asset-manager-backend
+      artifacts: true
+  <<: *push-docker-image
+
+push-hub-backend:
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      changes:
+        - "hub-backend/**/*"
+        - "shared/**/*"
+      variables:
+        IMAGE_NAME: hub-backend
+        IMAGE_VERSION: latest
+    - if: $CI_COMMIT_BRANCH == "release"
+      changes:
+        - "hub-backend/**/*"
+        - "shared/**/*"
+      variables:
+        IMAGE_NAME: hub-backend
+        IMAGE_VERSION: stable
+    - if: $CI_COMMIT_TAG =~ /^v[0-9]+\.[0-9]+\.[0-9]+.*$/
+      changes:
+        - "hub-backend/**/*"
+        - "shared/**/*"
+      variables:
+        IMAGE_NAME: hub-backend
+        IMAGE_VERSION: $CI_COMMIT_TAG
+  needs:
+    - job: build-hub-backend
+      artifacts: true
+  <<: *push-docker-image
+
+push-identity-backend:
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      changes:
+        - "identity-backend/**/*"
+        - "shared/**/*"
+      variables:
+        IMAGE_NAME: identity-backend
+        IMAGE_VERSION: latest
+    - if: $CI_COMMIT_BRANCH == "release"
+      changes:
+        - "identity-backend/**/*"
+        - "shared/**/*"
+      variables:
+        IMAGE_NAME: identity-backend
+        IMAGE_VERSION: stable
+    - if: $CI_COMMIT_TAG =~ /^v[0-9]+\.[0-9]+\.[0-9]+.*$/
+      changes:
+        - "identity-backend/**/*"
+        - "shared/**/*"
+      variables:
+        IMAGE_NAME: identity-backend
+        IMAGE_VERSION: $CI_COMMIT_TAG
+  needs:
+    - job: build-identity-backend
+      artifacts: true
+  <<: *push-docker-image
+
+push-condition-monitoring-backend:
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      changes:
+        - "condition-monitoring-backend/**/*"
+        - "shared/**/*"
+      variables:
+        IMAGE_NAME: condition-monitoring-backend
+        IMAGE_VERSION: latest
+    - if: $CI_COMMIT_BRANCH == "release"
+      changes:
+        - "condition-monitoring-backend/**/*"
+        - "shared/**/*"
+      variables:
+        IMAGE_NAME: condition-monitoring-backend
+        IMAGE_VERSION: stable
+    - if: $CI_COMMIT_TAG =~ /^v[0-9]+\.[0-9]+\.[0-9]+.*$/
+      changes:
+        - "condition-monitoring-backend/**/*"
+        - "shared/**/*"
+      variables:
+        IMAGE_NAME: condition-monitoring-backend
+        IMAGE_VERSION: $CI_COMMIT_TAG
+  needs:
+    - job: build-condition-monitoring-backend
+      artifacts: true
+  <<: *push-docker-image
+
+push-data-backend:
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      changes:
+        - "data-backend/**/*"
+        - "shared/**/*"
+      variables:
+        IMAGE_NAME: data-backend
+        IMAGE_VERSION: latest
+    - if: $CI_COMMIT_BRANCH == "release"
+      changes:
+        - "data-backend/**/*"
+        - "shared/**/*"
+      variables:
+        IMAGE_NAME: data-backend
+        IMAGE_VERSION: stable
+    - if: $CI_COMMIT_TAG =~ /^v[0-9]+\.[0-9]+\.[0-9]+.*$/
+      changes:
+        - "data-backend/**/*"
+        - "shared/**/*"
+      variables:
+        IMAGE_NAME: data-backend
+        IMAGE_VERSION: $CI_COMMIT_TAG
+  needs:
+    - job: build-data-backend
+      artifacts: true
+  <<: *push-docker-image
+
+push-maintenance-backend:
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      changes:
+        - "maintenance-backend/**/*"
+        - "shared/**/*"
+      variables:
+        IMAGE_NAME: maintenance-backend
+        IMAGE_VERSION: latest
+    - if: $CI_COMMIT_BRANCH == "release"
+      changes:
+        - "maintenance-backend/**/*"
+        - "shared/**/*"
+      variables:
+        IMAGE_NAME: maintenance-backend
+        IMAGE_VERSION: stable
+    - if: $CI_COMMIT_TAG =~ /^v[0-9]+\.[0-9]+\.[0-9]+.*$/
+      changes:
+        - "maintenance-backend/**/*"
+        - "shared/**/*"
+      variables:
+        IMAGE_NAME: maintenance-backend
+        IMAGE_VERSION: $CI_COMMIT_TAG
+  needs:
+    - job: build-maintenance-backend
+      artifacts: true
+  <<: *push-docker-image
+
+# =======================================================================================
+# Apply new images to kubernetes
+# =======================================================================================
+
+# Template ------------------------------------------------------------------------------
+
+.k8s-apply: &k8s-apply
+  stage: k8s-apply
+  image: mcr.microsoft.com/azure-cli
+  tags:
+    - kubernetes
+  before_script:
+    - 'echo "Applying new images on: ${AZ_AKS_NAME_DEV} in namespace ${K8S_NAMESPACE}"'
+    - "az aks install-cli"
+    - "az login --service-principal --username ${AZ_SP_USERNAME} --password ${AZ_SP_PASSWORD} --tenant ${AZ_SP_TENANT}"
+    - "az aks get-credentials -n ${AZ_AKS_NAME_DEV} -g ${AZ_AKS_RG_DEV}"
+    - 'echo "Before update:" ; kubectl get pods -n ${K8S_NAMESPACE}'
+  script:
+    - "kubectl delete pods -l app=${SERVICE_NAME} -n ${K8S_NAMESPACE}"
+    - "K8S_DEPLOYMENTS=($K8S_DEPLOYMENTS)"
+    - 'echo "Restarting deployments -- ${K8S_DEPLOYMENTS[@]} -- on: ${AZ_AKS_NAME} in namespace ${K8S_NAMESPACE}"'
+    - 'for i in {0..5}; do echo "Current status:"; kubectl get pods -n ${K8S_NAMESPACE} ; sleep 20; done'
+# Implementations -----------------------------------------------------------------------
+
+#refresh asset-manager-backend:
+#  rules:
+#    - if: $CI_COMMIT_BRANCH == "master"
+#      #changes:
+#      #  - "asset-manager-backend/**/*"
+#  needs:
+#    - job: push-asset-manager-backend
+#      artifacts: false
+#  variables:
+#    SERVICE_NAME: asset-manager-backend
+#  <<: *k8s-apply
+
+#refresh asset-manager-frontend:
+#  rules:
+#    - if: $CI_COMMIT_BRANCH == "master"
+#changes:
+#  - "asset-manager-frontend/**/*"
+#  needs:
+#    - job: push-asset-manager-frontend
+#      artifacts: false
+#  variables:
+#    SERVICE_NAME: asset-manager-frontend
+#  <<: *k8s-apply
+
+#refresh asset-monitoring-frontend:
+#  rules:
+#    - if: $CI_COMMIT_BRANCH == "master"
+#      #changes:
+#      #  - "asset-monitoring-frontend/**/*"
+#  needs:
+#    - job: push-asset-monitoring-frontend
+#      artifacts: false
+#  variables:
+#    SERVICE_NAME: asset-monitoring-frontend
+#  <<: *k8s-apply
+
+#refresh condition-monitoring-backend:
+#  rules:
+#    - if: $CI_COMMIT_BRANCH == "master"
+#      #changes:
+#      #  - "condition-monitoring-backend/**/*"
+#  needs:
+#    - job: push-condition-monitoring-backend
+#      artifacts: false
+#  variables:
+#    SERVICE_NAME: condition-monitoring-backend
+#  <<: *k8s-apply
+
+#refresh condition-monitoring-frontend:
+#  rules:
+#    - if: $CI_COMMIT_BRANCH == "master"
+#      #changes:
+#      #  - "condition-monitoring-frontend/**/*"
+#  needs:
+#    - job: push-condition-monitoring-frontend
+#      artifacts: false
+#  variables:
+#    SERVICE_NAME: condition-monitoring-frontend
+#  <<: *k8s-apply
+
+#refresh file-backend:
+#  rules:
+#    - if: $CI_COMMIT_BRANCH == "master"
+#      #changes:
+#      #  - "file-backend/**/*"
+#  needs:
+#    - job: push-file-backend
+#      artifacts: false
+#  variables:
+#    SERVICE_NAME: file-backend
+#  <<: *k8s-apply
+
+#refresh hub-backend:
+#  rules:
+#    - if: $CI_COMMIT_BRANCH == "master"
+#      #changes:
+#      #  - "hub-backend/**/*"
+#  needs:
+#    - job: push-hub-backend
+#      artifacts: false
+#  variables:
+#    SERVICE_NAME: hub-backend
+#  <<: *k8s-apply
+
+#refresh hub-frontend:
+#  rules:
+#    - if: $CI_COMMIT_BRANCH == "master"
+#      #changes:
+#      #  - "hub-frontend/**/*"
+#  needs:
+#    - job: push-hub-frontend
+#      artifacts: false
+#  variables:
+#    SERVICE_NAME: hub-frontend
+#  <<: *k8s-apply
+
+#refresh maintenance-frontend:
+#  rules:
+#    - if: $CI_COMMIT_BRANCH == "master"
+#      #changes:
+#      #  - "maintenance-frontend/**/*"
+#  needs:
+#    - job: push-maintenance-frontend
+#      artifacts: false
+#  variables:
+#    SERVICE_NAME: maintenance-frontend
+#  <<: *k8s-apply
+
+#refresh maintenance-backend:
+##  rules:
+#    - if: $CI_COMMIT_BRANCH == "master"
+#      #changes:
+#      #  - "maintenance-backend/**/*"
+#  needs:
+#    - job: push-maintenance-backend
+#      artifacts: false
+#  variables:
+#    SERVICE_NAME: maintenance-backend
+#  <<: *k8s-apply
+
+#refresh simple-user-backend:
+#  rules:
+#    - if: $CI_COMMIT_BRANCH == "master"
+#changes:
+#  - "simple-user-backend/**/*"
+#  needs:
+#    - job: push-simple-user-backend
+#      artifacts: false
+#  variables:
+#    SERVICE_NAME: simple-user-backend
+#  <<: *k8s-apply
+
+#refresh tenant-backend:
+#  rules:
+#    - if: $CI_COMMIT_BRANCH == "master"
+#      #changes:
+#      #  - "tenant-backend/**/*"
+#  needs:
+#    - job: push-tenant-backend
+#      artifacts: false
+#  variables:
+#    SERVICE_NAME: tenant-backend
+#  <<: *k8s-apply
+
+#refresh tenant-frontend:
+#  rules:
+#    - if: $CI_COMMIT_BRANCH == "master"
+#      #changes:
+#      #  - "tenant-frontend/**/*"
+#  needs:
+#    - job: push-tenant-frontend
+#      artifacts: false
+#  variables:
+#    SERVICE_NAME: tenant-frontend
+#  <<: *k8s-apply
+
+#refresh user-backend:
+#  rules:
+#    - if: $CI_COMMIT_BRANCH == "master"
+#      #changes:
+#      #  - "user-backend/**/*"
+#  needs:
+#    - job: push-user-backend
+#      artifacts: false
+#  variables:
+#    SERVICE_NAME: user-backend
+#  <<: *k8s-apply
+
+#refresh user-frontend:
+#  rules:
+#    - if: $CI_COMMIT_BRANCH == "master"
+#      #changes:
+#      #  - "user-frontend/**/*"
+#  needs:
+#    - job: push-user-frontend
+#      artifacts: false
+#  variables:
+#    SERVICE_NAME: user-frontend
+#  <<: *k8s-apply

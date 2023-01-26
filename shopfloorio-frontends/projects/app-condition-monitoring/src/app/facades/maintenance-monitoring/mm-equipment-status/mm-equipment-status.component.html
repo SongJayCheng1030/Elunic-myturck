@@ -1,0 +1,37 @@
+<div class="main-wrapper">
+  <div class="bar-chart">
+    <canvas
+      #barChartCurrent
+      class="canvas-current"
+      [ngClass]="{ 'd-none': !current }"
+      id="canvas-current"
+    ></canvas>
+    <canvas
+      #barChartHistory
+      class="canvas-history"
+      [ngClass]="{ 'd-none': current }"
+      id="canvas-history"
+    ></canvas>
+  </div>
+  <div class="chart-legend" [ngClass]="{ 'chart-current': current, 'chart-history': !current }">
+    <app-status-legend
+      *ngFor="let legend of legends"
+      [backgroundColor]="legend.color"
+      [icon]="legend.icon"
+      [label]="legend.label"
+      width="20"
+      height="20"
+    ></app-status-legend>
+  </div>
+  <div class="toggle-wrapper" *ngIf="useSwitch">
+    <span class="label" [ngClass]="{ active: current }">
+      {{ 'TOOLBAR.BUTTONS.CURRENT' | translate }}
+    </span>
+    <button type="button" class="btn btn-toggle" (click)="onToggle()">
+      <div class="handle" [ngClass]="{ active: !current }"></div>
+    </button>
+    <span class="label" [ngClass]="{ active: !current }">
+      {{ 'TOOLBAR.BUTTONS.HISTORY' | translate }}
+    </span>
+  </div>
+</div>

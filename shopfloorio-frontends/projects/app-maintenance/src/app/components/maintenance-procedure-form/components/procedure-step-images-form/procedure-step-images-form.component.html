@@ -1,0 +1,36 @@
+<div class="header">
+  <h3 class="mb-0">Images</h3>
+  <button
+    *ngIf="!isDisabled"
+    type="button"
+    class="btn btn-outline-dark font-weight-bold"
+    (click)="fileInput.click()"
+  >
+    <i class="material-icons">add</i>
+    <span>ADD IMAGE</span>
+  </button>
+  <input
+    #fileInput
+    accept="image/png,image/jpeg,image/jpg"
+    type="file"
+    multiple
+    class="hidden-input"
+    (change)="onAddImages($event.target.files)"
+  />
+</div>
+<div class="image-list" cdkDropList (cdkDropListDropped)="onSortImages($event)">
+  <div
+    *ngFor="let image of images$ | async; trackBy: trackBy; let i = index"
+    class="image-item"
+    [ngClass]="{ 'even-row': i % 2, 'odd-row': !(i % 2), disabled: isDisabled }"
+    cdkDrag
+    [cdkDragDisabled]="isDisabled"
+  >
+    <i *ngIf="!isDisabled" class="material-icons" cdkDragHandle> drag_indicator </i>
+    <a [href]="image.src" target="_blank">
+      <img class="thumbnail" [src]="image.src" [alt]="image.name" />
+    </a>
+    <div class="image-name">{{ image.name }}</div>
+    <div *ngIf="!isDisabled" class="image-delete p-2" (click)="onDeleteImage(i)">DELETE</div>
+  </div>
+</div>

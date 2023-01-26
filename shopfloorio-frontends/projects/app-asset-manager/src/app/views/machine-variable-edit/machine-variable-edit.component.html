@@ -1,0 +1,33 @@
+<form [formGroup]="form">
+  <div class="modal-header align-items-center">
+    <h4 class="modal-title">
+      {{ 'MODALS.EDIT_DEVICE_VARIABLES.UPDATE_MACHINE_VARIABLE' | translate }}
+    </h4>
+    <button type="button" class="btn btn-xs btn-icon btn-transparent" (click)="close()">
+      <i class="material-icons mi-18">close</i>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group p-relative">
+          <label class="top-label">{{ 'MODALS.EDIT_DEVICE_VARIABLES.NAME' | translate }}*</label>
+          <input type="text" class="form-control" formControlName="name" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group p-relative">
+          <label class="top-label">{{ 'MODALS.EDIT_DEVICE_VARIABLES.UNIT' | translate }}*</label>
+          <input type="text" class="form-control" formControlName="unit" />
+        </div>
+      </div>
+    </div>
+    <div class="custom-footer">
+      <button [disabled]="form.invalid" class="btn btn-warning btn-lg btn-block" (click)="save()">
+        {{ 'MODALS.EDIT_DEVICE_VARIABLES.UPDATE_MACHINE_VARIABLE_BUTTON' | translate }}
+      </button>
+    </div>
+  </div>
+</form>

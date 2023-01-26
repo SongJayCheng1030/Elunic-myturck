@@ -1,0 +1,22 @@
+{
+  "stepLibrary": {
+    "stepType": {
+      "description": "Description",
+      "numerical": "Numerical input",
+      "freeText": "Free text input",
+      "checkbox": "Checkbox with description"
+    }
+  }, 
+  "button": {
+    "confirm": "Confirm",
+    "delete": "Delete", 
+    "cancel": "Cancel"
+  },
+  "addDocumentModal": {
+    "header": "Add documents"
+  },
+  "newMaintenancePlan": {
+    "intervalUnit": ["Hours", "Days", "Months", "Years"],
+    "intervalUnitMessage": "No items found"
+  }
+}

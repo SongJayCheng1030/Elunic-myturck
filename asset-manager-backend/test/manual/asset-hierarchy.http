@@ -1,0 +1,92 @@
+POST http://localhost:8080/tree/transform
+Content-Type: application/json
+
+{
+  "actions": [
+    {
+      "id": "5cdee159-c6b6-480d-be71-71e9dcbe20b2",
+      "type":"childOf",
+      "childOf": "1f4e5aca-81c4-440d-acb2-9e321cc8b954",
+      "order": [
+        "5cdee159-c6b6-480d-be71-71e9dcbe20b2"
+      ]
+    }
+  ]
+}
+
+###
+
+POST http://localhost:8080/tree/transform
+Content-Type: application/json
+
+{
+  "actions": [
+    {
+      "id": "00000000-0000-0000-0000-000000000002",
+      "type":"childOf",
+      "childOf": "00000000-0000-0000-0000-000000000001"
+    }
+  ]
+}
+
+###
+
+POST http://localhost:8080/tree/transform
+Content-Type: application/json
+
+{
+  "actions": [
+    {
+      "id": "00000000-0000-0000-0000-000000000002",
+      "type":"childOf",
+      "childOf": "00000000-0000-0000-0000-000000000001"
+    }
+  ]
+}
+
+
+###
+
+POST http://localhost:8080/tree/transform
+Content-Type: application/json
+
+{
+  "actions": [
+    {
+      "id": "00000000-0000-0000-0000-000000000003",
+      "type":"childOf",
+      "childOf": null
+    }
+  ]
+}
+
+###
+
+POST http://localhost:8080/tree/transform
+Content-Type: application/json
+
+{
+  "actions": [
+    {
+      "id": "00000000-0000-0000-0000-000000000004",
+      "type":"childOf",
+      "childOf": "00000000-0000-0000-0000-000000000003"
+    }
+  ]
+}
+
+###
+
+POST http://localhost:8080/tree/transform
+Content-Type: application/json
+
+{
+  "actions": [
+    {
+      "id": "00000000-0000-0000-0000-000000000003",
+      "type":"childOf",
+      "childOf": "00000000-0000-0000-0000-000000000004"
+    }
+  ]
+}
+

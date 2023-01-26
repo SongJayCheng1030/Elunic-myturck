@@ -1,0 +1,29 @@
+<app-chart-panel>
+  <app-chart-panel-header>
+    <h4 *ngIf="title">{{ title | translate }}</h4>
+    <app-chart-panel-header-actions>
+      <button style="height: 18px" class="btn btn-sm btn-primary" (click)="toggleScale()">
+        {{ 'STATUS.MCBF' | translate }} Scale
+      </button>
+      <div class="chart-legend">
+        <div class="item">
+          <span class="status line" [ngStyle]="{ 'border-color': mcbjStatusColor }"></span>
+          <span class="label">{{ 'STATUS.MCBF' | translate }}</span>
+        </div>
+        <div class="item">
+          <span class="status" [ngStyle]="{ 'background-color': highStatusColor }"></span>
+          <span class="label">{{ 'STATUS.HIGH' | translate }}</span>
+        </div>
+        <div class="item">
+          <span class="status" [ngStyle]="{ 'background-color': lowStatusColor }"></span>
+          <span class="label">{{ 'STATUS.LOW' | translate }}</span>
+        </div>
+      </div>
+    </app-chart-panel-header-actions>
+  </app-chart-panel-header>
+  <app-chart-panel-body>
+    <div class="bar-chart">
+      <canvas #barChart id="canvas"></canvas>
+    </div>
+  </app-chart-panel-body>
+</app-chart-panel>

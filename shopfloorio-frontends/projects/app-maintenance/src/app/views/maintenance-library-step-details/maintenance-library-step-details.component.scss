@@ -1,0 +1,61 @@
+@import 'variables';
+
+:host {
+  display: block;
+  height: 100%;
+  background-color: $gray-100;
+}
+
+form {
+  height: 100%;
+}
+
+.btn {
+  margin: 0 1em;
+}
+
+.content {
+  padding: 1em 2em;
+  background-color: $white;
+  color: $gray-800;
+}
+
+.navigation,
+.navigation > a {
+  color: $gray-600;
+}
+
+button {
+  font-size: 10px;
+}
+
+.step-details {
+  padding: 1rem;
+}
+
+input,
+input:focus,
+textarea,
+textarea:focus {
+  background-color: $white;
+}
+
+.steps-form {
+  display: grid;
+  grid-template-columns: 30% 70%;
+}
+
+.row {
+  margin-bottom: 0.5rem;
+}
+
+lib-checkbox {
+  padding-left: 1rem;
+}
+
+ng-select {
+  padding-left: 0px;
+  ::ng-deep.ng-select-container {
+    height: 2.5rem;
+  }
+}

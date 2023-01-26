@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@400;700');
+@import 'abstracts';
+@import 'vendors';
+@import 'core';
+@import 'components';
+@import '~@ng-select/ng-select/themes/default.theme.css';
+
+body {
+  overflow: hidden !important;
+}
+
+.badge {
+  border-radius: 0;
+  font-size: 10px;
+  padding: 0.375rem 0.5625rem;
+}
+
+.badge.badge-pill {
+  border-radius: 8rem;
+}
+
+.oee-id {
+  font-size: 1rem;
+}
+
+.panel-header {
+  h4 {
+    opacity: 0.87;
+  }
+}
+
+.grid-wrapper {
+  display: grid;
+}
+
+@for $i from 1 through 6 {
+  .grid-column-#{$i} {
+    grid-template-columns: repeat($i, 1fr);
+  }
+}
+
+@for $i from 2 through 4 {
+  .grid-row-span-#{$i} {
+    grid-row: span $i;
+  }
+
+  .grid-column-span-#{$i} {
+    grid-column: span $i;
+  }
+}
+
+$media-grid-list: ((1750px, 3, 2), (1400px, 2, 1), (1100px, 1, 1));
+
+@each $max-width, $columns, $span in $media-grid-list {
+  @media screen and (max-width: $max-width) {
+    .grid-wrapper {
+      @for $i from $columns through 6 {
+        &.grid-column-#{$i} {
+          grid-template-columns: repeat($columns, 1fr) !important;
+        }
+        .grid-column-span-#{$i} {
+          grid-column: span $span;
+        }
+      }
+    }
+  }
+}
+
+.content-scrollable {
+  flex-grow: 1;
+  position: relative;
+
+  .content-scroll {
+    overflow: auto;
+    overflow-y: overlay;
+    @include custom-scrollbar;
+    @include absolute-container;
+  }
+}
+
+.scrollbar-size-padding {
+  padding-right: 6;
+}
+
+.eq-status-badge {
+  display: flex;
+  justify-content: center;
+  min-width: 130px;
+  padding: 3px 0;
+  border-radius: 20px;
+  color: $white;
+  font-size: 1rem;
+  text-transform: capitalize;
+  opacity: 0.87;
+
+  &.idle {
+    background: #b2b2b2 !important;
+  }
+}
+
+.chart-legend {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  .item {
+    &:not(:last-child) {
+      padding-right: 12px;
+    }
+
+    .status {
+      width: 15px;
+      height: 15px;
+      opacity: 0.83;
+      display: inline-block;
+
+      &.line {
+        height: 0;
+        border: 2px solid #000000;
+      }
+    }
+
+    .label {
+      font-size: 12px;
+      padding-left: 12px;
+    }
+  }
+}
+
+.eq-status-badge {
+  &.running {
+    background: #2bcb7b;
+  }
+
+  &.alarm {
+    background: #f0484f;
+  }
+
+  &.idle {
+    background: #dadada;
+  }
+}
+
+.kpi-percent {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+}
+
+.kpi-label {
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 10px;
+}
+
+.ng-select {
+  .ng-select-container {
+    border-radius: 0;
+  }
+}

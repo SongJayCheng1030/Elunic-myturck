@@ -1,0 +1,36 @@
+.modal-body {
+  min-height: 300px;
+  position: relative;
+  padding: 0;
+}
+
+.view-border,
+.warning-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
+.view-border {
+  width: 280px;
+}
+
+.warning-message {
+  text-align: center;
+  color: #9f9f9f;
+  font-size: 15px;
+}
+
+.spinner-border {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #fff;
+  z-index: 3;
+}
+
+.loading {
+  opacity: 0.7;
+}

@@ -1,0 +1,177 @@
+@import 'variables';
+
+.content,
+.card-body {
+  padding: 1em 2em;
+  background-color: $white;
+  border: 1px solid $gray-500;
+  color: $gray-800;
+}
+
+.card-info {
+  .card-unit {
+    margin-bottom: 1em;
+    div {
+      margin-bottom: 0.5em;
+    }
+  }
+}
+
+#navigation,
+#navigation > a {
+  color: $gray-600;
+}
+
+.steps-header {
+  padding: 1rem;
+  background-color: $gray-500;
+  display: grid;
+  grid-template-columns: 30% 35% auto;
+  align-items: center;
+  h4 {
+    padding-left: 0.7rem;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: end;
+
+    button:not(:last-of-type) {
+      margin-right: 0.7rem;
+    }
+  }
+}
+
+.steps-body {
+  display: grid;
+  grid-template-columns: 30% auto;
+
+  .step-list {
+    background-color: $white;
+    border-right: 2px solid $gray-100;
+
+    .step-list-item {
+      display: grid;
+      grid-template-columns: 24px auto 24px;
+      border: 1px solid $gray-100;
+      gap: 1.6rem;
+      padding: 0.8rem 1.6rem;
+      align-items: center;
+      color: $gray-800;
+    }
+    .selected {
+      background-color: $gray-100;
+    }
+    .done {
+      color: $green;
+    }
+    .skipped {
+      color: $orange;
+    }
+    .error {
+      color: $red;
+    }
+    i {
+      margin-right: 0.5em;
+      &.step-done {
+        color: $green;
+      }
+      &.step-error {
+        color: $red;
+      }
+    }
+  }
+
+  .result-input {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: $gray-100;
+    padding: 1rem;
+    padding-bottom: 0.5rem;
+
+    input,
+    .input-group-append {
+      background-color: $white;
+    }
+  }
+
+  & h4 {
+    padding-top: 0.5rem;
+  }
+}
+
+button {
+  font-size: 10px;
+}
+
+.badge {
+  border-radius: 50px;
+  color: $white;
+  background-color: $gray-500;
+  margin-left: 2em;
+  font-size: $font-size-sm;
+  padding: 1em 1.5em;
+
+  &.due_soon {
+    background-color: $orange;
+  }
+
+  &.over_due {
+    background-color: $red;
+  }
+}
+
+.collapse {
+  .due_soon {
+    color: $orange;
+  }
+
+  .over_due {
+    color: $red;
+  }
+}
+
+.input-group-append {
+  .input-group-text {
+    background-color: $white;
+    line-height: 1em;
+    color: $gray-500;
+  }
+}
+
+.description {
+  font-size: 14px;
+  white-space: break-spaces;
+  overflow: overlay;
+  overflow-wrap: break-word;
+}
+
+.result {
+  background-color: $gray-200;
+  padding: 1rem;
+  font-size: 14px;
+}
+
+.result .label {
+  font-weight: bold;
+}
+
+.over-due {
+  color: $red;
+}
+
+.section-header {
+  padding: 1rem;
+  background-color: $gray-500;
+  margin: 0;
+}
+
+.document-item {
+  width: 100%;
+  padding: 1rem;
+  text-decoration: underline;
+
+  &.odd-row {
+    background-color: $gray-100;
+  }
+}

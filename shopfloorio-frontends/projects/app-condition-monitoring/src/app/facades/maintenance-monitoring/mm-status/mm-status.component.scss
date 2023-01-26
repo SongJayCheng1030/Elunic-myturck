@@ -1,0 +1,61 @@
+@import 'variables';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  cursor: pointer;
+  box-shadow: 0px 3px 6px #00000029;
+
+  &::ng-deep {
+    lib-panel {
+      .panel {
+        .panel-header {
+          padding: $panel-padding-y 1.85rem $panel-padding-y 1.5rem;
+        }
+
+        .panel-body {
+          padding: $panel-padding-y 1.85rem $panel-padding-y 1.5rem !important;
+          min-height: 110px;
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
+  }
+}
+
+.entry {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 14px;
+  padding: 10px 0;
+
+  .label,
+  .status {
+    font-weight: bold;
+  }
+
+  .status {
+    text-transform: capitalize;
+
+    &.critical {
+      color: #f0484f;
+    }
+
+    &.degrading {
+      color: #f57100;
+    }
+
+    &.warning {
+      color: #fcc83d;
+    }
+  }
+
+  .label,
+  .type,
+  .status {
+    opacity: 0.87;
+  }
+}

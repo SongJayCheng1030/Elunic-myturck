@@ -1,0 +1,12 @@
+<div #gridContainer style="width: 100%; height: 100%">
+  <ag-grid-angular
+    class="ag-theme-material"
+    [rowData]="machineVariables$ | async"
+    [defaultColDef]="defaultColDef"
+    [columnDefs]="columnDefs$ | async"
+    [gridOptions]="gridOptions"
+    [modules]="modules"
+    (gridReady)="onGridReady($event, gridContainer)"
+  >
+  </ag-grid-angular>
+</div>

@@ -1,0 +1,20 @@
+<div class="d-flex justify-content-between align-items-center content">
+  <div class="navigation">
+    <a [routerLink]="['/procedures']"><u>Maintenance plans</u></a>
+    <span class="mx-2">></span> Create new maintenance plan
+  </div>
+  <div class="d-flex">
+    <a class="btn btn-outline font-weight-bold" (click)="onCancel()"
+      ><u>{{ 'Cancel' | uppercase }}</u></a
+    >
+    <button
+      class="btn btn-primary"
+      (click)="onSubmit()"
+      type="submit"
+      [disabled]="formControl.invalid"
+    >
+      {{ 'Save changes' | uppercase }}
+    </button>
+  </div>
+</div>
+<mnt-maintenance-procedure-form [formControl]="formControl"></mnt-maintenance-procedure-form>

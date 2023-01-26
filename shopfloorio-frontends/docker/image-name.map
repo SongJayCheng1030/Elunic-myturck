@@ -1,0 +1,8 @@
+app-maintenance maintenance-frontend
+app-condition-monitoring condition-monitoring-frontend
+app-user user-frontend
+app-tenant tenant-frontend
+app-hub hub-frontend
+app-document document-frontend
+app-asset-manager asset-manager-frontend
+app-asset-monitoring asset-monitoring-frontend

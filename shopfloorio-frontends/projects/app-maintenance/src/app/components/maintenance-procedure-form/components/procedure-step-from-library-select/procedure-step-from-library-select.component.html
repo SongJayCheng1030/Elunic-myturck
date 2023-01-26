@@ -1,0 +1,38 @@
+<div class="d-flex align-items-center justify-content-between m-3">
+  <h3>Choose maintenance step from library</h3>
+  <lib-checkbox
+    class="ml-auto mr-5"
+    label="{{ 'ACTIONS.SHOW_SELECTED' | translate }}"
+    (changed)="onShowSelected($event)"
+  ></lib-checkbox>
+  <button class="btn btn-icon" (click)="onCancel()">
+    <i class="material-icons">close</i>
+  </button>
+</div>
+<div #gridContainer>
+  <ag-grid-angular
+    class="ag-theme-material"
+    [modules]="modules"
+    [gridOptions]="gridOptions"
+    [rowData]="steps$ | async"
+    [defaultColDef]="defaultColDef"
+    [columnDefs]="columnDefs$ | async"
+    (selectionChanged)="onSelectionChanged($event)"
+    (gridReady)="onGridReady($event, gridContainer)"
+  >
+  </ag-grid-angular>
+</div>
+<div class="actions">
+  <button
+    [disabled]="!selectedSteps.length"
+    type="button"
+    class="btn btn-outline-dark justify-content-center"
+    (click)="addSelectedSteps()"
+  >
+    ADD {{ selectedSteps.length }} SELECTED
+  </button>
+  <p>Or</p>
+  <button (click)="addNewStep()" class="btn btn-primary justify-content-center">
+    CREATE NEW STEP
+  </button>
+</div>

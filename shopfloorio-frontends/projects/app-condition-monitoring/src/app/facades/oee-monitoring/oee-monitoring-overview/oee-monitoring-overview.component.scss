@@ -1,0 +1,11 @@
+.grid-wrapper {
+  grid-auto-rows: minmax(min-content, max-content);
+  gap: 26px;
+}
+
+.form-dropdown,
+.form-dropdown-menu {
+  min-width: 130px;
+  border-top: none;
+  box-shadow: none;
+}

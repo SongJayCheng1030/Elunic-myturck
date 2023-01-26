@@ -1,0 +1,96 @@
+<ng-container [formGroup]="form">
+  <div class="step-details">
+    <div class="row">
+      <div class="form-group col-8">
+        <label for="title">Title</label>
+        <input
+          id="title"
+          formControlName="name"
+          type="text"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': isInvalidForm('name') }"
+        />
+        <small *ngIf="isInvalidForm('name')" class="text-danger">
+          {{ 'ERRORS.INPUT_ERROR_MESSAGE' | translate: { field: 'name' } }}
+        </small>
+      </div>
+      <div class="form-group col-4">
+        <div formGroupName="libraryOptions" *ngIf="saveToLibrary">
+          <label for="tags">Tags</label>
+          <ng-select
+            id="tags"
+            class="pill-select"
+            [items]="availableTags"
+            [addTag]="addTag"
+            [hideSelected]="true"
+            [multiple]="true"
+            formControlName="tags"
+          ></ng-select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-8">
+        <label for="description">Step Description</label>
+        <textarea
+          id="description"
+          class="form-control"
+          rows="4"
+          formControlName="description"
+          [ngClass]="{ 'is-invalid': isInvalidForm('description') }"
+        ></textarea>
+        <small *ngIf="isInvalidForm('description')" class="text-danger">
+          {{ 'ERRORS.INPUT_ERROR_MESSAGE' | translate: { field: 'description' } }}
+        </small>
+      </div>
+      <div class="form-group col-4">
+        <lib-checkbox formControlName="mandatory" label="Mandatory"></lib-checkbox>
+        <lib-checkbox formControlName="skippable" label="Skippable"></lib-checkbox>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-4">
+        <label for="stepType">Step type</label>
+        <ng-select
+          id="stepType"
+          [items]="stepTypes"
+          [clearable]="false"
+          [searchable]="false"
+          formControlName="type"
+        >
+          <ng-template ng-label-tmp let-item="item">{{ item | stepTypeName }}</ng-template>
+          <ng-template ng-option-tmp let-item="item">{{ item | stepTypeName }}</ng-template>
+        </ng-select>
+      </div>
+      <div class="col-8">
+        <ng-container [ngSwitch]="form.controls.type.value">
+          <mnt-numeric-step-content-form
+            *ngSwitchCase="'numeric_input'"
+            formControlName="content"
+          ></mnt-numeric-step-content-form>
+          <mnt-text-step-content-form
+            *ngSwitchCase="'text_input'"
+            formControlName="content"
+          ></mnt-text-step-content-form>
+          <mnt-checkbox-step-content-form
+            *ngSwitchCase="'checkbox'"
+            formControlName="content"
+          ></mnt-checkbox-step-content-form>
+          <div *ngSwitchDefault></div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <mnt-maintenance-machine-variable-step-form
+    [machineVariables]="machineVariables$ | async"
+    [isEdit]="isEdit"
+    formControlName="machineVariable"
+  ></mnt-maintenance-machine-variable-step-form>
+  <mnt-procedure-step-images-form
+    formControlName="images"
+    [isEdit]="isEdit"
+  ></mnt-procedure-step-images-form>
+  <mnt-procedure-step-document-form [stepId]="stepId" formControlName="documents">
+  </mnt-procedure-step-document-form>
+</ng-container>

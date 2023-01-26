@@ -1,0 +1,16 @@
+<div class="w-100 position-relative menu-wrapper">
+  <div class="position-absolute w-100 menu-wrapper-dynamic" [ngClass]="{ open: open }">
+    <div class="label d-flex align-items-center pl-3 pr-4 title" (click)="open = !open">
+      {{ selected }}
+    </div>
+    <div class="menu">
+      <div
+        class="label d-flex align-items-center px-3"
+        *ngFor="let item of list"
+        (click)="select(item.value)"
+      >
+        {{ item.label }}
+      </div>
+    </div>
+  </div>
+</div>

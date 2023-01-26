@@ -1,0 +1,37 @@
+<form [formGroup]="form">
+  <div class="modal-header align-items-center">
+    <h4 class="modal-title">Assign to asset</h4>
+    <button type="button" class="btn btn-xs btn-icon btn-transparent" (click)="close()">
+      <i class="material-icons mi-18">close</i>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group p-relative">
+          <label class="top-label">Assets*</label>
+          <ng-select
+            [items]="availableAssets$ | async"
+            formControlName="assetId"
+            [loading]="assetsLoading"
+            [placeholder]="'Select available assets'"
+            bindLabel="name"
+            bindValue="id"
+          >
+            <ng-template ng-label-tmp let-item="item">{{ item.name | multilang }}</ng-template>
+            <ng-template ng-option-tmp let-item="item">{{ item.name | multilang }}</ng-template>
+          </ng-select>
+        </div>
+      </div>
+    </div>
+    <div class="custom-footer">
+      <button
+        [disabled]="form.dirty && form.invalid"
+        class="btn btn-warning btn-lg btn-block"
+        (click)="save()"
+      >
+        ASSIGN
+      </button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,77 @@
+<aside *ngIf="nodes" class="sidebar-nav" [ngClass]="{ expanded: !minimized }">
+  <div class="header">
+    <h4 class="title" *ngIf="title && !minimized">{{ title | translate }}</h4>
+    <div class="sidebar-minimizer" (click)="toggleOpen()">
+      <img src="assets/icons/double-arrow.svg" alt="" />
+    </div>
+  </div>
+  <div class="treeView" *ngIf="!minimized">
+    <ul class="list-group">
+      <ng-container *ngFor="let node of nodes">
+        <ng-template
+          [ngTemplateOutlet]="treeNodeTemplate"
+          [ngTemplateOutletContext]="{ item: node, level: 0 }"
+        ></ng-template>
+      </ng-container>
+    </ul>
+  </div>
+  <div class="minimizedView" *ngIf="minimized">
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let node of paths">
+        <ng-template
+          [ngTemplateOutlet]="contentTemplate"
+          [ngTemplateOutletContext]="{ item: node }"
+        ></ng-template>
+      </li>
+    </ul>
+  </div>
+</aside>
+
+<ng-template #treeNodeTemplate let-item="item" let-level="level">
+  <li
+    class="list-group-item"
+    (click)="onSelect(item)"
+    [ngClass]="{ active: activeTreeNode?.id === item.id }"
+  >
+    <div class="indent" *ngFor="let i of numSequence(level)"></div>
+    <div class="icon" (click)="toggleExpanded($event, item)">
+      <i class="material-icons" *ngIf="item.children?.length">
+        {{ item.expanded ? 'arrow_drop_down' : 'arrow_drop_up' }}
+      </i>
+    </div>
+    <ng-template
+      [ngTemplateOutlet]="contentTemplate"
+      [ngTemplateOutletContext]="{ item: item }"
+    ></ng-template>
+    <div class="arrow-next" *ngIf="activeTreeNode?.id === item.id">
+      <i class="material-icons">navigate_next</i>
+    </div>
+  </li>
+  <ng-container *ngIf="item.expanded && item.children?.length">
+    <ng-container *ngFor="let child of item.children">
+      <ng-template
+        [ngTemplateOutlet]="treeNodeTemplate"
+        [ngTemplateOutletContext]="{ item: child, level: level + 1 }"
+      ></ng-template>
+    </ng-container>
+  </ng-container>
+</ng-template>
+
+<ng-template #contentTemplate let-item="item">
+  <div class="content">
+    <div class="image-badge">
+      <span
+        *ngIf="treeNodeStatusBy(item.id)"
+        class="badge-status"
+        [style.backgroundColor]="treeNodeStatusBy(item.id)?.color"
+        [title]="treeNodeStatusBy(item.id)?.status || ''"
+      ></span>
+      <img [src]="imageIdToUrl(item.imageId)" alt="" />
+    </div>
+    <span
+      class="label"
+      [multilang]="item.name"
+      [style.fontWeight]="item.children?.length ? 'bold' : 'normal'"
+    ></span>
+  </div>
+</ng-template>

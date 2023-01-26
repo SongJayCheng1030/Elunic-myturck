@@ -1,0 +1,57 @@
+@import 'variables';
+
+$thumbnail-size: 3.6rem;
+
+$gray-light: #d2d2d2;
+
+:host {
+  display: block;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #d2d2d2;
+  padding: 0.5rem 1rem;
+}
+
+.hidden-input {
+  position: absolute;
+  visibility: hidden;
+}
+
+.image-item {
+  display: grid;
+  padding: 0.5rem 1rem;
+  gap: 16px;
+  grid-template-columns: 24px $thumbnail-size auto 60px;
+  align-items: center;
+
+  &.disabled {
+    grid-template-columns: $thumbnail-size auto;
+  }
+
+  &.odd-row {
+    background-color: $gray-100;
+  }
+
+  &.even-row {
+    background-color: $white;
+  }
+}
+
+.thumbnail {
+  max-width: $thumbnail-size;
+  max-height: $thumbnail-size;
+}
+
+.image-name,
+.image-delete {
+  text-decoration: underline;
+}
+
+.image-delete {
+  cursor: pointer;
+  font-weight: bold;
+}

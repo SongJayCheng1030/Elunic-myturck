@@ -1,0 +1,48 @@
+<div class="form-inline">
+  <div class="form-group hidden">
+    <div class="input-group">
+      <input
+        name="datepicker"
+        class="form-control"
+        ngbDatepicker
+        #datepicker="ngbDatepicker"
+        [autoClose]="'outside'"
+        [displayMonths]="2"
+        [dayTemplate]="t"
+        (dateSelect)="onDateSelection($event)"
+        datepickerClass="grid-datepicker"
+        outsideDays="hidden"
+        container="body"
+      />
+      <ng-template #t let-date let-focused="focused">
+        <span
+          class="custom-day"
+          [class.focused]="focused"
+          [class.range]="isRange(date)"
+          [class.faded]="isHovered(date) || isInside(date)"
+          (mouseenter)="hoveredDate = date"
+          (mouseleave)="hoveredDate = null"
+        >
+          {{ date.day }}
+        </span>
+      </ng-template>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="input-group">
+      <input
+        type="text"
+        readonly
+        class="form-control-plaintext pl-3"
+        placeholder="{{ 'PLACEHOLDER.SELECT_DATE_RANGE' | translate }}"
+        [(ngModel)]="parsedDateRange"
+      />
+      <span *ngIf="currentRange" class="clear-icon" (click)="onClear()">×</span>
+      <div class="input-group-append">
+        <div class="icon-container" (click)="datepicker.toggle()">
+          <i class="material-icons mi-20">calendar_month</i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

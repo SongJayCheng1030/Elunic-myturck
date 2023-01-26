@@ -1,0 +1,55 @@
+{
+  "HOME": {
+    "WELCOME": "Welcome"
+  },
+  "SETTINGS": {
+    "SETTINGS": "Settings",
+    "PRIMARY_COLOR": "Primary color",
+    "BACKGROUND_COLOR": "Background color",
+    "LIGHT_WELCOME_TEXT": "Light welcome text?",
+    "BACKGROUND_IMAGE": "Background image",
+    "GENERAL_SETTING": "General settings",
+    "TILE_CONFIGURATION": "Tile configuration",
+    "TILE_NAME": "Tile name",
+    "DESCRIPTION": "Description",
+    "APP_URL": "App url",
+    "ICON_URL": "Icon url",
+    "ICON": "Icon",
+    "TILE_COLOR": "Tile color",
+    "TILE_TEXT_COLOR": "Tile text color",
+    "EMPTY_NAME": "Empty name",
+    "SHOW_IN_OVERVIEW_PAGE": "Show in Overview Page",
+    "HIDE_IN_OVERVIEW_PAGE": "Hide in Overview Page",
+    "ADD_TILE": "Add tile", 
+    "INTEGRATE_VIEW": "Integrated view",
+    "LOGO_IMAGE": "Logo"
+  },
+  "OPTIONS": {
+    "SETTINGS": {
+      "HUB_SETTINGS": "Hub settings",
+      "USER_MANAGEMENT": "User management",
+      "ASSET_MANAGEMENT": "Asset management",
+      "TENANT_MANAGEMENT": "Tenant management"
+    },
+    "PROFIL": {
+      "PROFIL": "Profil",
+      "LOGOUT": "Logout"
+    }
+  },
+  "COMMON": {
+    "CANCEL": "Cancel",
+    "SAVE_CHANGES": "Save changes"
+  },
+  "MESSAGES": {
+    "CHANGES_SAVED": "Changes successfully saved",
+    "CHANGES_ARE_NOT_SAVED_DUE_TO_SOME_ERROR": "Your changes could not be saved due to an error. Did you fill out all fields correctly?",
+    "UPLOAD_FAILED": "Your changes could not be saved due to an upload error.",
+    "ERROR": "Error",
+    "SUCCESS": "Success"
+  },
+  "SETTINGS_ITEMS": {
+    "TENANTS": "Tenants",
+    "USERS": "Users",
+    "ASSETS": "Assets"
+  }
+}

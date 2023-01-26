@@ -1,0 +1,23 @@
+@import 'variables';
+
+:host {
+  width: 100%;
+  height: 100%;
+  display: bold;
+}
+
+.table-row {
+  padding: 0 2rem;
+
+  .table-cell,
+  .table-header-cell {
+    &:last-child {
+      flex: 0 1 $input-height;
+      justify-content: flex-end;
+    }
+  }
+
+  .table-header-cell {
+    overflow: visible;
+  }
+}

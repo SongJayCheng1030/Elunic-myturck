@@ -1,0 +1,26 @@
+<lib-table class="w-100" [data]="roles" [scrollable]="true">
+  <lib-row *libHeaderRowDef>
+    <lib-header-cell libHeaderSort="name">
+      {{ 'NAME' | translate }}
+    </lib-header-cell>
+    <lib-header-cell libHeaderSort="name"> {{ 'DESCRIPTION' | translate }} </lib-header-cell>
+    <lib-header-cell> {{ 'BUILD_IN' | translate }}</lib-header-cell>
+    <lib-header-cell libHeaderSort="updatedAt"> {{ 'UPDATED_AT' | translate }} </lib-header-cell>
+  </lib-row>
+
+  <lib-row
+    libDataRow
+    *libDataRowDef="let role"
+    [hoverable]="true"
+    [routerLink]="['/roles', role.id]"
+  >
+    <lib-cell><span [multilang]="role.name"></span></lib-cell>
+    <lib-cell><span [multilang]="role.description"></span></lib-cell>
+    <lib-cell>{{ role.isDefault ? ('YES' | translate) : ('NO' | translate) }}</lib-cell>
+    <lib-cell>{{ role.updatedAt }}</lib-cell>
+  </lib-row>
+
+  <lib-row libEmptyRow *libEmptyRowDef>
+    <span>{{ 'EMPTY_ROLES' | translate }}</span>
+  </lib-row>
+</lib-table>

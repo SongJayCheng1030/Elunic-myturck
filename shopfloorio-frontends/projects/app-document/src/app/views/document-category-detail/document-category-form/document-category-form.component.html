@@ -1,0 +1,14 @@
+<div class="col-12">
+  <div class="d-flex flex-center w-100" *ngIf="loading">
+    <lib-loader></lib-loader>
+  </div>
+
+  <div class="row" *ngIf="!loading">
+    <form [formGroup]="form">
+      <div class="form-group">
+        <label for="name"> {{ 'VIEWS.DOCUMENT_TYPE_DETAILS.CATEGORY_NAME' | translate }}</label>
+        <input multilangFormControl="name" type="text" id="name" class="form-control" />
+      </div>
+    </form>
+  </div>
+</div>

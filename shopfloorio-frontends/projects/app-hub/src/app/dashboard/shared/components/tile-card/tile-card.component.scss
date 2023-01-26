@@ -1,0 +1,74 @@
+:host {
+  position: relative;
+}
+
+.visibility-control {
+  z-index: 3;
+  opacity: 0.7;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.service {
+  background-color: #fff;
+  box-shadow: 0px 3px 6px #00000029;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+
+  .image-placeholder {
+    position: relative;
+    z-index: 2;
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+      max-width: 95px;
+      max-height: 95px;
+    }
+  }
+
+  .card-body {
+    flex: none;
+    padding: 0;
+    padding-top: 1.6rem;
+    z-index: 2;
+  }
+
+  .card-text {
+    font-size: 12px;
+    z-index: 2;
+  }
+
+  width: 238px;
+  height: 238px;
+  padding: 5px;
+  padding-top: 17px;
+
+  &.preview {
+    width: 165px;
+    height: 165px;
+  }
+
+  .card-title {
+    font-size: 16px;
+    margin-bottom: 0.5rem;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.hidden-input {
+  position: absolute;
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}

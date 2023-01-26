@@ -1,0 +1,23 @@
+<div class="header">
+  <h3 class="mb-0">Documents</h3>
+  <button
+    *ngIf="!isDisabled"
+    type="button"
+    class="btn btn-outline-dark font-weight-bold"
+    (click)="openDocLinkingModal()"
+  >
+    <i class="material-icons">add</i>
+    <span>ADD DOCUMENT</span>
+  </button>
+</div>
+
+<div class="document-list">
+  <div
+    *ngFor="let doc of documents; trackBy: trackBy; let i = index"
+    class="document-item"
+    [ngClass]="i % 2 ? 'even-row' : 'odd-row'"
+  >
+    <a class="document-name" target="_blank" [href]="getDocLink(doc)">{{ doc.name | multilang }}</a>
+    <div *ngIf="!isDisabled" class="document-delete p-2" (click)="onDeleteDoc(doc)">DELETE</div>
+  </div>
+</div>

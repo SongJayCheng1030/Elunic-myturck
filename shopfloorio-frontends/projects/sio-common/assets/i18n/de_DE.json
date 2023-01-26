@@ -1,0 +1,36 @@
+{
+  "HEADER": {
+    "SERVICE_CONTRACT_STATUS": "Servicevertragsstatus: ",
+    "GOLD": "Gold"
+  },
+  "SCANNER": {
+    "QR_CODE_SCAN": "QR-Code scan",
+    "CAMERA_BLOCKED": "Camera not supported. Access was either blocked by user or the system.",
+    "CAMERA_NOT_FOUND": "No camera are found."
+  },
+  "SELECT": {
+    "CONTAINS_ERRORS": "Auswahl enthält Fehler"
+  },
+  "TIME_RANGE": {
+    "LIVE": "Live Daten",
+    "LAST_24_HOURS": "Letzte 24 h",
+    "LAST_WEEK": "Letzte Woche",
+    "LAST_MONTH": "Letzter Monat",
+    "LAST_YEAR": "Letztes Jahr",
+    "START_DATE": "Start Datum",
+    "END_DATE": "End Datum",
+    "START_TIME": "Startzeit",
+    "END_TIME": "Endzeit",
+    "RESET": "Zurücksetzen",
+    "APPLY": "Anwenden",
+    "TO": "Bis"
+  },
+  "MODAL": {
+    "ADD_DOCUMENTS": {
+      "TITLE": "Dokumente hinzufügen",
+      "NAME": "Bezeichnung",
+      "TYPE": "Kategorie",
+      "NO_DOCUMENTS": "Keine Dokumente gefunden"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+<app-chart-panel>
+  <app-chart-panel-header>
+    <h4 *ngIf="getSelectedKpiSubject() | async as kpi">
+      {{ 'VIEWS.OEE_MONITORING.OVERALL' | translate }} {{ 'KPI.' + kpi | translate }} ({{
+        'VIEWS.OEE_MONITORING.GOAL' | translate
+      }}
+      = {{ equipmentGoal }})
+    </h4>
+  </app-chart-panel-header>
+  <app-chart-panel-body class="flex-column">
+    <div class="bar-chart">
+      <canvas #barChart id="canvas"></canvas>
+    </div>
+    <div class="chart-legend pb-1">
+      <div class="item" *ngFor="let l of legend">
+        <span class="status" [ngStyle]="{ 'background-color': l.backgroundColor }"></span>
+        <span class="label">{{ 'STATUS.' + l.label | translate }}</span>
+      </div>
+    </div>
+  </app-chart-panel-body>
+</app-chart-panel>

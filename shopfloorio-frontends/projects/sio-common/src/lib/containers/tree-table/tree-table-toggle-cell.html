@@ -1,0 +1,13 @@
+<div [ngStyle]="{ 'padding-left.px': padding * level }"></div>
+
+<button
+  class="btn btn-sm btn-transparent btn-icon"
+  style="margin-right: 1.75rem"
+  [disabled]="!expandable"
+  [class.invisible]="!expandable"
+  (click)="toggle()"
+>
+  <i class="material-icons mi-animate" [class.mi-rotate]="isExpanded">chevron_right</i>
+</button>
+
+<ng-content></ng-content>

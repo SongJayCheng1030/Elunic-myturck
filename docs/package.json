@@ -1,0 +1,37 @@
+{
+  "name": "shopfloorio-docs",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "docusaurus": "docusaurus",
+    "dev": "docusaurus start --no-open",
+    "build": "docusaurus build",
+    "serve": "docusaurus serve"
+  },
+  "dependencies": {
+    "@babel/preset-env": "^7.17.12",
+    "@docusaurus/core": "2.0.0-beta.20",
+    "@docusaurus/preset-classic": "2.0.0-beta.20",
+    "@mdx-js/react": "^1.6.22",
+    "clsx": "^1.1.1",
+    "core-js": "^3.22.5",
+    "prism-react-renderer": "^1.2.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-scripts": "4.0.3",
+    "styled-components": "^5.3.5",
+    "swagger-ui-react": "^4.11.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

@@ -1,0 +1,74 @@
+<lib-page-card-layout [title]="'Tenants'" [showBackButton]="false">
+  <div header class="w-50 ml-auto">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <lib-search [formControl]="search"></lib-search>
+        </div>
+        <div class="col">
+          <a [routerLink]="'/create'">
+            <lib-button>
+              <span class="d-flex align-items-center justify-content-center">
+                <span class="icon mr-3">+</span>
+                {{ 'TENANT_LIST.NEW_TENANT' | translate }}
+              </span>
+            </lib-button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div body class="pt-4">
+    <p class="text-center mb-4">{{ 'TENANT_LIST.INSTRUCTION' | translate }}</p>
+    <!-- <lib-table class="w-100" [data]="tenants" [scrollable]="true"> -->
+    <lib-table class="w-100" [data]="tenants" [scrollable]="false">
+      <lib-row *libHeaderRowDef>
+        <lib-header-cell libHeaderSort="name">
+          {{ 'TENANT_LIST.NAME' | translate }}
+        </lib-header-cell>
+        <lib-header-cell libHeaderSort="updatedAt">
+          {{ 'TENANT_LIST.LAST_CHANGED' | translate }}
+        </lib-header-cell>
+        <lib-header-cell>
+          {{ 'TENANT_LIST.OWNED_BY' | translate }}
+        </lib-header-cell>
+        <lib-header-cell></lib-header-cell>
+      </lib-row>
+
+      <lib-row
+        libDataRow
+        *libDataRowDef="let tenant"
+        [hoverable]="true"
+        (click)="switchTo(tenant.id)"
+      >
+        <lib-cell>{{ tenant.name }}</lib-cell>
+        <lib-cell>{{ tenant.updatedAt | date: 'dd.MM.yyy' }}</lib-cell>
+        <lib-cell>{{ tenant.ownerId | username | async }}</lib-cell>
+        <lib-cell class="overflow-visible" (click)="$event.stopPropagation()">
+          <div ngbDropdown class="btn-group">
+            <button class="btn btn-transparent btn-icon" ngbDropdownToggle>
+              <i class="material-icons mi-26">more_vert</i>
+            </button>
+
+            <div ngbDropdownMenu aria-labelledby="menu">
+              <button ngbDropdownItem (click)="switchTo(tenant.id)">
+                {{ 'OPTIONS.SWITCH_TO' | translate }}
+              </button>
+              <a ngbDropdownItem [routerLink]="[tenant.id]">
+                {{ 'OPTIONS.EDIT' | translate }}
+              </a>
+              <button ngbDropdownItem (click)="deleteTenantById(tenant.id)">
+                {{ 'OPTIONS.DELETE' | translate }}
+              </button>
+            </div>
+          </div>
+        </lib-cell>
+      </lib-row>
+
+      <lib-row libEmptyRow *libEmptyRowDef>
+        <span>No tenants found</span>
+      </lib-row>
+    </lib-table>
+  </div>
+</lib-page-card-layout>

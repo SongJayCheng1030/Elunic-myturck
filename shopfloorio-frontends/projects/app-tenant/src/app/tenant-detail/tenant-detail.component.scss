@@ -1,0 +1,24 @@
+.delete-outline {
+  cursor: pointer;
+}
+
+.form-group,
+.actions {
+  display: flex;
+  align-items: center;
+}
+
+.actions {
+  margin-left: 20px;
+}
+
+.input-control {
+  min-width: 250px;
+  margin: 0;
+
+  &::ng-deep {
+    .error-placeholder {
+      display: none;
+    }
+  }
+}

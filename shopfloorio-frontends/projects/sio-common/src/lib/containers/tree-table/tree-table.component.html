@@ -1,0 +1,30 @@
+<div class="table tree-table" [class.table-elevated]="elevated">
+  <div
+    class="table-header"
+    [class.scrollable]="isBodyOverflown"
+    *ngIf="headerRow && (filteredItems$ | async)"
+  >
+    <ng-container [ngTemplateOutlet]="headerRow.template"></ng-container>
+  </div>
+
+  <div class="table-body-container" [class.container-scrollable]="scrollable">
+    <div class="table-body" #body>
+      <cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">
+        <cdk-nested-tree-node class="tree-table-node" *cdkTreeNodeDef="let node">
+          <ng-container
+            *ngTemplateOutlet="dataRow.template; context: { $implicit: node }"
+          ></ng-container>
+
+          <div class="tree-table-nested-nodes" [class.d-none]="!treeControl.isExpanded(node)">
+            <ng-container cdkTreeNodeOutlet></ng-container>
+          </div>
+        </cdk-nested-tree-node>
+      </cdk-tree>
+
+      <ng-container
+        *ngIf="emptyRow && (filteredItems$ | async) === 0"
+        [ngTemplateOutlet]="emptyRow.template"
+      ></ng-container>
+    </div>
+  </div>
+</div>

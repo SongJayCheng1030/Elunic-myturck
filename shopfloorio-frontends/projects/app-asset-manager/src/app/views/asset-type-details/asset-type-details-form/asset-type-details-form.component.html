@@ -1,0 +1,89 @@
+<lib-panel>
+  <lib-panel-header>
+    <i class="material-icons mr-3">info</i>
+    <h4>{{ 'VIEWS.ASSET_TYPE_DETAILS.ASSET_TYPE_DETAILS' | translate }}</h4>
+  </lib-panel-header>
+
+  <lib-panel-body class="py-3 align-items-start">
+    <div class="d-flex flex-center w-100" *ngIf="loading">
+      <lib-loader></lib-loader>
+    </div>
+
+    <div class="row" [formGroup]="form" *ngIf="!loading">
+      <div class="col-12">
+        <div class="form-group">
+          <label for="name">
+            {{ 'VIEWS.ASSET_TYPE_DETAILS.ASSET_TYPE_NAME' | translate }}
+          </label>
+          <input type="text" id="name" class="form-control" multilangFormControl="name" />
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>
+            {{ 'VIEWS.ASSET_TYPE_DETAILS.PARENT_ASSET' | translate }}
+          </label>
+          <div ngbDropdown class="dropdown form-dropdown">
+            <button
+              ngbDropdownToggle
+              [multilang]="
+                selectedExtendsType?.name || { translate: 'VIEWS.ASSET_TYPE_DETAILS.NONE' }
+              "
+              class="btn btn-outline-secondary"
+            ></button>
+
+            <div ngbDropdownMenu class="form-dropdown-menu">
+              <button ngbDropdownItem (click)="onSelectAssetType(null)">
+                {{ 'VIEWS.ASSET_TYPE_DETAILS.NONE' | translate }}
+              </button>
+              <button
+                ngbDropdownItem
+                [multilang]="assetType.name"
+                (click)="onSelectAssetType(assetType)"
+                *ngFor="let assetType of assetTypes"
+              ></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>
+            {{ 'VIEWS.ASSET_TYPE_DETAILS.ISA95_TYPE' | translate }}
+          </label>
+          <div ngbDropdown class="dropdown form-dropdown">
+            <button ngbDropdownToggle class="btn btn-outline-secondary">
+              {{ equipmentType.value || 'VIEWS.ASSET_TYPE_DETAILS.PLEASE_CHOOSE' | translate }}
+            </button>
+
+            <div ngbDropdownMenu class="form-dropdown-menu">
+              <button
+                ngbDropdownItem
+                (click)="onSelectEquipmentType(item)"
+                *ngFor="let item of equipmentTypes"
+              >
+                {{ item }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="form-group mb-0">
+          <label for="description">
+            {{ 'VIEWS.ASSET_TYPE_DETAILS.DESCRIPTION' | translate }}
+          </label>
+          <textarea
+            id="description"
+            class="form-control"
+            rows="4"
+            formControlName="description"
+          ></textarea>
+        </div>
+      </div>
+    </div>
+  </lib-panel-body>
+</lib-panel>

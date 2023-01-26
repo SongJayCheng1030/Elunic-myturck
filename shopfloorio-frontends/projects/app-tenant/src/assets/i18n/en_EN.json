@@ -1,0 +1,51 @@
+{
+  "HOME": {
+    "WELCOME": "Welcome"
+  },
+  "OPTIONS": {
+    "PROFIL": {
+      "LOGOUT": "Logout"
+    },
+    "EDIT": "Edit",
+    "DELETE": "Delete",
+    "CANCEL": "Cancel",
+    "SAVE_CHANGES": "Save Changes",
+    "SWITCH_TO": "Switch to tenant"
+  },
+  "TENANT_LIST": {
+    "NAME": "Name",
+    "STATUS": "Status",
+    "LAST_CHANGED": "Last Changed",
+    "OWNED_BY": "Owned by",
+    "NEW_TENANT": "New Tenant",
+    "FILTER_FOR_STATUS": "Filter for Status",
+    "SEARCH": "Search",
+    "TENANTS": "Tenants",
+    "ACTIVE": "Active",
+    "INACTIVE": "Inactive",
+    "INSTRUCTION": "Choose a tenant to directly switch to the Hub of it or manage the tenants."
+  },
+  "TENANT_DETAIL": {
+    "SETTINGS": "Settings",
+    "TENANT_NAME": "Tenant Name",
+    "MAINTENANCE_MANAGER_INTERVAL_CALCULATION": "Maintenance manager interval calculation",
+    "CUMULOCITY_GROUP": "Cumulocity group"
+  },
+  "TENANT_SETTINGS": {
+    "ON_EXECUTION": "On Execution",
+    "STRICT_BY_INTERVAL": "Strict by interval"
+  },
+  "MODALS": {
+    "IMMUTABLE_CONFIRM": {
+      "TITLE": "Cumulocity group",
+      "BODY": "Setting the cumulocity group can only be applied once. Are sure you this is the correct group?",
+      "CONFIRM": "Confirm",
+      "ABORT": "Cancel"
+    }
+  },
+  "SETTINGS_ITEMS": {
+    "TENANTS": "Tenants",
+    "USERS": "Users",
+    "ASSETS": "Assets"
+  }
+}

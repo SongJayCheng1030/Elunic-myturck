@@ -1,0 +1,237 @@
+{
+  "TRANSLATE": {
+    "LANGUAGE": "English"
+  },
+  "MODALS": {
+    "TILE": {
+      "ADD_TILE": "Add tile",
+      "EDIT_TILE": "Edit tile",
+      "NAME": "Tile name",
+      "MACHINE_VARIABLE": "Machine Variable",
+      "GRAFANA_DASHBOARD": "Grafana dashboard",
+      "GRAFANA_PANEL": "Grafana panel name",
+      "GRAFANA_PANEL_DYNAMIC_TEXT": "Dynamic",
+      "GRAFANA_PANEL_DYNAMIC_TEXT_ON_PANEL": "For this equipment",
+      "ON_ASSET_TYPE": "For multiple assets",
+      "ON_ASSET_TYPE_CHECK": "Show this panel on all assets with the same asset type like the current",
+      "MAGIC_TILE": "Asset specific tile",
+      "MAGIC_TILE_CHECK": "Provide the asset id of the current asset to the panel to embed to display charts filtered for this asset",
+      "WIDTH": "Tile width (columns)",
+      "HEIGHT": "Tile height (rows)",
+      "OF": "of",
+      "ORDER": "Tile order",
+      "CANCEL": "Cancel",
+      "SUBMIT": "Submit",
+      "SAVE_CHANGES": "Save changes",
+      "HIDE_TITLEBAR": "Hide Titlebar and show only the Grafana Panel Title",
+      "GRAFANA_VARIABLES": "Grafana variables",
+      "USE_OWN_VARIABLES": "Apply Grafana variables from this panel to itself",
+      "USE_VARIABLES": "Receive Grafana variables from other panels"
+    },
+    "DELETE_TILE_CONFIRM": {
+      "TITLE": "Delete tile?",
+      "BODY": "Deleting a tile will permanently remove it from the grid",
+      "CONFIRM": "Delete",
+      "ABORT": "Cancel"
+    },
+    "GROUP_FILTER": {
+      "SELECT_EQUIPMENT": "Select equipment",
+      "EQUIPMENT_GROUP": "Equipment group",
+      "EQUIPMENT": "Equipment",
+      "SELECT_CONVERSION_KIT": "Select conversion kit",
+      "CONVERSION_KIT_GROUP": "Conversion kit group",
+      "CONVERSION_KIT": "Conversion kit"
+    },
+    "LIMIT_RULES": {
+      "LIMIT_RULE_FOR": "Limit rule for",
+      "WARNING_LIMIT_MIN": "Warning limit min",
+      "WARNING_LIMIT_MAX": "Warning limit max",
+      "CRITICAL_LIMIT_MIN": "Critical limit min",
+      "CRITICAL_LIMIT_MAX": "Critical limit max",
+      "CONFIRM": "Confirm"
+    }
+  },
+  "VIEWS": {
+    "ADMIN_DASHBOARD": {
+      "TITLE": "Title",
+      "MACHINE_VARIABLE": "Machine Variable",
+      "PANEL": "Grafana panel"
+    },
+    "ANALYTICS_RULES": {
+      "ADD_TILE": "Add tile",
+      "EDIT": "Edit",
+      "DELETE": "Delete",
+      "PANEL_NOR_FOUND": "Panel not found"
+    },
+    "OEE_MONITORING": {
+      "OVERALL_STATUS": "Overall Status",
+      "OVERALL": "Overall",
+      "GOAL": "Goal"
+    },
+    "OEE_DETAILS": {
+      "MONTHLY_VALUE": "Monthly value",
+      "AVERAGE_VALUE": "Average value",
+      "MONTHLY_THROUGHPUT": "Monthly throughput",
+      "THROUGHPUT": "Throughput",
+      "OEE_DAILY_TREND": "OEE daily trend",
+      "EQUIPMENT_STATUS_HISTORY": "Equipment status history",
+      "THROUGHPUT_DAILY_TREND": "Throughput daily trend chart"
+    },
+    "MAINTENANCE_MONITORING": {
+      "EQUIPMENT_STATUS": "Equipment Status",
+      "KIT_TYPE": "Kit Type",
+      "MAINTENANCE_STATUS": "Maintenance status",
+      "NO_ALARM_FOUND": "No alarm found",
+      "NO_COMPONENT_FOUND": "No component found",
+      "COMPONENT_PERFORMANCE_OVER_TIME": "Component performance over time",
+      "USAGE": {
+        "TITLE": "Usage",
+        "ACTUAL_USAGE": "Actual usage",
+        "TARGET_USAGE": "Target usage"
+      },
+      "PERFORMANCE_MEDIAN": {
+        "TITLE": "Performance Median",
+        "ACTUAL_PERFORMANCE": "Actual Performance",
+        "TARGET_PERFORMANCE": "Target Performance"
+      },
+      "MAINTENANCE_DATES": {
+        "TITLE": "Maintenance Dates",
+        "LAST_MAINTENANCE": "Last Maintenance",
+        "RECOMMENDED_NEXT_MAINTENANCE": "Recommended next maintenance"
+      },
+      "SUMMARY": {
+        "TITLE": "Summary",
+        "OVERVIEW": "Overview",
+        "OEE": "OEE",
+        "MCBI": "MCBI",
+        "ALARM_COUNT": "Alarm count",
+        "PDM_EVENTS": "PdM events"
+      },
+      "ALARM_ANALYTICS": {
+        "TITLE": "Alarm Analytics",
+        "RECOMMENDATIONS": "Recommendations for Alarms and PdM events"
+      },
+      "COMPONENT_ANALYTICS": {
+        "TITLE": "Component Analytics",
+        "COMPONENT": "Component",
+        "CURRENT_STATUS": "Current status",
+        "BASE": "Base",
+        "SINGULATOR": "Singulator",
+        "ALARMS": "Alarms",
+        "AUTO_RETRY": "Auto retry",
+        "CONFIGURATION_CHANGES": "Configuration changes",
+        "CHOOSE_INDICATOR": "Choose indicator",
+        "STAT": {
+          "MEAN": "Mean",
+          "MEDIAN": "Median",
+          "MIN": "Min",
+          "MAX": "Max",
+          "WARNING_COUNT": "Warning count",
+          "CRITICAL_COUNT": "Critical count"
+        }
+      },
+      "ANALYTICS": {
+        "ACTION": "Action",
+        "SOURCE": "Source",
+        "ALARM_ID": "Alarm ID",
+        "COMPONENT": "Component",
+        "DESCRIPTION": "Description",
+        "SUB_ID": "Sub ID",
+        "TIME_STAMP": "Time stamp",
+        "ROOT_CAUSE_INFO": "Root cause info",
+        "KIT_RECIPE": "Kit recipe",
+        "TEMP": "Temp",
+        "USER_NOTES": "User notes",
+        "ALERT_TYPES": "Alert type(s)",
+        "STATUS": "Status",
+        "SUB_SYSTEM": "Sub system",
+        "ASSEMBLY": "Assembly",
+        "PERFORMANCE": "Performance",
+        "USAGE": "Usage",
+        "RUL_DAYS": "RUL days",
+        "NEXT_PM_DAYS": "Next PM days",
+        "DETAILS": "Details",
+        "CYCLES": "cycles"
+      }
+    },
+    "CONFIG_MANAGEMENT": {
+      "TITLE": "Config management",
+      "CONFIGS": "Configs",
+      "SAVE_CHANGES": "Save changes",
+      "NAME": "Name",
+      "VALUE": "Value",
+      "DESCRIPTION": "Description"
+    }
+  },
+  "UNIT": {
+    "DAYS": "Days"
+  },
+  "STATUS": {
+    "RUNNING": "Running",
+    "UNDEFINED": "Undefined",
+    "ENGINEERING": "Engineering",
+    "RUN": "Run",
+    "IDLE": "Idle",
+    "ALARM": "Alarm",
+    "HIGH": "High",
+    "LOW": "Low",
+    "VERY_LOW": "Very low",
+    "YIELD_TREND": "Yield trend",
+    "PRODUCING": "Productive",
+    "STANDBY": "Standby",
+    "UNSCHEDULED_DOWN": "Unscheduled down",
+    "SCHEDULED_DOWN": "Scheduled down",
+    "MCBJ": "MCBJ",
+    "MCBF": "MCBF",
+    "GOOD": "Good",
+    "WARNING": "Warning",
+    "DEGRADING": "Degrading",
+    "CRITICAL": "Critical",
+    "PERFORMANCE": "Performance",
+    "WARNING_LIMIT": "Warning limit",
+    "CRITICAL_LIMIT": "Critical limit"
+  },
+  "KPI": {
+    "OEE": "OEE",
+    "UTILIZATION": "Utilization",
+    "AVAILABILITY": "Availability",
+    "YIELD": "Yield"
+  },
+  "TOOLBAR": {
+    "BUTTONS": {
+      "EQUIPMENT": "Equipment",
+      "CONVERSION_KIT": "Conversion Kit",
+      "ADMIN_VIEW": "Admin view",
+      "CUSTOMER_VIEW": "Customer view",
+      "KPI": "KPI",
+      "MORE": "More",
+      "SELECT_ALL": "Select all",
+      "DESELECT_ALL": "Deselect all",
+      "CONFIRM": "Confirm",
+      "CURRENT": "Current",
+      "HISTORY": "History",
+      "ALL_DATA": "All data",
+      "EXTEND": "Extend",
+      "RETRACT": "Retract",
+      "EDIT_LIMIT_RULES": "Edit limit rules"
+    }
+  },
+  "SETTINGS": {
+    "OEE_MONITORING_DETAILS_THRESHOLD": "OEE Monitoring Details Threshold",
+    "OEE_UTILIZATION_GOAL": "OEE Utilization Goal",
+    "OEE_KPI_GOAL": "OEE KPI Goal",
+    "OEE_AVAILABILITY_GOAL": "OEE Availability Goal",
+    "OEE_YIELD_GOAL": "OEE Yield Goal",
+    "THROUGHPUT_THRESHOLD": "Throughput Threshold"
+  },
+  "SETTINGS_ITEMS": {
+    "TENANTS": "Tenants",
+    "USERS": "Users",
+    "ASSETS": "Assets"
+  },
+  "SCANNER": {
+    "QR_CODE_SCAN": "QR-Code scan",
+    "CAMERA_BLOCKED": "Camera not supported. Access was either blocked by user or the system.",
+    "CAMERA_NOT_FOUND": "No camera are found."
+  }
+}

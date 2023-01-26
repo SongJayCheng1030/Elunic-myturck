@@ -1,0 +1,83 @@
+@import 'variables';
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+form {
+  height: 100%;
+}
+
+.btn {
+  margin: 0 1em;
+}
+
+.steps-header {
+  padding: 1rem;
+  background-color: $gray-500;
+  display: grid;
+  grid-template-columns: 15% 15% 50% auto auto;
+  div {
+    vertical-align: middle;
+    display: table;
+    h4 {
+      padding-left: 0.7rem;
+      display: table-cell;
+      vertical-align: middle;
+    }
+    button {
+      float: right;
+    }
+    .saveToLibraryCheckbox {
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
+}
+
+.steps-body {
+  display: grid;
+  grid-template-columns: 30% auto;
+
+  .step-list {
+    background-color: $white;
+
+    .step-list-item {
+      display: grid;
+      grid-template-columns: 24px auto 24px;
+      border: 1px solid #f0f1f2;
+      gap: 1.6rem;
+      padding: 0.8rem 1.6rem;
+      align-items: center;
+      color: $gray-800;
+    }
+    .selected {
+      background-color: #f0f1f2;
+    }
+  }
+}
+
+input,
+textarea {
+  background-color: $white;
+  border: 1px solid $gray-500;
+}
+
+.first-step {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  margin: 20% auto;
+  align-items: center;
+
+  & > p {
+    font-size: 14px;
+    color: $black;
+    font-weight: 400;
+  }
+
+  & > button {
+    margin-top: 33px;
+  }
+}

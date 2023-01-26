@@ -1,0 +1,74 @@
+@import 'variables';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+
+  &::ng-deep {
+    .panel-actions {
+      .panel {
+        background-color: transparent;
+        border: 0;
+      }
+
+      .panel-header {
+        border: 0;
+        padding: 0;
+      }
+    }
+  }
+}
+
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.grid-wrapper {
+  grid-auto-rows: minmax(min-content, max-content);
+  gap: 26px;
+}
+
+.tile {
+  cursor: pointer;
+  &::ng-deep {
+    h5 {
+      margin-bottom: 0;
+    }
+
+    .panel {
+      .panel-header {
+        border: 0;
+        padding: 0.5rem 1rem;
+      }
+
+      .panel-body {
+        min-height: 360px;
+        flex-direction: column;
+
+        .image-container {
+          width: 100%;
+          height: 100%;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+
+        .info {
+          padding: 0.5rem 1.5rem;
+          .entry {
+            padding: 0.35rem 0;
+            display: flex;
+            justify-content: space-between;
+            .name {
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+  }
+}

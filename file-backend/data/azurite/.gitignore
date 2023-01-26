@@ -1,0 +1,3 @@
+!/blobs
+/blobs/*
+!/blobs/.git*

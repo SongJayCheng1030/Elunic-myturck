@@ -1,0 +1,109 @@
+{
+  "oee": {
+    "HIGH": {
+      "type": "HIGH",
+      "count": 5,
+      "total": 10,
+      "rel": 0.5
+    },
+    "LOW": {
+      "type": "LOW",
+      "count": 3,
+      "total": 10,
+      "rel": 0.3
+    },
+    "UNDEFINED": {
+      "type": "UNDEFINED",
+      "count": 1,
+      "total": 10,
+      "rel": 0.1
+    }
+  },
+  "yield": {
+    "HIGH": {
+      "type": "HIGH",
+      "count": 5,
+      "total": 10,
+      "rel": 0.5
+    },
+    "LOW": {
+      "type": "LOW",
+      "count": 3,
+      "total": 10,
+      "rel": 0.3
+    },
+    "UNDEFINED": {
+      "type": "UNDEFINED",
+      "count": 1,
+      "total": 10,
+      "rel": 0.1
+    }
+  },
+  "availability": {
+    "HIGH": {
+      "type": "HIGH",
+      "count": 5,
+      "total": 10,
+      "rel": 0.5
+    },
+    "LOW": {
+      "type": "LOW",
+      "count": 3,
+      "total": 10,
+      "rel": 0.3
+    },
+    "UNDEFINED": {
+      "type": "UNDEFINED",
+      "count": 1,
+      "total": 10,
+      "rel": 0.1
+    }
+  },
+  "utilization": {
+    "HIGH": {
+      "type": "HIGH",
+      "count": 5,
+      "total": 10,
+      "rel": 0.5
+    },
+    "LOW": {
+      "type": "LOW",
+      "count": 3,
+      "total": 10,
+      "rel": 0.3
+    },
+    "UNDEFINED": {
+      "type": "UNDEFINED",
+      "count": 1,
+      "total": 10,
+      "rel": 0.1
+    }
+  },
+  "unscheduled": {
+    "HIGH": {
+      "type": "HIGH",
+      "count": 5,
+      "total": 10,
+      "rel": 0.5
+    },
+    "LOW": {
+      "type": "LOW",
+      "count": 3,
+      "total": 10,
+      "rel": 0.3
+    },
+    "UNDEFINED": {
+      "type": "UNDEFINED",
+      "count": 1,
+      "total": 10,
+      "rel": 0.1
+    }
+  },
+  "_thresholds": {
+    "oee": 0.85,
+    "yield": 0.85,
+    "availability": 0.85,
+    "utilization": 0.85,
+    "unscheduled": 0.85
+  }
+}

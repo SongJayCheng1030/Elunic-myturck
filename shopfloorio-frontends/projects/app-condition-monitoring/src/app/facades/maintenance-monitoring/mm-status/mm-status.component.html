@@ -1,0 +1,30 @@
+<lib-panel *ngIf="property" (click)="onClick()">
+  <lib-panel-header>
+    <h4>{{ property.name }}</h4>
+    <lib-panel-header-actions>
+      <app-status-legend
+        [icon]="property.icon"
+        [backgroundColor]="property.backgroundColor"
+        [backgroundShape]="'circle'"
+      ></app-status-legend>
+    </lib-panel-header-actions>
+  </lib-panel-header>
+  <lib-panel-body>
+    <div class="entry">
+      <div class="label">
+        {{ 'VIEWS.MAINTENANCE_MONITORING.KIT_TYPE' | translate }}
+      </div>
+      <div class="type">
+        {{ property.kitType }}
+      </div>
+    </div>
+    <div class="entry">
+      <div class="label">
+        {{ 'VIEWS.MAINTENANCE_MONITORING.MAINTENANCE_STATUS' | translate }}
+      </div>
+      <div class="status" [ngClass]="property.status">
+        {{ property.status }}
+      </div>
+    </div>
+  </lib-panel-body>
+</lib-panel>

@@ -1,0 +1,45 @@
+@import 'variables';
+
+lib-panel-body {
+  min-height: 30vh;
+}
+
+.image-container {
+  position: relative;
+  height: 100%;
+  box-shadow: 0 3px 6px rgba($black, 16%);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  &.empty {
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: -5%;
+      height: 1px;
+      width: 110%;
+      background-color: $gray-300;
+      transform: rotate(135deg);
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .image-container {
+    &.empty {
+      &::after {
+        width: unset !important;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1223px) {
+  .form-dropdown {
+    .dropdown-toggle {
+      width: unset !important;
+    }
+  }
+}

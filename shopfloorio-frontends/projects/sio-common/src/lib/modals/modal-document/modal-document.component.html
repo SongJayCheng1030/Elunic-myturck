@@ -1,0 +1,66 @@
+<div class="modal-header align-items-center">
+  <h4 class="modal-title">
+    {{ 'MODAL.ADD_DOCUMENTS.TITLE' | translate }}
+  </h4>
+
+  <div class="d-flex">
+    <button
+      class="mr-2"
+      type="button"
+      class="btn btn-xs btn-icon btn-transparent"
+      (click)="refreshDocuments()"
+    >
+      <i class="material-icons mi-18">refresh</i>
+    </button>
+
+    <button type="button" class="btn btn-xs btn-icon btn-transparent" (click)="close()">
+      <i class="material-icons mi-18">close</i>
+    </button>
+  </div>
+</div>
+
+<div class="modal-body">
+  <lib-table [data]="documents" [scrollable]="true">
+    <lib-row *libHeaderRowDef>
+      <lib-header-cell> </lib-header-cell>
+      <lib-header-cell>
+        {{ 'MODAL.ADD_DOCUMENTS.NAME' | translate }}
+      </lib-header-cell>
+      <lib-header-cell>
+        {{ 'MODAL.ADD_DOCUMENTS.TYPE' | translate }}
+      </lib-header-cell>
+    </lib-row>
+
+    <lib-row libDataRow *libDataRowDef="let doc; let i = index">
+      <lib-cell>
+        <lib-checkbox
+          class="d-flex"
+          (changed)="selection.toggle(doc.id)"
+          [checked]="selection.isSelected(doc.id)"
+        ></lib-checkbox>
+      </lib-cell>
+      <lib-cell [multilang]="doc.name"></lib-cell>
+      <lib-cell [multilang]="doc.type?.name"></lib-cell>
+    </lib-row>
+
+    <lib-row libEmptyRow *libEmptyRowDef>
+      <span>
+        {{ 'MODAL.ADD_DOCUMENTS.NO_DOCUMENTS' | translate }}
+      </span>
+    </lib-row>
+  </lib-table>
+</div>
+
+<div class="modal-footer d-flex justify-content-between">
+  <button type="button" class="btn btn-outline-secondary" (click)="close()">
+    {{ 'ABORT' | translate }}
+  </button>
+  <div class="d-flex">
+    <a class="btn btn-outline-secondary mr-2" target="_blank" [href]="createDocumentLink">
+      {{ 'CREATE' | translate }}
+    </a>
+    <button type="button" class="btn btn-primary" (click)="confirm()">
+      {{ 'ADD SELECTED' | translate }}
+    </button>
+  </div>
+</div>

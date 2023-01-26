@@ -1,0 +1,63 @@
+@import 'variables';
+
+:host {
+  width: 100%;
+  height: 100%;
+  &::ng-deep {
+    .panel-body-container.container-scrollable .panel-body {
+      overflow-y: none;
+    }
+  }
+}
+
+.tabs {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  margin: -$panel-padding-y 0;
+
+  .tab {
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-width: 140px;
+    margin-left: 80px;
+    color: rgba($gray-600, 87%);
+    font-size: $font-size-lg;
+    outline: none;
+    overflow: hidden;
+    transition: color 0.15s ease;
+
+    &:hover,
+    &:focus {
+      color: rgba($black, 87%);
+      text-decoration: none;
+    }
+
+    &.active {
+      color: rgba($black, 87%);
+
+      &::after {
+        transform: none;
+      }
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      height: 4px;
+      width: 100%;
+      background-color: $secondary;
+      transform: translateY(100%);
+      transition: transform 0.25s ease;
+    }
+
+    & + .tab {
+      margin-left: 2rem;
+    }
+  }
+}

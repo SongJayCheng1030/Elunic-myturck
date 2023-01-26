@@ -1,0 +1,7 @@
+<div class="select-label"><ng-content></ng-content></div>
+<select class="select-box" [formControl]="value">
+  <option *ngFor="let option of options" [value]="option.value">
+    {{ option.title }}
+  </option>
+</select>
+<div class="error-message" *ngIf="value.errors">{{ 'SELECT_CONTAINS_ERRORS' | translate }}</div>

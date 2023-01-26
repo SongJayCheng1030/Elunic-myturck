@@ -1,0 +1,51 @@
+<lib-table class="w-100" [data]="types" [scrollable]="true">
+  <lib-row *libHeaderRowDef>
+    <lib-header-cell libHeaderSort="name" [isMultilang]="true">
+      {{ 'VIEWS.DOCUMENT_TYPES.NAME' | translate }}
+    </lib-header-cell>
+    <lib-header-cell>
+      {{ 'VIEWS.DOCUMENT_TYPES.LINKED_DOCUMENTS' | translate }}
+    </lib-header-cell>
+    <lib-header-cell libHeaderSort="updatedAt">
+      {{ 'VIEWS.DOCUMENT_TYPES.LAST_CHANGED' | translate }}
+    </lib-header-cell>
+    <lib-header-cell>
+      {{ 'VIEWS.DOCUMENT_TYPES.CREATED_BY' | translate }}
+    </lib-header-cell>
+    <lib-header-cell></lib-header-cell>
+  </lib-row>
+
+  <lib-row
+    libDataRow
+    *libDataRowDef="let documentType"
+    [hoverable]="true"
+    (click)="goToDetail(documentType?.id)"
+  >
+    <lib-cell [multilang]="documentType.name"></lib-cell>
+    <lib-cell>{{ documentType.docs | more: 2:getName }}</lib-cell>
+    <lib-cell>{{ documentType.updatedAt | date: 'dd.MM.yyyy | HH:mm' }}</lib-cell>
+    <lib-cell>{{ documentType.createdBy | username | async }}</lib-cell>
+
+    <lib-cell class="p-0 overflow-visible" (click)="preventInDetailMode($event)">
+      <div ngbDropdown placement="bottom-right top-right" class="btn-group">
+        <button ngbDropdownToggle class="btn btn-transparent btn-icon">
+          <i class="material-icons mi-26">more_vert</i>
+        </button>
+
+        <div ngbDropdownMenu class="text-right">
+          <button ngbDropdownItem routerLink="/document-category/{{ documentType.id }}">
+            {{ 'VIEWS.DOCUMENT_TYPES.EDIT' | translate }}
+          </button>
+
+          <button ngbDropdownItem class="text-danger" (click)="onDelete(documentType.id)">
+            {{ 'VIEWS.DOCUMENT_TYPES.DELETE' | translate }}
+          </button>
+        </div>
+      </div>
+    </lib-cell>
+  </lib-row>
+
+  <lib-row libEmptyRow *libEmptyRowDef>
+    <span>{{ 'VIEWS.DOCUMENT_TYPES.NO_DOCUMENT_TYPES_FOUND' | translate }}</span>
+  </lib-row>
+</lib-table>

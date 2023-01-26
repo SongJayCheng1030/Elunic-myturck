@@ -1,0 +1,19 @@
+<div class="gf-buildingset-container">
+  <div class="gf-buildingset-sidebar">
+    <lib-sidebar
+      class="sidebar"
+      *ngIf="assetTypes$ | async as nodes"
+      title="Asset types"
+      [treeNode]="nodes"
+      [activeTreeNode]="selectedAssetType$ | async"
+      (treeNodeSelect)="onAssetTypeSelection($event)"
+    ></lib-sidebar>
+  </div>
+  <div class="gf-buildingset-body d-flex">
+    <app-grafana-building-set-asset-type
+      *ngIf="selectedAssetType$ | async as selectedAssetType"
+      [assetType]="selectedAssetType"
+      [machineVariables]="availableMachineVariables$ | async"
+    ></app-grafana-building-set-asset-type>
+  </div>
+</div>

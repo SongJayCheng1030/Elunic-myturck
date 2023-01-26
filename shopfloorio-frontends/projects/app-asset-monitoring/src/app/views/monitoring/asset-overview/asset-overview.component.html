@@ -1,0 +1,25 @@
+<ng-container *ngIf="overviewType !== 'NONE' && !isImageMapVisible; else imageMap">
+  <ng-container [ngSwitch]="overviewType">
+    <ng-template *ngSwitchCase="'MAP'" [ngTemplateOutlet]="mapTemplate"></ng-template>
+    <ng-template *ngSwitchCase="'TILES'" [ngTemplateOutlet]="tilesTemplate"></ng-template>
+    <ng-template *ngSwitchCase="'DETAILS'" [ngTemplateOutlet]="detailsTemplate"></ng-template>
+  </ng-container>
+</ng-container>
+
+<ng-template #mapTemplate>
+  <app-asset-map [treeNode]="activeTreeNode"></app-asset-map>
+</ng-template>
+
+<ng-template #tilesTemplate>
+  <app-asset-tiles [treeNode]="activeTreeNode"></app-asset-tiles>
+</ng-template>
+
+<ng-template #detailsTemplate>
+  <app-asset-details></app-asset-details>
+</ng-template>
+
+<ng-template #imageMap>
+  <ng-container *ngIf="activeTreeNode">
+    <app-asset-image-map [treeNode]="activeTreeNode"></app-asset-image-map>
+  </ng-container>
+</ng-template>

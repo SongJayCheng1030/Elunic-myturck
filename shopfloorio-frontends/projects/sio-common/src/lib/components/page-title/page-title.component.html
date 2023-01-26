@@ -1,0 +1,9 @@
+<div class="page-title">
+  <div class="navigation">
+    <img src="assets/icons/arrow-back.svg" (click)="goBack()" class="go-back" *ngIf="back" />
+    {{ title }}
+  </div>
+  <div class="custom-content">
+    <ng-content></ng-content>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<lib-panel class="panel-actions">
+  <lib-panel-header>
+    <h4>Fleet #1 |&nbsp;</h4>
+    <span class="oee-id">14606</span>
+    <lib-panel-header-actions>
+      <button class="btn btn-outline-secondary" (click)="onEquipmentFilter()">
+        {{ 'TOOLBAR.BUTTONS.EQUIPMENT' | translate }}
+        <span class="badge badge-pill badge-secondary ml-2" *ngIf="getFilterCount(equipmentGroups)">
+          {{ getFilterCount(equipmentGroups) }}
+        </span>
+      </button>
+      <button class="btn btn-outline-secondary" (click)="onConversionKitFilter()">
+        {{ 'TOOLBAR.BUTTONS.CONVERSION_KIT' | translate }}
+        <span
+          class="badge badge-pill badge-secondary ml-2"
+          *ngIf="getFilterCount(conversionKitGroups)"
+        >
+          {{ getFilterCount(conversionKitGroups) }}
+        </span>
+      </button>
+    </lib-panel-header-actions>
+  </lib-panel-header>
+</lib-panel>
+<div class="main-wrapper mt-2">
+  <div class="grid-wrapper grid-column-1 chart-wrapper">
+    <lib-panel>
+      <lib-panel-header>
+        <h4>{{ 'VIEWS.MAINTENANCE_MONITORING.EQUIPMENT_STATUS' | translate }}</h4>
+      </lib-panel-header>
+      <lib-panel-body>
+        <app-mm-equipment-status [useSwitch]="true"></app-mm-equipment-status>
+      </lib-panel-body>
+    </lib-panel>
+  </div>
+  <div class="content-scrollable">
+    <div class="content-scroll grid-wrapper grid-column-4">
+      <app-mm-status *ngFor="let equipment of equipments" [property]="equipment"></app-mm-status>
+    </div>
+  </div>
+</div>

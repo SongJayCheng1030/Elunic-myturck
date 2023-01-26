@@ -1,0 +1,9 @@
+{
+  "extends": ["./.eslintrc.js", "@elunic/eslint-config-ecs/fix", "prettier"],
+  "plugins": ["prettier"],
+  "rules": {
+    "no-undef-init": "error",
+    "prettier/prettier": "error",
+    "spaced-comment": ["error", "always"]
+  }
+}

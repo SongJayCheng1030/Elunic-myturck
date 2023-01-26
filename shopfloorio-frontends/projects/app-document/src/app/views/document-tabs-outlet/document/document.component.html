@@ -1,0 +1,63 @@
+<lib-table class="w-100" [data]="documents" [scrollable]="true">
+  <lib-row *libHeaderRowDef>
+    <lib-header-cell libHeaderSort="name" [isMultilang]="true">
+      {{ 'VIEWS.DOCUMENTS.NAME' | translate }}
+    </lib-header-cell>
+    <lib-header-cell>
+      {{ 'VIEWS.DOCUMENTS.TYPE' | translate }}
+    </lib-header-cell>
+    <lib-header-cell>
+      {{ 'VIEWS.DOCUMENTS.LINK_TO_ASSETS' | translate }}
+    </lib-header-cell>
+    <lib-header-cell libHeaderSort="updatedAt">
+      {{ 'VIEWS.DOCUMENTS.LAST_CHANGED' | translate }}
+    </lib-header-cell>
+    <lib-header-cell>
+      {{ 'VIEWS.DOCUMENTS.CREATED_BY' | translate }}
+    </lib-header-cell>
+    <lib-header-cell></lib-header-cell>
+  </lib-row>
+
+  <lib-row
+    libDataRow
+    *libDataRowDef="let document"
+    [hoverable]="true"
+    (click)="goToDetail(document?.id)"
+  >
+    <lib-cell [multilang]="document.name"></lib-cell>
+    <lib-cell [multilang]="document.type?.name || {}"></lib-cell>
+    <lib-cell
+      ><ng-container *ngFor="let assetName of document.assetNames | slice: 0:2; let last = last">
+        <span [multilang]="assetName"></span>
+        <ng-container *ngIf="!last; else dots">,&nbsp;</ng-container>
+        <ng-template #dots>
+          <span *ngIf="document.assetNames.length > 2">, ...</span>
+        </ng-template>
+      </ng-container>
+    </lib-cell>
+    <lib-cell>{{ document.updatedAt | date: 'dd.MM.yyyy | HH:mm' }}</lib-cell>
+    <lib-cell>{{ document.createdBy | username | async }}</lib-cell>
+
+    <lib-cell class="p-0 overflow-visible" (click)="preventInDetailMode($event)">
+      <div ngbDropdown placement="bottom-right top-right" class="btn-group">
+        <button ngbDropdownToggle class="btn btn-transparent btn-icon">
+          <i class="material-icons mi-26">more_vert</i>
+        </button>
+
+        <div ngbDropdownMenu class="text-right">
+          <button ngbDropdownItem [routerLink]="['/documents', document.id]">
+            {{ 'VIEWS.DOCUMENTS.EDIT' | translate }}
+          </button>
+
+          <button ngbDropdownItem class="text-danger" (click)="onDelete(document.id)">
+            {{ 'VIEWS.DOCUMENTS.DELETE' | translate }}
+          </button>
+        </div>
+      </div>
+    </lib-cell>
+  </lib-row>
+
+  <lib-row libEmptyRow *libEmptyRowDef>
+    <span>{{ 'VIEWS.DOCUMENTS.NO_DOCUMENT_FOUND' | translate }}</span>
+  </lib-row>
+</lib-table>

@@ -1,0 +1,33 @@
+<app-chart-panel>
+  <app-chart-panel-header>
+    <h4 *ngIf="title">{{ title | translate }}</h4>
+    <app-chart-panel-header-actions>
+      <div class="chart-legend">
+        <div class="item">
+          <span class="status" [ngStyle]="{ 'background-color': highStatusColor }"></span>
+          <span class="label">{{ 'STATUS.HIGH' | translate }}</span>
+        </div>
+        <div class="item">
+          <span class="status" [ngStyle]="{ 'background-color': lowStatusColor }"></span>
+          <span class="label">{{ 'STATUS.LOW' | translate }}</span>
+        </div>
+      </div>
+    </app-chart-panel-header-actions>
+  </app-chart-panel-header>
+  <app-chart-panel-body>
+    <div class="container">
+      <div class="doughnut-chart" *ngFor="let kpi of kpiKeys; let i = index">
+        <div class="kpi-percent" [ngStyle]="{ color: statColor(property ? property[kpi] : 0) }">
+          {{ (property ? property[kpi] * 100 : 0) | number: '1.0-0' }}%
+        </div>
+        <div class="kpi-label">{{ 'KPI.' + upper(kpi) | translate }}</div>
+        <canvas #doughnutChart id="doughnutChart-{{ i + 1 }}"></canvas>
+      </div>
+    </div>
+    <!-- <div class="more">
+      <a href="javascript:void(0)" class="link" (click)="onMore()">
+        {{ 'TOOLBAR.BUTTONS.MORE' | translate }}
+      </a>
+    </div> -->
+  </app-chart-panel-body>
+</app-chart-panel>

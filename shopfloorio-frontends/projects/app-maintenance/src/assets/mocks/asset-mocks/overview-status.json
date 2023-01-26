@@ -1,0 +1,27 @@
+{
+  "UNDEFINED": {
+    "abs": 1,
+    "rel": 0.1,
+    "color": "#00a0ff"
+  },
+  "ALARM": {
+    "abs": 2,
+    "rel": 0.2,
+    "color": "#ff3e00"
+  },
+  "RUN": {
+    "abs": 4,
+    "rel": 0.4,
+    "color": "#00bf01"
+  },
+  "IDLE": {
+    "abs": 1,
+    "rel": 0.1,
+    "color": "#ffdf00"
+  },
+  "ENGINEERING": {
+    "abs": 2,
+    "rel": 0.2,
+    "color": "#1600ff"
+  }
+}

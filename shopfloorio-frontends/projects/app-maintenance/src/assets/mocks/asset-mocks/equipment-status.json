@@ -1,0 +1,36 @@
+{
+  "perf": {
+    "16123160-3215-4a9d-9be1-833ae90625d6": {
+      "oee": 0.4,
+      "yield": 0.3,
+      "availability": 0.5,
+      "utilization": 0.8
+    },
+    "6ebb6958-982e-4c15-8507-436a587fba1d": {
+      "oee": 0.4,
+      "yield": 0.3,
+      "availability": 0.5,
+      "utilization": 0.8
+    },
+    "c05a9535-2e14-41a1-9abe-1b6cc7197316": {
+      "oee": 0.4,
+      "yield": 0.3,
+      "availability": 0.5,
+      "utilization": 0.8
+    }
+  },
+  "status": {
+    "16123160-3215-4a9d-9be1-833ae90625d6": {
+      "status": "IDLE",
+      "color": "#ffdf00"
+    },
+    "6ebb6958-982e-4c15-8507-436a587fba1d": {
+      "status": "RUN",
+      "color": "#00bf01"
+    },
+    "c05a9535-2e14-41a1-9abe-1b6cc7197316": {
+      "status": "ALARM",
+      "color": "#ff3e00"
+    }
+  }
+}

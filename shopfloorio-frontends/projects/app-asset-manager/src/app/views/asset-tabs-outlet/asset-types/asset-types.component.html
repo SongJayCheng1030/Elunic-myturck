@@ -1,0 +1,57 @@
+<lib-table
+  class="w-100"
+  [data]="assetTypes"
+  [searchCols]="['equipmentType']"
+  [searchMultilangCols]="['name']"
+  [searchTerm]="searchTerm"
+  [scrollable]="true"
+>
+  <lib-row *libHeaderRowDef>
+    <lib-header-cell libHeaderSort="name" [isMultilang]="true">
+      {{ 'VIEWS.ASSET_TYPES.NAME' | translate }}
+    </lib-header-cell>
+    <lib-header-cell libHeaderSort="equipmentType">
+      {{ 'VIEWS.ASSET_TYPES.ISA95_TYPE' | translate }}
+    </lib-header-cell>
+    <lib-header-cell libHeaderSort="extendsType.name" [isMultilang]="true">
+      {{ 'VIEWS.ASSET_TYPES.PARENT_ASSET_TYPE' | translate }}
+    </lib-header-cell>
+    <lib-header-cell libHeaderSort="updatedAt">
+      {{ 'VIEWS.ASSET_TYPES.LAST_CHANGED' | translate }}
+    </lib-header-cell>
+    <lib-header-cell></lib-header-cell>
+  </lib-row>
+
+  <lib-row
+    libDataRow
+    *libDataRowDef="let assetType"
+    [hoverable]="true"
+    [routerLink]="['/asset-types', assetType.id]"
+  >
+    <lib-cell [multilang]="assetType.name"></lib-cell>
+    <lib-cell>{{ assetType.equipmentType }}</lib-cell>
+    <lib-cell [multilang]="assetType.extendsType?.name || '-'"></lib-cell>
+    <lib-cell>{{ assetType.updatedAt | date: 'dd.MM.yyyy | HH:mm' }}</lib-cell>
+    <lib-cell class="p-0 overflow-visible" (click)="preventInteraction($event)">
+      <div ngbDropdown placement="bottom-right top-right" class="btn-group">
+        <button ngbDropdownToggle class="btn btn-transparent btn-icon">
+          <i class="material-icons mi-26">more_vert</i>
+        </button>
+
+        <div ngbDropdownMenu class="text-right">
+          <button ngbDropdownItem [routerLink]="['/asset-types', assetType.id]">
+            {{ 'VIEWS.ASSET_TYPES.EDIT' | translate }}
+          </button>
+
+          <button ngbDropdownItem class="text-danger" (click)="onDelete(assetType.id)">
+            {{ 'VIEWS.ASSET_TYPES.DELETE' | translate }}
+          </button>
+        </div>
+      </div>
+    </lib-cell>
+  </lib-row>
+
+  <lib-row libEmptyRow *libEmptyRowDef>
+    <span>{{ 'VIEWS.ASSET_TYPES.NO_ASSET_TYPES_FOUND' | translate }}</span>
+  </lib-row>
+</lib-table>

@@ -1,0 +1,91 @@
+<lib-table
+  class="asset-table"
+  [data]="assets"
+  [searchCols]="['id']"
+  [searchMultilangCols]="['name', 'assetType.name']"
+  [searchTerm]="searchTerm"
+  [elevated]="true"
+>
+  <lib-row *libHeaderRowDef>
+    <lib-header-cell libHeaderSort="name" [isMultilang]="true">
+      {{ 'VIEWS.ASSET_POOL.NAME' | translate }}
+    </lib-header-cell>
+    <lib-header-cell libHeaderSort="assetType.name" [isMultilang]="true">
+      {{ 'VIEWS.ASSET_POOL.TYPE' | translate }}
+    </lib-header-cell>
+    <lib-header-cell libHeaderSort="id">
+      {{ 'VIEWS.ASSET_POOL.ID' | translate }}
+    </lib-header-cell>
+    <lib-header-cell libHeaderSort="documents">
+      {{ 'VIEWS.ASSET_POOL.DOCUMENTS' | translate }}
+    </lib-header-cell>
+    <lib-header-cell libHeaderSort="createdAt">
+      {{ 'VIEWS.ASSET_POOL.CREATED_OR_UPDATED_AT' | translate }}
+    </lib-header-cell>
+    <lib-header-cell class="dropdown-cell"></lib-header-cell>
+    <lib-header-cell class="actions"></lib-header-cell>
+  </lib-row>
+
+  <lib-row *libDataRowDef="let asset">
+    <lib-cell>
+      <img
+        [src]="asset.imageId ? imageIdToUrl(asset.imageId) : './assets/images/asset-thumbnail.jpg'"
+        class="asset-thumbnail"
+        alt="Asset thumbnail"
+      />
+      <strong [multilang]="asset.name"></strong>
+    </lib-cell>
+
+    <lib-cell [multilang]="asset.assetType.name"></lib-cell>
+
+    <lib-cell>{{ asset.id }}</lib-cell>
+
+    <lib-cell>{{ asset.documents?.length || '-' }}</lib-cell>
+
+    <lib-cell>{{ asset.createdAt | date: 'dd.MM.yyyy | HH:mm' }}</lib-cell>
+
+    <lib-cell class="overflow-visible dropdown-cell">
+      <app-asset-hierarchy-dropdown
+        [assets]="assetTree"
+        placeholder="{{ 'VIEWS.ASSET_POOL.ALLOCATE_ASSET_TO' | translate }}"
+        (selected)="transform(asset.id, $event)"
+      >
+      </app-asset-hierarchy-dropdown>
+    </lib-cell>
+
+    <lib-cell class="overflow-visible actions">
+      <div
+        ngbDropdown
+        [placement]="['bottom-right', 'top-right']"
+        container="body"
+        class="btn-group"
+      >
+        <button ngbDropdownToggle class="btn btn-transparent btn-icon">
+          <i class="material-icons mi-26">more_vert</i>
+        </button>
+        <div ngbDropdownMenu class="text-right">
+          <button ngbDropdownItem routerLink="/assets/{{ asset.id }}">
+            {{ 'VIEWS.ASSET_POOL.EDIT' | translate }}
+          </button>
+          <button ngbDropdownItem>
+            {{ 'VIEWS.ASSET_POOL.ADD_POOL_ASSET' | translate }}
+          </button>
+          <button ngbDropdownItem (click)="onCreateSubAsset(asset)">
+            {{ 'VIEWS.ASSET_POOL.CREATE_NEW_SUB_ASSET' | translate }}
+          </button>
+          <button ngbDropdownItem (click)="clone(asset)">
+            {{ 'VIEWS.ASSET_POOL.DUPLICATE' | translate }}
+          </button>
+          <button ngbDropdownItem class="text-danger" (click)="delete(asset.id)">
+            {{ 'VIEWS.ASSET_POOL.DELETE' | translate }}
+          </button>
+        </div>
+      </div>
+    </lib-cell>
+  </lib-row>
+
+  <lib-row libEmptyRow *libEmptyRowDef>
+    <span *ngIf="!loading">No assets found</span>
+    <lib-loader *ngIf="loading"></lib-loader>
+  </lib-row>
+</lib-table>

@@ -1,0 +1,99 @@
+{
+  "data": {
+    "dashboards": [
+      {
+        "id": "47e6cb44-ece7-11eb-9a03-0242ac130003",
+        "createdAt": "2021-07-25T01:30:11.000Z",
+        "updatedAt": "2021-07-25T01:30:11.000Z",
+        "name": {
+          "de_DE": "Alerting",
+          "en_US": "Alerting"
+        }
+      },
+      {
+        "id": "bb887e08-ece7-11eb-9a03-0242ac130003",
+        "createdAt": "2021-07-25T01:30:11.000Z",
+        "updatedAt": "2021-07-25T01:30:11.000Z",
+        "name": {
+          "de_DE": "Annotations",
+          "en_US": "Annotations"
+        }
+      },
+      {
+        "id": "977b6470-ece8-11eb-9a03-0242ac130003",
+        "createdAt": "2021-07-25T01:30:11.000Z",
+        "updatedAt": "2021-07-25T01:30:11.000Z",
+        "name": {
+          "de_DE": "Big Dashboard",
+          "en_US": "Big Dashboard"
+        }
+      },
+      {
+        "id": "db1d6d8c-ece7-11eb-9a03-0242ac130003",
+        "createdAt": "2021-07-25T01:30:11.000Z",
+        "updatedAt": "2021-07-25T01:30:11.000Z",
+        "name": {
+          "de_DE": "Graph styles",
+          "en_US": "Graph styles"
+        }
+      },
+      {
+        "id": "f4da4736-ece7-11eb-9a03-0242ac130003",
+        "createdAt": "2021-07-25T01:30:11.000Z",
+        "updatedAt": "2021-07-25T01:30:11.000Z",
+        "name": {
+          "de_DE": "Templating",
+          "en_US": "Templating"
+        }
+      }
+    ],
+    "panels": [
+      {
+        "id": "1e32ecfe-ece9-11eb-9a03-0242ac130003",
+        "createdAt": "2021-07-25T01:30:11.000Z",
+        "updatedAt": "2021-07-25T01:30:11.000Z",
+        "name": {
+          "de_DE": "Alert list",
+          "en_US": "Alert list"
+        }
+      },
+      {
+        "id": "3cd610dc-ece9-11eb-9a03-0242ac130003",
+        "createdAt": "2021-07-25T01:30:11.000Z",
+        "updatedAt": "2021-07-25T01:30:11.000Z",
+        "name": {
+          "de_DE": "Bar chart",
+          "en_US": "Bar chart"
+        }
+      },
+      {
+        "id": "52b97588-ece9-11eb-9a03-0242ac130003",
+        "createdAt": "2021-07-25T01:30:11.000Z",
+        "updatedAt": "2021-07-25T01:30:11.000Z",
+        "name": {
+          "de_DE": "Heatmap",
+          "en_US": "Heatmap"
+        }
+      },
+      {
+        "id": "68b87c4e-ece9-11eb-9a03-0242ac130003",
+        "createdAt": "2021-07-25T01:30:11.000Z",
+        "updatedAt": "2021-07-25T01:30:11.000Z",
+        "name": {
+          "de_DE": "State timeline",
+          "en_US": "State timeline"
+        }
+      },
+      {
+        "id": "78dc70a8-ece9-11eb-9a03-0242ac130003",
+        "createdAt": "2021-07-25T01:30:11.000Z",
+        "updatedAt": "2021-07-25T01:30:11.000Z",
+        "name": {
+          "de_DE": "Time series",
+          "en_US": "Time series"
+        }
+      }
+    ]
+  },
+  "meta": {}
+}

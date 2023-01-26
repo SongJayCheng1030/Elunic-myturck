@@ -1,0 +1,213 @@
+@import 'mixins';
+@import 'variables';
+
+$scrollbar-width: 6px;
+
+:host ::ng-deep {
+  .table {
+    margin: 0;
+    height: 100%;
+    background-color: $table-bg;
+
+    &,
+    .table-header,
+    .table-body {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .table-header.scrollable {
+      position: relative;
+      padding-right: $scrollbar-width;
+
+      .table-header-cell:last-of-type {
+        border-right: 0;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 1px;
+        right: 0;
+        bottom: 0;
+        width: $scrollbar-width;
+        background-color: $table-bg;
+      }
+    }
+
+    .table-body-container {
+      flex-grow: 1;
+
+      &.container-scrollable {
+        position: relative;
+        min-height: 200px;
+
+        .table-body {
+          overflow-y: auto;
+          @include custom-scrollbar($scrollbar-width);
+          @include absolute-container;
+          position: relative;
+        }
+      }
+
+      .table-body {
+        height: 100%;
+
+        .table-row {
+          & > span:first-child {
+            display: none;
+          }
+
+          &.table-row-hover {
+            cursor: pointer;
+            transition: 0.2s ease;
+            transition-property: color, background-color;
+
+            &:hover:not(.table-row-active) {
+              background-color: rgba($secondary, 5%);
+            }
+
+            &.table-row-active {
+              color: $white;
+              background-color: $secondary;
+            }
+          }
+
+          &.table-row-empty {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 150px;
+            flex-grow: 1;
+            color: $gray-600;
+          }
+        }
+      }
+    }
+
+    .table-row {
+      display: flex;
+      background-color: $table-bg;
+
+      &:not(.table-row-empty) {
+        border-bottom: 1px solid $gray-300;
+      }
+    }
+
+    .table-cell,
+    .table-header-cell {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding: $table-cell-padding-y $table-cell-padding-x;
+    }
+
+    .table-header-cell {
+      font-weight: bold;
+
+      &.table-header-sort {
+        cursor: pointer;
+
+        &:not(.asc):not(.desc):hover > span::after {
+          opacity: 0.5;
+          transform: translateY(-50%);
+        }
+
+        &.asc > span::after {
+          opacity: 1;
+          transform: translateY(-50%);
+        }
+
+        &.desc > span::after {
+          opacity: 1;
+          transform: translateY(-50%) scaleY(-1);
+        }
+
+        & > span {
+          position: relative;
+
+          &::after {
+            content: 'north';
+            position: absolute;
+            top: 50%;
+            right: -20px;
+            opacity: 0;
+            font-family: 'Material Icons';
+            font-size: 12px;
+            transition: 0.2s ease-in-out;
+            transform: translateY(-25%);
+            transition-property: opacity, transform;
+          }
+        }
+      }
+    }
+
+    &.tree-table {
+      .table-row {
+        .table-header-cell:first-child span {
+          padding-left: $input-height-sm;
+        }
+      }
+    }
+
+    &.table-elevated {
+      background: transparent;
+
+      &:not(.tree-table) .table-body .table-row {
+        & > span + .table-cell > *:first-child {
+          margin-left: 4rem;
+        }
+      }
+
+      .table-row {
+        border-bottom: 0;
+
+        & > span + .table-cell,
+        & > span + .table-header-cell {
+          padding-left: 0;
+        }
+
+        .table-cell,
+        .table-header-cell {
+          padding: $table-cell-padding-sm;
+        }
+      }
+
+      .table-header .table-row {
+        background: transparent;
+
+        .table-header-cell {
+          padding-bottom: 0;
+        }
+
+        & > span + .table-header-cell span {
+          padding-left: 4rem;
+        }
+      }
+
+      .table-body .table-row {
+        position: relative;
+        margin-top: 18px;
+        background: transparent;
+
+        .table-cell:not(.overflow-visible) {
+          z-index: 10;
+        }
+
+        &:not(.table-row-empty) > span {
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 46px;
+          right: 0;
+          bottom: 0;
+          border-radius: 5px;
+          background-color: $white;
+          box-shadow: 0 3px 6px rgba($black, 16%);
+        }
+      }
+    }
+  }
+}

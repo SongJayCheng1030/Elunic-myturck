@@ -1,0 +1,221 @@
+<lib-panel class="panel-actions">
+  <lib-panel-header>
+    <button class="btn btn-transparent btn-icon" (click)="onBack()">
+      <i class="material-icons">navigate_before</i>
+    </button>
+    <a href="javascript:void(0)" (click)="onBack()">
+      <h4>Fleet #1</h4>
+    </a>
+    <span class="mx-2">|</span>
+    <a href="javascript:void(0)" (click)="onBack()">
+      <h4 [multilang]="activeTreeNode?.name"></h4>
+    </a>
+    <span class="mx-2">|</span>
+    <span class="oee-id" [multilang]="selectedComponent?.name"></span>
+    <lib-panel-header-actions>
+      <lib-time-range
+        (rangeSelect)="dateRangeSelected($event)"
+        [dateRange]="defaultDateRange"
+      ></lib-time-range>
+    </lib-panel-header-actions>
+  </lib-panel-header>
+</lib-panel>
+
+<div class="main-wrapper mt-2" *ngIf="selectedComponent">
+  <div class="row">
+    <div class="col-12">
+      <div class="content-wrapper">
+        <div class="label font-weight-bold">
+          <span class="text">
+            {{ 'VIEWS.MAINTENANCE_MONITORING.COMPONENT_ANALYTICS.COMPONENT' | translate }}:
+          </span>
+          <span [multilang]="selectedComponent.name"></span>
+        </div>
+        <div class="label">
+          <span class="font-weight-bold mr-1">
+            <span class="text">
+              {{ 'VIEWS.MAINTENANCE_MONITORING.COMPONENT_ANALYTICS.CURRENT_STATUS' | translate }}:
+            </span>
+          </span>
+          <ng-template
+            [ngTemplateOutlet]="statusTemplate"
+            [ngTemplateOutletContext]="{ status: selectedComponent.status }"
+          ></ng-template>
+        </div>
+        <div class="label">
+          <span class="text">
+            {{ 'VIEWS.MAINTENANCE_MONITORING.COMPONENT_ANALYTICS.BASE' | translate }}:
+            {{ 'VIEWS.MAINTENANCE_MONITORING.COMPONENT_ANALYTICS.SINGULATOR' | translate }}:
+          </span>
+          <span [multilang]="selectedComponent.name"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row m-top-a">
+    <div class="col-8">
+      <div class="content-wrapper">
+        <div class="content" *ngFor="let analytic of componentAnalytics">
+          <app-status-legend
+            [backgroundColor]="analytic.color"
+            backgroundShape="circle"
+            [label]="analytic.label"
+            width="21"
+            height="21"
+          ></app-status-legend>
+          <div class="status-value">{{ analytic.value }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="content-wrapper-tb">
+        <div class="font-weight-bold">
+          {{ 'VIEWS.MAINTENANCE_MONITORING.COMPONENT_ANALYTICS.CHOOSE_INDICATOR' | translate }}
+        </div>
+        <app-single-select
+          [items]="indicators"
+          [(ngModel)]="property.settings.indicator"
+          (changed)="onIndicator($event)"
+        ></app-single-select>
+        <button class="btn btn-outline-primary" (click)="onLimitRules()">
+          {{ 'TOOLBAR.BUTTONS.EDIT_LIMIT_RULES' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="content-scrollable m-top-b">
+    <div class="content-scroll">
+      <app-mm-performance-over-time
+        [title]="'VIEWS.MAINTENANCE_MONITORING.COMPONENT_PERFORMANCE_OVER_TIME'"
+        [property]="property"
+        [settings]="property.settings"
+      ></app-mm-performance-over-time>
+      <div class="row m-top-b">
+        <div class="col-12">
+          <div class="content-wrapper">
+            <div class="content" *ngFor="let stat of componentStats">
+              <div class="font-weight-bold">{{ stat.label | translate }}</div>
+              <div class="status-value">{{ stat.value }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="grid-wrapper m-top-a">
+        <lib-panel>
+          <lib-panel-header>
+            <h4>{{ 'VIEWS.MAINTENANCE_MONITORING.USAGE.TITLE' | translate }}</h4>
+          </lib-panel-header>
+          <lib-panel-body>
+            <div class="entry">
+              <div class="label">
+                {{ 'VIEWS.MAINTENANCE_MONITORING.USAGE.ACTUAL_USAGE' | translate }}
+              </div>
+              <div class="value critical">
+                {{ usage.actual }}
+              </div>
+            </div>
+            <div class="entry">
+              <div class="label">
+                {{ 'VIEWS.MAINTENANCE_MONITORING.USAGE.TARGET_USAGE' | translate }}
+              </div>
+              <div class="value">
+                {{ usage.target }}
+              </div>
+            </div>
+          </lib-panel-body>
+        </lib-panel>
+        <lib-panel>
+          <lib-panel-header>
+            <h4>{{ 'VIEWS.MAINTENANCE_MONITORING.PERFORMANCE_MEDIAN.TITLE' | translate }}</h4>
+          </lib-panel-header>
+          <lib-panel-body>
+            <div class="entry">
+              <div class="label">
+                {{
+                  'VIEWS.MAINTENANCE_MONITORING.PERFORMANCE_MEDIAN.ACTUAL_PERFORMANCE' | translate
+                }}
+              </div>
+              <div class="value good">{{ usage.actual }} Std Dev</div>
+            </div>
+            <div class="entry">
+              <div class="label">
+                {{
+                  'VIEWS.MAINTENANCE_MONITORING.PERFORMANCE_MEDIAN.TARGET_PERFORMANCE' | translate
+                }}
+              </div>
+              <div class="value">{{ usage.target }} Std Dev</div>
+            </div>
+          </lib-panel-body>
+        </lib-panel>
+        <lib-panel>
+          <lib-panel-header>
+            <h4>{{ 'VIEWS.MAINTENANCE_MONITORING.MAINTENANCE_DATES.TITLE' | translate }}</h4>
+          </lib-panel-header>
+          <lib-panel-body>
+            <div class="entry">
+              <div class="label">
+                {{ 'VIEWS.MAINTENANCE_MONITORING.MAINTENANCE_DATES.LAST_MAINTENANCE' | translate }}
+              </div>
+              <div class="value">{{ usage.actual }} {{ 'UNIT.DAYS' | translate }}</div>
+            </div>
+            <div class="entry">
+              <div class="label">
+                {{
+                  'VIEWS.MAINTENANCE_MONITORING.MAINTENANCE_DATES.RECOMMENDED_NEXT_MAINTENANCE'
+                    | translate
+                }}
+              </div>
+              <div class="value">{{ usage.target }} {{ 'UNIT.DAYS' | translate }}</div>
+            </div>
+          </lib-panel-body>
+        </lib-panel>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #statusTemplate let-status="status">
+  <ng-container [ngSwitch]="status">
+    <app-status-legend
+      *ngSwitchCase="'critical'"
+      backgroundColor="#f0484f"
+      backgroundShape="circle"
+      labelPlacement="left"
+      icon="alarm"
+      label="STATUS.CRITICAL"
+      width="20"
+      height="20"
+    ></app-status-legend>
+    <app-status-legend
+      *ngSwitchCase="'degrading'"
+      backgroundColor="#f57100"
+      backgroundShape="circle"
+      labelPlacement="left"
+      icon="down"
+      label="STATUS.DEGRADING"
+      width="20"
+      height="20"
+    ></app-status-legend>
+    <app-status-legend
+      *ngSwitchCase="'warning'"
+      backgroundColor="#fcc83d"
+      backgroundShape="circle"
+      labelPlacement="left"
+      icon="warning"
+      label="STATUS.WARNING"
+      width="20"
+      height="20"
+    ></app-status-legend>
+    <app-status-legend
+      *ngSwitchCase="'good'"
+      backgroundColor="#e6e6e6"
+      backgroundShape="circle"
+      labelPlacement="left"
+      icon="good"
+      label="STATUS.GOOD"
+      width="20"
+      height="20"
+    ></app-status-legend>
+    <ng-container *ngSwitchDefault>{{ status }}</ng-container>
+  </ng-container>
+</ng-template>

@@ -1,0 +1,21 @@
+<div class="app-nav-menu">
+  <div class="app-nav-menu_header">
+    <i class="material-icons app-switcher cursor-pointer">apps</i>
+    Choose an app:
+  </div>
+  <div class="app-nav-menu_body">
+    <ul class="app-nav-menu_list" *ngIf="tiles$ | async as tiles">
+      <li
+        class="app-nav-menu_item"
+        [ngClass]="{ active: isActiveUrl(app.url) }"
+        *ngFor="let app of tiles"
+      >
+        <a [href]="app.url" (click)="onOpenApp(app, $event)">
+          <span class="app-nav-menu_app-icon icon" [ngStyle]="getAppIcon(app)"></span>
+          {{ app.name }}
+          <i class="material-icons app-nav-menu_arrow">arrow_forward</i>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

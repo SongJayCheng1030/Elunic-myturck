@@ -1,0 +1,47 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@400;700&display=swap');
+
+@import url('https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp');
+
+@import 'abstracts';
+
+@import 'vendors';
+
+@import 'core';
+
+@import 'components';
+
+@import '~ngx-toastr/toastr';
+
+@import '~@ng-select/ng-select/themes/default.theme.css';
+
+.custom-modal {
+  .modal-body {
+    padding-top: 2rem;
+    text-align: center;
+  }
+
+  .modal-footer {
+    justify-content: center;
+    border: none;
+    flex-direction: row-reverse;
+
+    button {
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .btn-confirm {
+      background-color: $yellow;
+      border-color: $yellow;
+      color: $black;
+    }
+
+    .btn-abort {
+      background-color: $gray-900;
+      border-color: $gray-900;
+      color: $white;
+    }
+  }
+}

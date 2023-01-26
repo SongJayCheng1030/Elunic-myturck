@@ -1,0 +1,16 @@
+
+
+/*
+!/.git*
+!/azurite
+/azurite/*
+!/azurite/.git*
+!/files
+/files/*
+!/files/.git*
+!/localcache
+/localcache/*
+!/localcache/.git*
+!/uploadtmp
+/uploadtmp/*
+!/uploadtmp/.git*

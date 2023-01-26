@@ -1,0 +1,50 @@
+{
+  "HOME": {
+    "WELCOME": "Willkommen"
+  },
+  "SETTINGS": {
+    "SETTINGS": "Einstellungen",
+    "PRIMARY_COLOR": "Primärfarbe",
+    "BACKGROUND_COLOR": "Hintergrundfarbe",
+    "LIGHT_WELCOME_TEXT": "Heller Willkommenstext?",
+    "BACKGROUND_IMAGE": "Hintergrund Bild",
+    "GENERAL_SETTING": "Generelle Einstellungen",
+    "TILE_CONFIGURATION": "Kachel Konfiguration",
+    "TILE_NAME": "Kachelname",
+    "DESCRIPTION": "Beschreibung",
+    "APP_URL": "App Url",
+    "ICON_URL": "Icon Url",
+    "ICON": "Icon",
+    "TILE_COLOR": "Kachelfarbe",
+    "TILE_TEXT_COLOR": "Kacheltextfarbe",
+    "EMPTY_NAME": "Leerer Name",
+    "SHOW_IN_OVERVIEW_PAGE": "In Übersichtsseite anzeigen",
+    "HIDE_IN_OVERVIEW_PAGE": "Auf der Übersichtsseite ausblenden",
+    "ADD_TILE": "Kachel hinzufügen",
+    "INTEGRATE_VIEW": "Integrierte Ansicht",
+    "LOGO_IMAGE": "Logo"
+  },
+  "OPTIONS": {
+    "SETTINGS": {
+      "HUB_SETTINGS": "Hub Einstellungen",
+      "USER_MANAGEMENT": "Benutzer Management",
+      "ASSET_MANAGEMENT": "Asset Management",
+      "TENANT_MANAGEMENT": "Tenant Management"
+    },
+    "PROFIL": {
+      "PROFIL": "Profil",
+      "LOGOUT": "Logout"
+    }
+  },
+  "COMMON": {
+    "CANCEL": "Abbrechen",
+    "SAVE_CHANGES": "Speichern"
+  },
+  "MESSAGES": {
+    "CHANGES_SAVED": "Änderungen erfolgreich gespeichert",
+    "CHANGES_ARE_NOT_SAVED_DUE_TO_SOME_ERROR": "Änderungen konnten nicht gespeichert werden. Haben Sie alle erforderlichen Felder ausgefüllt?",
+    "UPLOAD_FAILED": "Ihre Änderungen konnten aufgrund eines Upload-Fehlers nicht gespeichert werden.",
+    "ERROR": "Fehler",
+    "SUCCESS": "Erfolg"
+  }
+}

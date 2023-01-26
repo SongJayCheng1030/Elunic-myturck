@@ -1,0 +1,59 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@400;700&display=swap');
+
+@import url('https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp');
+
+@import 'abstracts';
+
+@import 'vendors';
+
+@import 'core';
+
+@import 'components';
+
+@import '~@ng-select/ng-select/themes/default.theme.css';
+
+.ng-select {
+  &.ng-select-multiple,
+  &.ng-select-single {
+    .ng-select-container {
+      border-radius: 0;
+      font-size: 14px;
+      height: $input-height-lg;
+      width: 100%;
+      border: 1px solid $gray-200;
+      min-width: 160px;
+
+      .ng-value-container {
+        padding-left: 20px;
+      }
+    }
+  }
+  &.ng-select-focused,
+  &.ng-select-focused:not(.ng-select-opened) {
+    .ng-select-container {
+      border-color: $gray-200;
+      box-shadow: unset;
+    }
+  }
+  &.is-invalid {
+    .ng-select-container {
+      border-color: $danger;
+    }
+  }
+  &.ng-select-disabled {
+    > .ng-select-container {
+      background-color: $input-disabled-bg;
+    }
+  }
+}
+
+.ng-dropdown-panel {
+  .ng-dropdown-panel-items {
+    .ng-option {
+      font-size: 14px;
+      padding: 10px 20px 10px;
+    }
+  }
+}

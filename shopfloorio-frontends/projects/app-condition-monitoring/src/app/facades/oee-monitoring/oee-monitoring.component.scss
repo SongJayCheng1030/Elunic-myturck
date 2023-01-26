@@ -1,0 +1,78 @@
+@import 'variables';
+
+$marginElements: 1.5rem;
+
+.oee-monitoring-container {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 56px);
+  width: 100%;
+  padding: $marginElements;
+
+  .oee-monitoring-sidebar {
+    margin-right: $marginElements;
+
+    .sidebar {
+      margin: 0 !important;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .oee-monitoring-body {
+    flex-grow: 1;
+    flex-direction: column;
+
+    .panel-actions {
+      .panel {
+        background-color: transparent;
+        border: 0;
+      }
+
+      .panel-header {
+        border: 0;
+        padding: 0;
+      }
+    }
+  }
+}
+
+// :host {
+//   display: flex;
+//   flex-direction: column;
+//   width: 100%;
+//   height: 100%;
+
+//   &::ng-deep {
+//     .panel-actions {
+//       .panel {
+//         background-color: transparent;
+//         border: 0;
+//       }
+
+//       .panel-header {
+//         border: 0;
+//         padding: 0;
+//       }
+//     }
+//   }
+// }
+
+.form-dropdown {
+  min-width: 10rem;
+}
+
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.eq-bar-charts {
+  margin-bottom: 26px;
+}
+
+.grid-wrapper {
+  grid-auto-rows: minmax(min-content, max-content);
+  gap: 26px;
+}

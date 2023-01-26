@@ -1,0 +1,16 @@
+<lib-panel class="panel-actions">
+  <lib-panel-header>
+    <h4>{{ 'KPI.OEE' | translate }}</h4>
+    <lib-panel-header-actions>
+      <a role="button">
+        {{ 'VIEWS.ASSET_DETAILS.VIEW_DETAILS' | translate }}
+      </a>
+    </lib-panel-header-actions>
+  </lib-panel-header>
+  <lib-panel-body>
+    <div class="doughnut-chart">
+      <div class="kpi-percent" [ngStyle]="{ color: statColor }">{{ statText }}%</div>
+      <canvas #doughnutChart></canvas>
+    </div>
+  </lib-panel-body>
+</lib-panel>

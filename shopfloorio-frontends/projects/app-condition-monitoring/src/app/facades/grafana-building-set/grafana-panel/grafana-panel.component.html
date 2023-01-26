@@ -1,0 +1,47 @@
+<lib-panel *ngIf="property">
+  <lib-panel-header>
+    <h4>
+      <span *ngIf="property.isMagicTile" class="badge badge-success mr-2">{{
+        'MODALS.TILE.GRAFANA_PANEL_DYNAMIC_TEXT_ON_PANEL' | translate
+      }}</span>
+      {{ property.name }}
+    </h4>
+    <lib-panel-header-actions *ngIf="adminView">
+      <button class="btn btn-transparent btn-icon" (click)="onAction('back')">
+        <i class="material-icons">navigate_before</i>
+      </button>
+      <span>{{ property.order }}/{{ totalTiles }}</span>
+      <button class="btn btn-transparent btn-icon" (click)="onAction('next')">
+        <i class="material-icons">navigate_next</i>
+      </button>
+      <div ngbDropdown placement="bottom-right" class="btn-group">
+        <button ngbDropdownToggle class="btn btn-transparent btn-icon">
+          <i class="material-icons mi-26">more_vert</i>
+        </button>
+        <div ngbDropdownMenu class="text-right">
+          <button ngbDropdownItem (click)="onAction('edit')">
+            {{ 'VIEWS.ANALYTICS_RULES.EDIT' | translate }}
+          </button>
+          <button ngbDropdownItem (click)="onAction('delete')">
+            {{ 'VIEWS.ANALYTICS_RULES.DELETE' | translate }}
+          </button>
+        </div>
+      </div>
+    </lib-panel-header-actions>
+  </lib-panel-header>
+
+  <lib-panel-body class="p-0 panel-body position-relative">
+    <iframe
+      class="main-frame"
+      #grafanaframe
+      frameborder="0"
+      [ngClass]="{ invisible: !isValid }"
+    ></iframe>
+    <div
+      *ngIf="!isValid"
+      class="position-absolute w-100 h-100 d-flex align-items-center justify-content-center"
+    >
+      {{ 'VIEWS.ANALYTICS_RULES.PANEL_NOR_FOUND' | translate }}
+    </div>
+  </lib-panel-body>
+</lib-panel>

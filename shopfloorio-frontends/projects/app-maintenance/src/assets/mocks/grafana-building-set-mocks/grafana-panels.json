@@ -1,0 +1,16 @@
+{
+  "data": [
+    {
+      "id": "35ddae38-ecfe-11eb-9a03-0242ac130003",
+      "createdAt": "2021-07-25T11:45:24.000Z",
+      "updatedAt": "2021-07-25T11:45:24.000Z",
+      "name": "Machine data",
+      "grafanaDashboard": "977b6470-ece8-11eb-9a03-0242ac130003",
+      "grafanaPanel": "78dc70a8-ece9-11eb-9a03-0242ac130003",
+      "width": 3,
+      "height": 1,
+      "order": 1
+    }
+  ],
+  "meta": {}
+}

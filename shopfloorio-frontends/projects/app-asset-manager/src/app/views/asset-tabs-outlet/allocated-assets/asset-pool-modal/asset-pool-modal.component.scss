@@ -1,0 +1,13 @@
+@import 'variables';
+
+.table-row {
+  padding: 0 1rem;
+
+  .table-cell,
+  .table-header-cell {
+    &:nth-child(2) {
+      flex: 0 1 $input-height;
+      justify-content: center;
+    }
+  }
+}

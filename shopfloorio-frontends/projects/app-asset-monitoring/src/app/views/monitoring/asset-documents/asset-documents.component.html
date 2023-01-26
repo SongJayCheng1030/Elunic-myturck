@@ -1,0 +1,32 @@
+<lib-panel>
+  <lib-panel-header>
+    <h4>{{ 'VIEWS.ASSET_DOCUMENTS.DOCUMENTS' | translate }}</h4>
+  </lib-panel-header>
+  <lib-panel-body class="p-0">
+    <lib-table class="w-100" [data]="documents" [scrollable]="true">
+      <lib-row *libHeaderRowDef>
+        <lib-header-cell libHeaderSort="description">
+          {{ 'VIEWS.ASSET_DOCUMENTS.DESCRIPTION' | translate }}
+        </lib-header-cell>
+        <lib-header-cell libHeaderSort="documentType">
+          {{ 'VIEWS.ASSET_DOCUMENTS.TYPE' | translate }}
+        </lib-header-cell>
+        <lib-header-cell libHeaderSort="createdAt">
+          {{ 'VIEWS.ASSET_DOCUMENTS.DATE_UPLOADED' | translate }}
+        </lib-header-cell>
+      </lib-row>
+      <lib-row libDataRow *libDataRowDef="let document">
+        <lib-cell>{{ document.description }}</lib-cell>
+        <lib-cell>
+          <a [href]="documentIdToUrl(document.documentId)" target="_blank">
+            {{ document.documentType }}
+          </a>
+        </lib-cell>
+        <lib-cell>{{ document.createdAt | date: 'dd.MM.yyyy | HH:mm' }}</lib-cell>
+      </lib-row>
+      <lib-row libEmptyRow *libEmptyRowDef>
+        <span>No documents found</span>
+      </lib-row>
+    </lib-table>
+  </lib-panel-body>
+</lib-panel>

@@ -1,0 +1,21 @@
+@import 'abstracts/variables';
+
+.search {
+  display: flex;
+  align-items: center;
+
+  .form-control {
+    border-right-width: 0;
+  }
+
+  .icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: $input-height;
+    height: $input-height;
+    background-color: $dark;
+    color: $white;
+  }
+}

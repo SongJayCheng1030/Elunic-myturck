@@ -1,0 +1,10 @@
+<div class="app-body">
+  <lib-sidebar
+    *ngIf="assetTypes$ | async as nodes"
+    class="sidebar"
+    [title]="'Equipment'"
+    [treeNode]="nodes"
+    [activeTreeNode]="selectedTreeNode$ | async"
+    (treeNodeSelect)="onTreeNodeSelect($event)"
+  ></lib-sidebar>
+</div>

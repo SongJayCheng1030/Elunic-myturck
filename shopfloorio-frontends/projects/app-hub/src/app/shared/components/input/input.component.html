@@ -1,0 +1,53 @@
+<div class="input-component">
+  <div class="label"><ng-content></ng-content></div>
+
+  <div class="input-wrapper" *ngIf="configs.type !== 'file'">
+    <div
+      class="color-circle"
+      *ngIf="configs.mode === 'color'"
+      [ngStyle]="{ 'background-color': color }"
+    ></div>
+    <input
+      *ngIf="configs.mode !== 'color' && configs.type !== 'file'"
+      [type]="configs.type || 'text'"
+      [maxlength]="configs.maxLength || 100"
+      class="inside-input"
+      [formControl]="input"
+      (blur)="blurInput.emit(input.value)"
+    />
+    <input
+      *ngIf="configs.mode === 'color'"
+      [(colorPicker)]="color"
+      class="inside-input"
+      [value]="color"
+      (colorPickerChange)="changeInput.emit($event)"
+      (colorPickerSelect)="blurInput.emit(color)"
+      [formControl]="input"
+    />
+    <div class="clear-button" (click)="clearInput()" *ngIf="configs.autoClear">
+      <img src="assets/images/delete-input.svg" />
+    </div>
+  </div>
+  <app-button *ngIf="configs.type === 'file' && !input.value" (handleChange)="inputFile.click()">
+    Upload file
+  </app-button>
+  <app-button
+    *ngIf="configs.type === 'file' && input.value"
+    (handleChange)="clearInput()"
+    [mode]="'outline'"
+  >
+    Delete file
+  </app-button>
+
+  <div class="error-message mt-1 mb-2" *ngIf="!input.valid">
+    {{ 'SETTINGS.INVALID_GENERAL_FIELD' | translate }}
+  </div>
+</div>
+<input
+  #inputFile
+  (change)="handleFileInput($event.target.files)"
+  type="file"
+  class="hidden-input"
+  multiple
+  accept="image/png,image/jpeg,image/jpg"
+/>

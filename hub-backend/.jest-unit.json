@@ -1,0 +1,54 @@
+{
+  "moduleFileExtensions": [
+    "js",
+    "json",
+    "ts"
+  ],
+  "testEnvironment": "node",
+  "rootDir": "src/",
+  "testRegex": ".spec.ts$",
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "setupFilesAfterEnv": [
+    "<rootDir>/../test/unit/setup.ts"
+  ],
+  "moduleNameMapper": {
+    "^src/(.*)": "<rootDir>/../src/$1",
+    "^test/(.*)": "<rootDir>/../test/$1"
+  },
+  "reporters": [
+    "default",
+    [
+      "jest-html-reporters",
+      {
+        "publicPath": "reports/unit/html",
+        "filename": "index.html"
+      }
+    ],
+    [
+      "jest-junit",
+      {
+        "outputDirectory": "reports/unit/junit"
+      }
+    ]
+  ],
+  "collectCoverage": true,
+  "coverageReporters": [
+    "text-summary",
+    "html",
+    "json",
+    "lcov",
+    "clover",
+    "json-summary"
+  ],
+  "coverageDirectory": "../coverage",
+  "coveragePathIgnorePatterns": [
+    "/node_modules/",
+    ".*\\.spec\\.ts$",
+    "<rootDir>/config/.*",
+    "<rootDir>/app.module.ts",
+    "<rootDir>/definitions.ts",
+    "<rootDir>/index.ts"
+  ]
+}

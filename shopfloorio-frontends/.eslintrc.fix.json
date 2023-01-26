@@ -1,0 +1,10 @@
+{
+  "root": true,
+  "extends": ["./.eslintrc.json"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "extends": ["@elunic/eslint-config-ecs/fix"]
+    }
+  ]
+}

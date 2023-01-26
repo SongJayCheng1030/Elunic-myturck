@@ -1,0 +1,48 @@
+@import 'variables';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  cursor: pointer;
+  box-shadow: 0px 3px 6px #00000029;
+
+  &::ng-deep {
+    app-panel {
+      .panel {
+        .panel-header {
+          padding: $panel-padding-y 1rem;
+        }
+
+        .panel-body {
+          padding: 12px 12px !important;
+          min-height: 190px;
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
+  }
+}
+
+.doughnut-chart {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  canvas {
+    max-width: 124px;
+    max-height: 124px;
+  }
+}
+
+.line-chart {
+  margin-top: 14px;
+
+  canvas {
+    max-height: 60px;
+    min-width: 280px;
+    max-width: 100%;
+  }
+}

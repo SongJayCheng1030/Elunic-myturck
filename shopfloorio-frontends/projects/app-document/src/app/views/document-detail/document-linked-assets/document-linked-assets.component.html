@@ -1,0 +1,34 @@
+<lib-panel>
+  <lib-panel-header class="d-flex justify-content-between">
+    <h4>{{ 'VIEWS.DOCUMENT_DETAILS.DOCUMENT_LINKED_ASSETS' | translate }}</h4>
+    <button
+      type="button"
+      class="btn btn-xs btn-icon btn-transparent"
+      (click)="openAssetLinkingModal()"
+    >
+      <i class="material-icons mi-18">add</i>
+    </button>
+  </lib-panel-header>
+
+  <lib-panel-body class="p-0">
+    <lib-table class="w-100" [data]="data$ | async" [scrollable]="true">
+      <lib-row *libHeaderRowDef>
+        <lib-header-cell>
+          {{ 'VIEWS.DOCUMENT_DETAILS.ASSET_NAME' | translate }}
+        </lib-header-cell>
+        <!-- <lib-header-cell>
+          {{ 'VIEWS.DOCUMENT_DETAILS.ASSET_HIERARCHY' | translate }}
+        </lib-header-cell> -->
+      </lib-row>
+
+      <lib-row libDataRow *libDataRowDef="let link">
+        <lib-cell [multilang]="link.assetName"></lib-cell>
+        <!-- <lib-cell>{{ asset.hierarchy }}</lib-cell> -->
+      </lib-row>
+
+      <lib-row libEmptyRow *libEmptyRowDef>
+        <span>{{ 'VIEWS.DOCUMENT_DETAILS.NO_ASSET_LINKED_FOUND' | translate }} </span>
+      </lib-row>
+    </lib-table>
+  </lib-panel-body>
+</lib-panel>

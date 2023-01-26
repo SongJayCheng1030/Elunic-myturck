@@ -1,0 +1,224 @@
+<lib-page-card-layout
+  [title]="isNew ? ('NEW_USER' | translate) : user.name"
+  [showBackButton]="true"
+>
+  <div header class="ml-auto d-flex align-items-center">
+    <button class="btn btn-transparent btn-icon mr-5" *ngIf="!isNew" (click)="onDelete()">
+      <i class="material-icons mi-26">delete_outline</i>
+    </button>
+
+    <a class="mr-5" role="button" (click)="onCancel()">
+      <b>
+        <u>{{ 'CANCEL' | translate }}</u>
+      </b>
+    </a>
+
+    <button
+      class="btn btn-primary text-center"
+      [disabled]="!formGroup.valid || !formGroup.dirty"
+      (click)="onSubmit()"
+    >
+      {{ 'SAVE' | translate }}
+    </button>
+  </div>
+
+  <div body class="container-fluid">
+    <form [formGroup]="formGroup" autocomplete="false">
+      <div>
+        <div class="row justify-content-between form-wrapper">
+          <div class="grid-block col-12 col-xl-5 user-pic">
+            <div class="image-wrapper">
+              <img [src]="userImage" />
+            </div>
+            <input type="hidden" formControlName="imageId" />
+            <div class="button-group">
+              <button
+                class="btn btn-primary mr-2"
+                [disabled]="hasNoImage$ | async"
+                (click)="onClearImage()"
+              >
+                {{ 'CLEAR_IMAGE' | translate }}
+              </button>
+              <button class="btn btn-primary" (click)="file_input.click()">
+                <span *ngIf="user && user.imageId; else elseBlock">
+                  {{ 'REPLACE_IMAGE' | translate }}
+                </span>
+                <ng-template #elseBlock> {{ 'UPLOAD_IMAGE' | translate }} </ng-template>
+              </button>
+              <input
+                type="file"
+                class="d-none"
+                #file_input
+                (change)="onImageChoose($event.target.files)"
+                accept="image/jpg, image/png, image/jpeg"
+              />
+            </div>
+          </div>
+          <div class="grid-block col-12 col-xl-7 inputs p-4 p-xl-5 mt-2">
+            <div class="row justify-content-between p-0 px-xl-5">
+              <div class="col-md-5">
+                <div class="has-validation form-group">
+                  <label for="username" class="form-label">{{ 'USERNAME' | translate }} *</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                        formGroup.controls.name.invalid && formGroup.controls.name.dirty,
+                      'is-valid': formGroup.controls.name.valid && formGroup.controls.name.dirty
+                    }"
+                    id="username"
+                    formControlName="name"
+                  />
+                  <div id="validationUsername" class="invalid-feedback">
+                    {{ 'INVALID_USERNAME' | translate }}
+                  </div>
+                </div>
+
+                <div class="has-validation form-group">
+                  <label for="firstName" class="form-label">
+                    {{ 'FIRST_NAME' | translate }} *
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                        formGroup.controls.firstName.invalid && formGroup.controls.firstName.dirty,
+                      'is-valid':
+                        formGroup.controls.firstName.valid && formGroup.controls.firstName.dirty
+                    }"
+                    id="firstName"
+                    formControlName="firstName"
+                  />
+                  <div id="validationFirstName" class="invalid-feedback">
+                    {{ 'INVALID_FIRSTNAME' | translate }}
+                  </div>
+                </div>
+
+                <div class="has-validation form-group">
+                  <label for="lastName" class="form-label">{{ 'SURNAME' | translate }} *</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                        formGroup.controls.lastName.invalid && formGroup.controls.lastName.dirty,
+                      'is-valid':
+                        formGroup.controls.lastName.valid && formGroup.controls.lastName.dirty
+                    }"
+                    id="lastName"
+                    formControlName="lastName"
+                  />
+                  <div id="validationLastName" class="invalid-feedback">
+                    {{ 'INVALID_SURNAME' | translate }}
+                  </div>
+                </div>
+
+                <div class="has-validation form-group">
+                  <label for="email" class="form-label">{{ 'EMAIL' | translate }} *</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                        formGroup.controls.email.invalid && formGroup.controls.email.dirty,
+                      'is-valid': formGroup.controls.email.valid && formGroup.controls.email.dirty
+                    }"
+                    id="email"
+                    formControlName="email"
+                  />
+                  <div id="validationEmail" class="invalid-feedback">
+                    {{ 'INVALID_EMAIL' | translate }}
+                  </div>
+                </div>
+
+                <div class="has-validation form-group">
+                  <label for="roles" class="form-label"> {{ 'ROLE' | translate }} </label>
+
+                  <ng-select
+                    [items]="roles$ | async"
+                    [multiple]="true"
+                    [closeOnSelect]="false"
+                    [searchable]="false"
+                    bindLabel="key"
+                    formControlName="roles"
+                  >
+                    <ng-template ng-option-tmp let-item="item">
+                      <span [multilang]="item.name"></span>
+                      <span *ngIf="item.isDefault" class="text-muted">
+                        {{ 'DEFAULT_ROLE' | translate }}
+                      </span>
+                    </ng-template>
+
+                    <ng-template ng-label-tmp let-item="item">
+                      <span class="p-2" [multilang]="item.name"></span>
+                    </ng-template>
+                  </ng-select>
+                </div>
+              </div>
+
+              <div class="col-md-5">
+                <div class="has-validation form-group">
+                  <label for="password" class="form-label">
+                    {{ 'SET_A_NEW_PASSWORD' | translate }}<span *ngIf="isNew"> * </span>
+                  </label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                        formGroup.controls.password.invalid && formGroup.controls.password.dirty,
+                      'is-valid':
+                        formGroup.controls.password.valid && formGroup.controls.password.dirty
+                    }"
+                    id="password"
+                    formControlName="password"
+                  />
+                  <div class="progress" *ngIf="strength$ | async as strength">
+                    <div
+                      class="progress-bar bg-success"
+                      [ngClass]="strength[1]"
+                      role="progressbar"
+                      [ngStyle]="{ width: strength[0] + '%' }"
+                      style="width: 25%"
+                      aria-valuenow="25"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    ></div>
+                  </div>
+                  <div id="password" class="invalid-feedback">
+                    {{ 'INVALID_PASSWORD' | translate }}
+                  </div>
+                </div>
+
+                <div class="has-validation form-group">
+                  <label for="confirmPassword" class="form-label">
+                    {{ 'REPEAT_PASSWORD' | translate }}<span *ngIf="isNew"> * </span>
+                  </label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                        formGroup.controls.confirmPassword.invalid &&
+                        formGroup.controls.confirmPassword.dirty,
+                      'is-valid':
+                        formGroup.controls.confirmPassword.valid &&
+                        formGroup.controls.confirmPassword.dirty
+                    }"
+                    id="confirmPassword"
+                    formControlName="confirmPassword"
+                  />
+                  <div id="password" class="invalid-feedback">
+                    {{ 'PASSWORDS_NOT_MATCHING' | translate }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</lib-page-card-layout>

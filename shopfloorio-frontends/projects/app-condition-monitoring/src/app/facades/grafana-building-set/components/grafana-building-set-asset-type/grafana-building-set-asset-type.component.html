@@ -1,0 +1,33 @@
+<div class="d-flex justify-content-between align-items-center">
+  <h4 [multilang]="assetType.name"></h4>
+  <div class="d-flex">
+    <button class="btn btn-outline-primary mx-2" (click)="toCustomerView()">
+      {{ 'TOOLBAR.BUTTONS.CUSTOMER_VIEW' | translate }}
+    </button>
+    <button class="btn btn-primary mx-2" (click)="onAddTile()" *ngIf="adminView">
+      <i class="material-icons">add</i>
+      <span>{{ 'VIEWS.ANALYTICS_RULES.ADD_TILE' | translate }}</span>
+    </button>
+  </div>
+</div>
+
+<div class="outer-wrapper mt-4">
+  <div class="main-wrapper grid-{{ gridRows }}x4 adminView">
+    <app-grafana-admin-panel
+      *ngFor="let tile of tiles"
+      class="grid-col grid-row-span-{{ tile.height }} grid-column-span-{{
+        tile.width
+      }} grid-border-br"
+      [adminView]="true"
+      [tile]="tile"
+      [totalTiles]="tiles.length"
+      (action)="onAction($event)"
+    ></app-grafana-admin-panel>
+    <ng-container *ngIf="maxCells > gridCells">
+      <div
+        class="grid-col grid-border-br"
+        *ngFor="let i of numSequence(maxCells - gridCells)"
+      ></div>
+    </ng-container>
+  </div>
+</div>

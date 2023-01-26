@@ -1,0 +1,46 @@
+<ng-container [formGroup]="form">
+  <div class="step-details">
+    <div class="row">
+      <div class="form-group col-4">
+        <label for="variable">Machine variable</label>
+        <ng-select
+          id="variable"
+          [items]="machineVariables"
+          bindLabel="name"
+          bindValue="id"
+          formControlName="machineVariableId"
+        >
+        </ng-select>
+      </div>
+      <div class="col-4">
+        <label for="rangeFrom">Range from</label>
+        <input
+          id="rangeFrom"
+          formControlName="rangeFrom"
+          type="number"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': isInvalidForm('rangeFrom') || form.errors?.invalidRangeError }"
+        />
+        <small *ngIf="isInvalidForm('rangeFrom')" class="text-danger">
+          {{ 'ERRORS.INPUT_ERROR_MESSAGE' | translate }}
+        </small>
+        <small *ngIf="form.errors?.invalidRangeError" class="text-danger">
+          {{ 'ERRORS.INVALID_RANGE_ERROR' | translate }}
+        </small>
+      </div>
+      <div class="col-4">
+        <label for="rangeTo">Range to</label>
+        <input
+          id="rangeTo"
+          formControlName="rangeTo"
+          type="number"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': isInvalidForm('rangeTo') || form.errors?.invalidRangeError }"
+        />
+        <small *ngIf="isInvalidForm('rangeTo')" class="text-danger">
+          {{ 'ERRORS.INPUT_ERROR_MESSAGE' | translate }}
+        </small>
+      </div>
+    </div>
+  </div>
+</ng-container>

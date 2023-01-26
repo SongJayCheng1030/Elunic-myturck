@@ -1,0 +1,53 @@
+{
+  "VIEWS": {
+    "ASSET_OVERVIEW": {
+      "OVERVIEW": "Overview",
+      "ASSET_NAME": "Asset name",
+      "ASSET_TYPE": "Asset type",
+      "SUB_ASSETS": "Sub-assets"
+    },
+    "ASSET_DETAILS": {
+      "LIVE_STATUS": "Live status",
+      "ASSET_NAME": "Asset name",
+      "ASSET_TYPE": "Asset type",
+      "ISA95_TYPE": "ISA95 type",
+      "PARENT_ASSET": "Parent asset",
+      "DESCRIPTION": "Description",
+      "VIEW_DETAILS": "View details"
+    },
+    "ASSET_DOCUMENTS": {
+      "DOCUMENTS": "Documents",
+      "DESCRIPTION": "Description",
+      "TYPE": "Type",
+      "DATE_UPLOADED": "Date uploaded"
+    },
+    "ASSET_TIMELINE": {
+      "TIMELINE": "Timeline",
+      "ERROR_TYPE": "Error type",
+      "DESCRIPTION": "Description",
+      "DATE": "Date"
+    }
+  },
+  "KPI": {
+    "OEE": "OEE"
+  },
+  "THROUGHPUTS": {
+    "ERRORS": "Errors",
+    "MTBF": "MTBF",
+    "MTTR": "MTTR",
+    "PRODUCED_TOTAL": "Produced (total)",
+    "CYCLE_RATE": "Cycle rate"
+  },
+  "UNITS": {
+    "LAST_24_H": "last 24 h",
+    "MINUTES": "minutes",
+    "PER_MINUTE": "per minute",
+    "PIECES": "pieces",
+    "ERRORS_TOTAL": "errors (total)"
+  },
+  "SETTINGS_ITEMS": {
+    "TENANTS": "Tenants",
+    "USERS": "Users",
+    "ASSETS": "Assets"
+  }
+}

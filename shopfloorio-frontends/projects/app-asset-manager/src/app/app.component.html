@@ -1,0 +1,14 @@
+<lib-header
+  appName="Asset Management"
+  [appSwitcherApps]="[]"
+  [settingsItems]="[
+    { appUrl: '/asset-qr-codes', tileName: 'SETTINGS_ITEMS.ASSET_QR_CODES', mode: 'emit' }
+  ]"
+  [allowDefaults]="true"
+  [showStatus]="true"
+  (action)="onAction($event)"
+></lib-header>
+
+<main>
+  <router-outlet></router-outlet>
+</main>

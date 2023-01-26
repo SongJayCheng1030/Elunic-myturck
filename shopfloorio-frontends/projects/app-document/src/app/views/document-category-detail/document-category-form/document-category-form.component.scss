@@ -1,0 +1,27 @@
+@import 'variables';
+
+lib-panel-body {
+  min-height: 30vh;
+}
+
+.form-group {
+  label {
+    font-size: 12px;
+    line-height: 22px;
+    font-weight: bold;
+    color: #000000;
+    opacity: 0.87;
+  }
+  input {
+    border: 0.5px solid #cecece;
+    height: 42px;
+    background: #fff;
+  }
+
+  .hidden-input {
+    position: absolute;
+    width: 0;
+    height: 0;
+    visibility: hidden;
+  }
+}

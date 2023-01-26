@@ -1,0 +1,21 @@
+<lib-panel>
+  <lib-panel-header>
+    <h4 *ngIf="title">{{ title | translate }}</h4>
+    <lib-panel-header-actions>
+      <div class="chart-legend">
+        <app-status-legend
+          *ngFor="let legend of legends"
+          [backgroundColor]="legend.color"
+          [label]="legend.label"
+          width="20"
+          height="20"
+        ></app-status-legend>
+      </div>
+    </lib-panel-header-actions>
+  </lib-panel-header>
+  <lib-panel-body>
+    <div class="line-chart">
+      <canvas #lineChart id="canvas"></canvas>
+    </div>
+  </lib-panel-body>
+</lib-panel>

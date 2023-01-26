@@ -1,0 +1,134 @@
+<lib-panel class="panel-actions">
+  <lib-panel-header>
+    <lib-panel-header-actions>
+      <a role="button" class="font-weight-bold a-button" [routerLink]="['/asset-maps']">
+        <span style="color: black"> {{ 'VIEWS.ASSET_MAPS.CANCEL' | translate }} </span>
+      </a>
+
+      <ng-container *ngIf="editMode">
+        <button class="btn btn-transparent btn-icon ml-3" (click)="onDelete()">
+          <i class="material-icons mi-26">delete_outline</i>
+        </button>
+      </ng-container>
+
+      <button class="btn btn-primary" (click)="onSave()">
+        {{
+          (editMode ? 'VIEWS.ASSET_MAPS.SAVE_CHANGES' : 'VIEWS.ASSET_MAPS.CREATE_ASSET_MAP')
+            | translate
+        }}
+      </button>
+    </lib-panel-header-actions>
+  </lib-panel-header>
+</lib-panel>
+
+<ng-container *ngIf="form" [formGroup]="form">
+  <div class="row">
+    <div class="col-12 col-md-12 mb-4">
+      <lib-panel>
+        <lib-panel-header>
+          <i class="material-icons mr-3">info</i>
+          <h4>{{ 'VIEWS.ASSET_MAPS.ASSET_MAPS_DETAILS' | translate }}</h4>
+        </lib-panel-header>
+        <lib-panel-body class="py-3 align-items-start">
+          <div class="d-flex flex-center w-100" *ngIf="loading">
+            <lib-loader></lib-loader>
+          </div>
+          <div class="d-flex flex-column h-100 w-100" *ngIf="!loading">
+            <div class="d-flex w-100 mb-2">
+              <button
+                class="btn btn-transparent btn-icon"
+                *ngIf="imageId.value"
+                (click)="deleteImage()"
+              >
+                <i class="material-icons">delete_outline</i>
+              </button>
+
+              <button
+                uploadButton
+                [acceptFileTypes]="acceptFileTypes"
+                class="btn btn-outline-primary"
+                (uploaded)="onUploadThumbnail($event)"
+              >
+                <span>
+                  {{
+                    (imageId.value
+                      ? 'VIEWS.ASSET_DETAILS.CHANGE_IMAGE'
+                      : 'VIEWS.ASSET_DETAILS.UPLOAD_IMAGE'
+                    ) | translate
+                  }}
+                  <sup class="pl-1" *ngIf="!imageId.value">*</sup>
+                </span>
+              </button>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <ng-select
+                    placeholder="{{ 'VIEWS.ASSET_MAPS.ALLOCATE_ASSET_TO' | translate }}: "
+                    class="parent-assets-select"
+                    formControlName="selectedParentAssets"
+                    [items]="assets"
+                    [multiple]="true"
+                  >
+                    <ng-template ng-label-tmp let-item="item">
+                      <b [multilang]="item.name"></b>
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-index="index">
+                      <b [multilang]="item.name"></b>
+                    </ng-template>
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+            <div class="photo-editor" dragover>
+              <lib-sidebar
+                class="h-100 assets mr-0"
+                *ngIf="assetTree?.length"
+                [treeNode]="assetTree"
+                [title]="'VIEWS.ASSET_TABS.ASSETS'"
+                (treeNodeSelect)="onTreeNodeSelect($event)"
+              >
+              </lib-sidebar>
+              <div #photoCanvas class="w-100 h-100 photo-canvas">
+                <div
+                  *ngIf="imageId.value"
+                  [style.width]="getImageWidth"
+                  [style.height]="getImageHeight"
+                  class="image-container position-relative"
+                  [ngStyle]="{
+                    'background-image': imageIdToBackground(imageId.value),
+                    'background-size': 'cover'
+                  }"
+                  alt
+                >
+                  <ng-container *ngIf="mapItems?.length">
+                    <ng-container *ngFor="let assetOnMap of mapItems">
+                      <div
+                        [attr.id]="assetOnMap.id"
+                        (dragstart)="onDragStart($event, assetOnMap.id)"
+                        (dragend)="onDragEnd($event)"
+                        [attr.draggable]="true"
+                        [ngStyle]="{
+                          left: assetOnMap.left * scale + 'px',
+                          top: assetOnMap.top * scale + 'px',
+                          'background-image': imageIdToUrlIcon(assetOnMap.imageId)
+                        }"
+                        class="item-container"
+                      >
+                        <div
+                          class="remove-icon"
+                          (click)="preventInteraction($event); onItemMapRemove(assetOnMap)"
+                        >
+                          <i class="material-icons mi-26 text-white">close</i>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </ng-container>
+                </div>
+                <div *ngIf="!imageId.value" class="w-100 h-100 image-container empty"></div>
+              </div>
+            </div>
+          </div>
+        </lib-panel-body>
+      </lib-panel>
+    </div>
+  </div>
+</ng-container>

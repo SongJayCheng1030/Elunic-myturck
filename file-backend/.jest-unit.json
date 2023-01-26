@@ -1,0 +1,68 @@
+{
+  "moduleFileExtensions": [
+    "js",
+    "json",
+    "ts"
+  ],
+  "testEnvironment": "node",
+  "rootDir": "src/",
+  "testRegex": "\\.spec\\.ts$",
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "setupFilesAfterEnv": [
+    "<rootDir>/../test/unit/setup.ts"
+  ],
+  "moduleNameMapper": {
+    "^src/(.*)": "<rootDir>/$1",
+    "^test/(.*)": "<rootDir>/../test/$1",
+    "^shared/common$": "<rootDir>/../../shared/common/src/",
+    "^shared/common/(.*)": "<rootDir>/../../shared/common/src/$1",
+    "^shared/backend$": "<rootDir>/../../shared/backend/src/",
+    "^shared/backend/(.*)": "<rootDir>/../../shared/backend/src/$1",
+    "^shared/nestjs$": "<rootDir>/../../shared/nestjs/src/",
+    "^shared/nestjs/(.*)": "<rootDir>/../../shared/nestjs/src/$1"
+  },
+  "reporters": [
+    "default",
+    [
+      "jest-html-reporters",
+      {
+        "publicPath": "test-reports/unit/html",
+        "filename": "index.html"
+      }
+    ],
+    [
+      "jest-junit",
+      {
+        "outputDirectory": "test-reports/unit/junit"
+      }
+    ]
+  ],
+  "collectCoverageFrom": [
+    "<rootDir>/**/*.ts",
+    "!<rootDir>/**/*.module.ts",
+    "!<rootDir>/**/*.spec.ts",
+    "!<rootDir>/**/*.d.ts",
+    "!<rootDir>/**/*Dto.ts",
+    "!<rootDir>/**/*.dto.ts",
+    "!<rootDir>/config/**/*",
+    "!<rootDir>/migrations/**/*",
+    "!<rootDir>/index.ts",
+    "!<rootDir>/definitions.ts"
+  ],
+  "coverageReporters": [
+    "text-summary",
+    "json",
+    [
+      "html",
+      {
+        "subdir": "html/"
+      }
+    ],
+    "lcov",
+    "clover",
+    "json-summary"
+  ],
+  "coverageDirectory": "../coverage"
+}

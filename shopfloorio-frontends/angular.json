@@ -1,0 +1,1160 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "defaultCollection": "@datorama/akita"
+  },
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "app-asset-manager": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/app-asset-manager",
+      "sourceRoot": "projects/app-asset-manager/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/app-asset-manager",
+            "index": "projects/app-asset-manager/src/index.html",
+            "main": "projects/app-asset-manager/src/main.ts",
+            "polyfills": "projects/app-asset-manager/src/polyfills.ts",
+            "tsConfig": "projects/app-asset-manager/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/app-asset-manager/src/favicon.ico",
+              "projects/app-asset-manager/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./projects/sio-common/assets/",
+                "output": "/sio-common/assets/"
+              }
+            ],
+            "styles": [
+              "projects/app-asset-manager/src/styles.scss"
+            ],
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "./projects/sio-common/src/styles",
+                "./projects/sio-common/src/styles/abstracts",
+                "./node_modules/bootstrap/scss/mixins",
+                "./node_modules/bootstrap/scss"
+              ]
+            }
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "4200kb",
+                  "maximumError": "8400kb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "42kb",
+                  "maximumError": "84kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/app-asset-manager/src/environments/environment.ts",
+                  "with": "projects/app-asset-manager/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "app-asset-manager:build:production"
+            },
+            "development": {
+              "browserTarget": "app-asset-manager:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "app-asset-manager:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/app-asset-manager/src/test.ts",
+            "polyfills": "projects/app-asset-manager/src/polyfills.ts",
+            "tsConfig": "projects/app-asset-manager/tsconfig.spec.json",
+            "karmaConfig": "projects/app-asset-manager/karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/app-asset-manager/src/favicon.ico",
+              "projects/app-asset-manager/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./projects/sio-common/assets/",
+                "output": "/sio-common/assets/"
+              }
+            ],
+            "styles": [
+              "projects/app-asset-manager/src/styles.scss"
+            ],
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "./projects/sio-common/src/styles",
+                "./projects/sio-common/src/styles/abstracts",
+                "./node_modules/bootstrap/scss/mixins",
+                "./node_modules/bootstrap/scss"
+              ]
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/app-asset-manager/**/*.ts",
+              "projects/app-asset-manager/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "sio-common": {
+      "projectType": "library",
+      "root": "projects/sio-common",
+      "sourceRoot": "projects/sio-common/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/sio-common/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/sio-common/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/sio-common/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/sio-common/src/test.ts",
+            "tsConfig": "projects/sio-common/tsconfig.spec.json",
+            "karmaConfig": "projects/sio-common/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/sio-common/**/*.ts",
+              "projects/sio-common/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "app-asset-monitoring": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/app-asset-monitoring",
+      "sourceRoot": "projects/app-asset-monitoring/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/app-asset-monitoring",
+            "index": "projects/app-asset-monitoring/src/index.html",
+            "main": "projects/app-asset-monitoring/src/main.ts",
+            "polyfills": "projects/app-asset-monitoring/src/polyfills.ts",
+            "tsConfig": "projects/app-asset-monitoring/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/app-asset-monitoring/src/favicon.ico",
+              "projects/app-asset-monitoring/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./projects/sio-common/assets/",
+                "output": "/sio-common/assets/"
+              }
+            ],
+            "styles": [
+              "projects/app-asset-monitoring/src/styles.scss"
+            ],
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "./projects/sio-common/src/styles",
+                "./projects/sio-common/src/styles/abstracts",
+                "./node_modules/bootstrap/scss/mixins",
+                "./node_modules/bootstrap/scss"
+              ]
+            }
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "4200kb",
+                  "maximumError": "8400kb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "42kb",
+                  "maximumError": "84kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/app-asset-monitoring/src/environments/environment.ts",
+                  "with": "projects/app-asset-monitoring/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "app-asset-monitoring:build:production"
+            },
+            "development": {
+              "browserTarget": "app-asset-monitoring:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "app-asset-monitoring:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/app-asset-monitoring/src/test.ts",
+            "polyfills": "projects/app-asset-monitoring/src/polyfills.ts",
+            "tsConfig": "projects/app-asset-monitoring/tsconfig.spec.json",
+            "karmaConfig": "projects/app-asset-monitoring/karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/app-asset-monitoring/src/favicon.ico",
+              "projects/app-asset-monitoring/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./projects/sio-common/assets/",
+                "output": "/sio-common/assets/"
+              }
+            ],
+            "styles": [
+              "projects/app-asset-monitoring/src/styles.scss"
+            ],
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "./projects/sio-common/src/styles",
+                "./projects/sio-common/src/styles/abstracts",
+                "./node_modules/bootstrap/scss/mixins",
+                "./node_modules/bootstrap/scss"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "app-condition-monitoring": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/app-condition-monitoring",
+      "sourceRoot": "projects/app-condition-monitoring/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/app-condition-monitoring",
+            "index": "projects/app-condition-monitoring/src/index.html",
+            "main": "projects/app-condition-monitoring/src/main.ts",
+            "polyfills": "projects/app-condition-monitoring/src/polyfills.ts",
+            "tsConfig": "projects/app-condition-monitoring/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/app-condition-monitoring/src/favicon.ico",
+              "projects/app-condition-monitoring/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./projects/sio-common/assets/",
+                "output": "/sio-common/assets/"
+              }
+            ],
+            "styles": [
+              "projects/app-condition-monitoring/src/styles.scss"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "./projects/sio-common/src/styles",
+                "./projects/sio-common/src/styles/abstracts",
+                "./node_modules/bootstrap/scss/mixins",
+                "./node_modules/bootstrap/scss"
+              ]
+            },
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "4200kb",
+                  "maximumError": "8400kb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "42kb",
+                  "maximumError": "84kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/app-condition-monitoring/src/environments/environment.ts",
+                  "with": "projects/app-condition-monitoring/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "app-condition-monitoring:build:production"
+            },
+            "development": {
+              "browserTarget": "app-condition-monitoring:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "app-condition-monitoring:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/app-condition-monitoring/src/test.ts",
+            "polyfills": "projects/app-condition-monitoring/src/polyfills.ts",
+            "tsConfig": "projects/app-condition-monitoring/tsconfig.spec.json",
+            "karmaConfig": "projects/app-condition-monitoring/karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/app-condition-monitoring/src/favicon.ico",
+              "projects/app-condition-monitoring/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./projects/sio-common/assets/",
+                "output": "/sio-common/assets/"
+              }
+            ],
+            "styles": [
+              "projects/app-condition-monitoring/src/styles.scss"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "./projects/sio-common/src/styles",
+                "./projects/sio-common/src/styles/abstracts",
+                "./node_modules/bootstrap/scss/mixins",
+                "./node_modules/bootstrap/scss"
+              ]
+            },
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/app-condition-monitoring/**/*.ts",
+              "projects/app-condition-monitoring/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "app-document": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/app-document",
+      "sourceRoot": "projects/app-document/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/app-document",
+            "index": "projects/app-document/src/index.html",
+            "main": "projects/app-document/src/main.ts",
+            "polyfills": "projects/app-document/src/polyfills.ts",
+            "tsConfig": "projects/app-document/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/app-document/src/favicon.ico",
+              "projects/app-document/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./projects/sio-common/assets/",
+                "output": "/sio-common/assets/"
+              }
+            ],
+            "styles": [
+              "projects/app-document/src/styles.scss"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "./projects/sio-common/src/styles",
+                "./projects/sio-common/src/styles/abstracts",
+                "./node_modules/bootstrap/scss/mixins",
+                "./node_modules/bootstrap/scss"
+              ]
+            },
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "4200kb",
+                  "maximumError": "8400kb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "42kb",
+                  "maximumError": "84kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/app-document/src/environments/environment.ts",
+                  "with": "projects/app-document/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "app-document:build:production"
+            },
+            "development": {
+              "browserTarget": "app-document:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "app-document:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/app-document/src/test.ts",
+            "polyfills": "projects/app-document/src/polyfills.ts",
+            "tsConfig": "projects/app-document/tsconfig.spec.json",
+            "karmaConfig": "projects/app-document/karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/app-document/src/favicon.ico",
+              "projects/app-document/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./projects/sio-common/assets/",
+                "output": "/sio-common/assets/"
+              }
+            ],
+            "styles": [
+              "projects/app-document/src/styles.scss"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "./projects/sio-common/src/styles",
+                "./projects/sio-common/src/styles/abstracts",
+                "./node_modules/bootstrap/scss/mixins",
+                "./node_modules/bootstrap/scss"
+              ]
+            },
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/app-document/**/*.ts",
+              "projects/app-document/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "app-hub": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/app-hub",
+      "sourceRoot": "projects/app-hub/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/app-hub",
+            "index": "projects/app-hub/src/index.html",
+            "main": "projects/app-hub/src/main.ts",
+            "polyfills": "projects/app-hub/src/polyfills.ts",
+            "tsConfig": "projects/app-hub/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/app-hub/src/favicon.ico",
+              "projects/app-hub/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./projects/sio-common/assets/",
+                "output": "/sio-common/assets/"
+              }
+            ],
+            "styles": [
+              "projects/app-hub/src/styles.scss"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "./projects/sio-common/src/styles",
+                "./projects/sio-common/src/styles/abstracts",
+                "./node_modules/bootstrap/scss/mixins",
+                "./node_modules/bootstrap/scss"
+              ]
+            },
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "4200kb",
+                  "maximumError": "8400kb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "42kb",
+                  "maximumError": "84kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/app-hub/src/environments/environment.ts",
+                  "with": "projects/app-hub/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "app-hub:build:production"
+            },
+            "development": {
+              "browserTarget": "app-hub:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "app-hub:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/app-hub/src/test.ts",
+            "polyfills": "projects/app-hub/src/polyfills.ts",
+            "tsConfig": "projects/app-hub/tsconfig.spec.json",
+            "karmaConfig": "projects/app-hub/karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/app-hub/src/favicon.ico",
+              "projects/app-hub/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./projects/sio-common/assets/",
+                "output": "/sio-common/assets/"
+              }
+            ],
+            "styles": [
+              "projects/app-hub/src/styles.scss"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "./projects/sio-common/src/styles",
+                "./projects/sio-common/src/styles/abstracts",
+                "./node_modules/bootstrap/scss/mixins",
+                "./node_modules/bootstrap/scss"
+              ]
+            },
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/app-hub/**/*.ts",
+              "projects/app-hub/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "app-tenant": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/app-tenant",
+      "sourceRoot": "projects/app-tenant/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/app-tenant",
+            "index": "projects/app-tenant/src/index.html",
+            "main": "projects/app-tenant/src/main.ts",
+            "polyfills": "projects/app-tenant/src/polyfills.ts",
+            "tsConfig": "projects/app-tenant/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/app-tenant/src/favicon.ico",
+              "projects/app-tenant/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./projects/sio-common/assets/",
+                "output": "/sio-common/assets/"
+              }
+            ],
+            "styles": [
+              "projects/app-tenant/src/styles.scss"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "./projects/sio-common/src/styles",
+                "./projects/sio-common/src/styles/abstracts",
+                "./node_modules/bootstrap/scss/mixins",
+                "./node_modules/bootstrap/scss"
+              ]
+            },
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "4200kb",
+                  "maximumError": "8400kb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "42kb",
+                  "maximumError": "84kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/app-tenant/src/environments/environment.ts",
+                  "with": "projects/app-tenant/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "app-tenant:build:production"
+            },
+            "development": {
+              "browserTarget": "app-tenant:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "app-tenant:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/app-tenant/src/test.ts",
+            "polyfills": "projects/app-tenant/src/polyfills.ts",
+            "tsConfig": "projects/app-tenant/tsconfig.spec.json",
+            "karmaConfig": "projects/app-tenant/karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/app-tenant/src/favicon.ico",
+              "projects/app-tenant/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./projects/sio-common/assets/",
+                "output": "/sio-common/assets/"
+              }
+            ],
+            "styles": [
+              "projects/app-tenant/src/styles.scss"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "./projects/sio-common/src/styles",
+                "./projects/sio-common/src/styles/abstracts",
+                "./node_modules/bootstrap/scss/mixins",
+                "./node_modules/bootstrap/scss"
+              ]
+            },
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/app-tenant/**/*.ts",
+              "projects/app-tenant/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "app-user": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/app-user",
+      "sourceRoot": "projects/app-user/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/app-user",
+            "index": "projects/app-user/src/index.html",
+            "main": "projects/app-user/src/main.ts",
+            "polyfills": "projects/app-user/src/polyfills.ts",
+            "tsConfig": "projects/app-user/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/app-user/src/favicon.ico",
+              "projects/app-user/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./projects/sio-common/assets/",
+                "output": "/sio-common/assets/"
+              }
+            ],
+            "styles": [
+              "projects/app-user/src/styles.scss"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "./projects/sio-common/src/styles",
+                "./projects/sio-common/src/styles/abstracts",
+                "./node_modules/bootstrap/scss/mixins",
+                "./node_modules/bootstrap/scss"
+              ]
+            },
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "4200kb",
+                  "maximumError": "8400kb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "42kb",
+                  "maximumError": "84kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/app-user/src/environments/environment.ts",
+                  "with": "projects/app-user/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "app-user:build:production"
+            },
+            "development": {
+              "browserTarget": "app-user:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "app-user:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/app-user/src/test.ts",
+            "polyfills": "projects/app-user/src/polyfills.ts",
+            "tsConfig": "projects/app-user/tsconfig.spec.json",
+            "karmaConfig": "projects/app-user/karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/app-user/src/favicon.ico",
+              "projects/app-user/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./projects/sio-common/assets/",
+                "output": "/sio-common/assets/"
+              }
+            ],
+            "styles": [
+              "projects/app-user/src/styles.scss"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "./projects/sio-common/src/styles",
+                "./projects/sio-common/src/styles/abstracts",
+                "./node_modules/bootstrap/scss/mixins",
+                "./node_modules/bootstrap/scss"
+              ]
+            },
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/app-user/**/*.ts",
+              "projects/app-user/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "app-maintenance": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/app-maintenance",
+      "sourceRoot": "projects/app-maintenance/src",
+      "prefix": "mnt",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/app-maintenance",
+            "index": "projects/app-maintenance/src/index.html",
+            "main": "projects/app-maintenance/src/main.ts",
+            "polyfills": "projects/app-maintenance/src/polyfills.ts",
+            "tsConfig": "projects/app-maintenance/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/app-maintenance/src/favicon.ico",
+              "projects/app-maintenance/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./projects/sio-common/assets/",
+                "output": "/sio-common/assets/"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/tinymce",
+                "output": "/tinymce/"
+              }
+            ],
+            "styles": [
+              "projects/app-maintenance/src/styles.scss"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "./projects/sio-common/src/styles",
+                "./projects/sio-common/src/styles/abstracts",
+                "./node_modules/bootstrap/scss/mixins",
+                "./node_modules/bootstrap/scss"
+              ]
+            },
+            "scripts": [
+              "node_modules/tinymce/tinymce.min.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "4200kb",
+                  "maximumError": "8400kb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "42kb",
+                  "maximumError": "84kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/app-maintenance/src/environments/environment.ts",
+                  "with": "projects/app-maintenance/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "app-maintenance:build:production"
+            },
+            "development": {
+              "browserTarget": "app-maintenance:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "app-maintenance:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/app-maintenance/src/test.ts",
+            "polyfills": "projects/app-maintenance/src/polyfills.ts",
+            "tsConfig": "projects/app-maintenance/tsconfig.spec.json",
+            "karmaConfig": "projects/app-maintenance/karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/app-maintenance/src/favicon.ico",
+              "projects/app-maintenance/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./projects/sio-common/assets/",
+                "output": "/sio-common/assets/"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/tinymce",
+                "output": "/tinymce/"
+              }
+            ],
+            "styles": [
+              "projects/app-maintenance/src/styles.scss"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "./projects/sio-common/src/styles",
+                "./projects/sio-common/src/styles/abstracts",
+                "./node_modules/bootstrap/scss/mixins",
+                "./node_modules/bootstrap/scss"
+              ]
+            },
+            "scripts": [
+              "node_modules/tinymce/tinymce.min.js"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/app-maintenance/**/*.ts",
+              "projects/app-maintenance/**/*.html"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "app-asset-manager"
+}

@@ -1,0 +1,77 @@
+<lib-panel class="panel-actions">
+  <lib-panel-body>
+    <div class="h-100 w-100">
+      <div #contentContainer class="content-container overflow-hidden">
+        <app-drag-and-drop [startPoint]="imageShift">
+          <app-zoom
+            #zoomComponent
+            (zoomChange)="calculateMapItemsPosition($event)"
+            [defaultZoom]="scale"
+          >
+            <div
+              (click)="closePopUps()"
+              *ngIf="mapUrl && size"
+              [style.background-image]="getMapUrl"
+              [style.width]="getImageWidth"
+              [style.height]="getImageHeight"
+              class="background-img"
+              zoomTarget
+            ></div>
+            <ng-container *ngIf="mapItems">
+              <ng-container *ngFor="let item of mapItems">
+                <div
+                  class="position-absolute"
+                  [ngStyle]="{
+                    left: item.viewLeft + 'px',
+                    top: item.viewTop + 'px'
+                  }"
+                >
+                  <app-pulsating-circle
+                    [color]="item.color"
+                    (click)="onAssetClick($event, item)"
+                  ></app-pulsating-circle>
+
+                  <div
+                    class="position-absolute item-container-details align-items-center justify-content-center"
+                    [ngStyle]="{
+                      bottom: 30 * getDetailsZoomTransorm + 'px',
+                      left: 65 * getDetailsZoomTransorm + 'px'
+                    }"
+                    *ngIf="item.isVisible && !item.assetInfo"
+                  >
+                    <lib-loader></lib-loader>
+                  </div>
+
+                  <div
+                    class="item-container-details"
+                    role="button"
+                    [ngStyle]="{
+                      bottom: 30 * getDetailsZoomTransorm + 'px',
+                      left: 65 * getDetailsZoomTransorm + 'px'
+                    }"
+                    (click)="preventInteraction($event); openAssetLink(item)"
+                    *ngIf="item.isVisible && item.assetInfo"
+                  >
+                    <img class="w-100" [src]="imageIdToUrl(item.imageId)" />
+                    <div class="d-flex flex-column p-3">
+                      <h5
+                        *ngIf="item.assetInfo.name"
+                        class="w-100"
+                        [multilang]="item.assetInfo.name"
+                      ></h5>
+                      <h5
+                        *ngIf="item.assetInfo.assetType.name"
+                        class="w-100"
+                        [multilang]="item.assetInfo.assetType.name"
+                      ></h5>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
+          </app-zoom>
+        </app-drag-and-drop>
+      </div>
+    </div>
+  </lib-panel-body>
+</lib-panel>

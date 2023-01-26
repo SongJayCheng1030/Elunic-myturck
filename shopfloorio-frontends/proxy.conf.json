@@ -1,0 +1,65 @@
+{
+  "/service/asset/*": {
+    "target": "http://localhost:13001",
+    "secure": false,
+    "logLevel": "info",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/service/asset/": "/"
+    }
+  },
+  "/service/condition-monitoring/*": {
+    "target": "http://localhost:13002",
+    "secure": false,
+    "logLevel": "info",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/service/condition-monitoring/": "/"
+    }
+  },
+  "/service/file/*": {
+    "target": "http://localhost:13003",
+    "secure": false,
+    "logLevel": "info",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/service/file/": "/"
+    }
+  },
+  "/service/hub/*": {
+    "target": "http://localhost:13004",
+    "secure": false,
+    "logLevel": "info",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/service/hub/": "/"
+    }
+  },
+  "/service/maintenance/*": {
+    "target": "http://localhost:13005",
+    "secure": false,
+    "logLevel": "info",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/service/maintenance/": "/"
+    }
+  },
+  "/service/identity/*": {
+    "target": "http://localhost:13007",
+    "secure": false,
+    "logLevel": "info",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/service/identity/": "/"
+    }
+  },
+  "/service/demo-data/*": {
+    "target": "http://localhost:13008",
+    "secure": false,
+    "logLevel": "info",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/service/demo-data/": "/"
+    }
+  }
+}

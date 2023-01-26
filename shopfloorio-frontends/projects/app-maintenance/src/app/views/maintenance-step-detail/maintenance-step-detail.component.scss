@@ -1,0 +1,65 @@
+@import 'variables';
+
+:host {
+  display: block;
+}
+
+.step-details {
+  padding: 1rem;
+}
+
+.machine-variable-value {
+  color: red;
+
+  &.in-range {
+    color: green;
+  }
+}
+
+.images-and-description {
+  &.has-images {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 16px;
+  }
+
+  padding-bottom: 2rem;
+
+  gallery {
+    background-color: $white;
+    max-height: 260px;
+  }
+  ::ng-deep gallery {
+    gallery-image {
+      height: calc(100% - 24px);
+    }
+
+    path {
+      fill: $primary;
+    }
+
+    .g-dot-inner {
+      background-color: $primary;
+    }
+  }
+}
+
+.section-header {
+  padding: 1rem;
+  background-color: $gray-500;
+  margin: 0;
+}
+
+.desciption {
+  font-size: 14px;
+  white-space: break-spaces;
+}
+
+.document-item {
+  width: 100%;
+  padding: 1rem;
+
+  &.odd-row {
+    background-color: $gray-100;
+  }
+}

@@ -1,0 +1,43 @@
+<div class="modal-header align-items-center">
+  <h4 class="modal-title">
+    {{ 'MODALS.ASSIGN_MAINTENANCE_PLAN.TITLE' | translate }}
+  </h4>
+
+  <div class="d-flex">
+    <button type="button" class="btn btn-xs btn-icon btn-transparent" (click)="close()">
+      <i class="material-icons mi-18">close</i>
+    </button>
+  </div>
+</div>
+
+<div class="modal-body">
+  <div class="body-wrapper">
+    <cdk-tree [dataSource]="dataSource" [treeControl]="treeControl" class="d-flex flex-column">
+      <cdk-nested-tree-node *cdkTreeNodeDef="let node" class="py-1">
+        <lib-checkbox
+          [label]="node.name | multilang"
+          [checked]="selectedAssetIds.isSelected(node.id)"
+          [disabled]="!content.selectable.includes(node.id)"
+          (changed)="selectedAssetIds.toggle(node.id)"
+        ></lib-checkbox>
+      </cdk-nested-tree-node>
+      <cdk-nested-tree-node *cdkTreeNodeDef="let node; when: hasChild">
+        <lib-checkbox
+          [label]="node.name | multilang"
+          [checked]="selectedAssetIds.isSelected(node.id)"
+          [disabled]="!content.selectable.includes(node.id)"
+          (changed)="selectedAssetIds.toggle(node.id)"
+        ></lib-checkbox>
+        <div class="d-flex flex-column py-1 pl-4">
+          <ng-container cdkTreeNodeOutlet></ng-container>
+        </div>
+      </cdk-nested-tree-node>
+    </cdk-tree>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" (click)="onSubmit()">
+    {{ 'MODALS.ASSIGN_MAINTENANCE_PLAN.CONFIRM' | translate }}
+  </button>
+</div>

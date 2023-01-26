@@ -1,0 +1,29 @@
+button {
+  justify-content: center;
+  text-align: center;
+  vertical-align: middle;
+  border: 2px solid transparent;
+  outline: none;
+  font-size: 12px;
+  min-width: 150px;
+  padding: 10px 0;
+
+  &.primary {
+    background-color: #258fd4;
+    color: #fff;
+    transition: 0.3s ease-in-out;
+  }
+
+  &.outline {
+    background-color: #fff;
+    color: #258fd4;
+    border-color: #258fd4;
+  }
+
+  &.transparent {
+    color: #000;
+    text-decoration: underline;
+    background-color: transparent;
+    font-weight: bold;
+  }
+}

@@ -1,0 +1,43 @@
+<lib-panel>
+  <lib-panel-header>
+    <i class="material-icons mr-3">qr_code</i>
+    <h4>{{ 'VIEWS.ASSET_DETAILS.ASSET_ALIASES' | translate }}</h4>
+
+    <lib-panel-header-actions>
+      <button class="btn btn-outline-primary" [disabled]="disabled" (click)="openAddAliasModal()">
+        <span> {{ 'VIEWS.ASSET_DETAILS.ADD_ALIAS' | translate }} </span>
+      </button>
+    </lib-panel-header-actions>
+  </lib-panel-header>
+
+  <lib-panel-body class="p-0">
+    <lib-table class="w-100" [data]="aliases" [scrollable]="true">
+      <lib-row *libHeaderRowDef>
+        <lib-header-cell libHeaderSort="alias">
+          {{ 'VIEWS.ASSET_DETAILS.ALIAS' | translate }}
+        </lib-header-cell>
+        <lib-header-cell libHeaderSort="createdAt">
+          {{ 'VIEWS.ASSET_DETAILS.CREATED_AT' | translate }}
+        </lib-header-cell>
+        <lib-header-cell libHeaderSort="createdBy">
+          {{ 'VIEWS.ASSET_DETAILS.CREATED_BY' | translate }}
+        </lib-header-cell>
+      </lib-row>
+
+      <lib-row libDataRow *libDataRowDef="let alias">
+        <lib-cell>
+          <ng-container *ngIf="alias.type === 'QR_CODE'">
+            <a role="button" (click)="onAliasQrCode(alias)">{{ alias.alias }}</a>
+          </ng-container>
+          <ng-container *ngIf="alias.type !== 'QR_CODE'">{{ alias.alias }}</ng-container>
+        </lib-cell>
+        <lib-cell>{{ alias.createdAt | date: 'dd.MM.yyyy | HH:mm' }}</lib-cell>
+        <lib-cell>{{ alias.createdBy | username | async }}</lib-cell>
+      </lib-row>
+
+      <lib-row libEmptyRow *libEmptyRowDef>
+        <span>No aliases found</span>
+      </lib-row>
+    </lib-table>
+  </lib-panel-body>
+</lib-panel>

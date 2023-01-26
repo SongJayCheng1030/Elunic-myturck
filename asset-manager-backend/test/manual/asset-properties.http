@@ -1,0 +1,37 @@
+POST http://localhost:8080/v1/properties/asset-type/dcca9a84-7742-40bf-8341-ffda7224108e
+Content-Type: application/json
+
+{
+  "name": {
+    "de-DE": "Property 1"
+  },
+  "key": "PROP_1",
+  "type": "STRING",
+  "value": "In fair Verona, where we lay our scene",
+  "isHidden": false,
+  "isRequired": true,
+  "position": 11
+}
+
+###
+
+# GET http://localhost:8080/properties/asset/:assetId
+GET http://localhost:8080/properties/asset/a5aa3ed9-5e41-49fd-a25e-7d292e8ce5eb
+Content-Type: application/json
+
+
+###
+
+
+# PATCH http://localhost:8080/properties/:propertyId/asset/:assetId
+PATCH http://localhost:8080/properties/e51f53e0-7354-4c84-b7ec-d2afbb5e178a/asset/de23b0c6-829e-4c97-9f84-ca99f3e506a9
+Content-Type: application/json
+
+{
+  "value": "Overwrite 1",
+  "isHidden": true,
+  "isRequired": false,
+  "position": 99
+}
+
+###

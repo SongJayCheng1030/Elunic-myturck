@@ -1,0 +1,68 @@
+<form [formGroup]="form">
+  <div class="modal-header align-items-center">
+    <h4 class="modal-title">Add machine variable</h4>
+    <button type="button" class="btn btn-xs btn-icon btn-transparent" (click)="close()">
+      <i class="material-icons mi-18">close</i>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group p-relative">
+          <label class="top-label">Name*</label>
+          <input type="text" class="form-control" formControlName="name" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group p-relative">
+          <label class="top-label">Parameter id*</label>
+          <ng-select
+            [items]="parameterIds"
+            formControlName="parameterId"
+            [placeholder]="'Search'"
+            [loading]="sensorsLoading"
+            (search)="onSearch($event)"
+            [addTag]="true"
+            (clear)="onSearch()"
+          >
+            <ng-template ng-label-tmp let-item="item">{{ item }}</ng-template>
+            <ng-template ng-option-tmp let-item="item">{{ item }}</ng-template>
+          </ng-select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group p-relative">
+          <label class="top-label">Unit*</label>
+          <input type="text" class="form-control" formControlName="unit" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group p-relative">
+          <label class="top-label">Asset type id*</label>
+          <ng-select
+            [items]="assetTypes"
+            formControlName="assetTypeId"
+            [loading]="assetTypesLoading"
+            [placeholder]="'Search'"
+            bindLabel="name"
+            bindValue="id"
+          >
+            <ng-template ng-label-tmp let-item="item">{{ item.name | multilang }}</ng-template>
+            <ng-template ng-option-tmp let-item="item">{{ item.name | multilang }}</ng-template>
+          </ng-select>
+        </div>
+      </div>
+    </div>
+    <div class="custom-footer">
+      <button [disabled]="form.invalid" class="btn btn-warning btn-lg btn-block" (click)="save()">
+        ADD MACHINE VARIABLE
+      </button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,27 @@
+@import '~@fontsource/oxygen/400';
+@import '~@fontsource/oxygen/700';
+
+body {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Oxygen';
+}
+
+@import 'abstracts';
+
+@import 'vendors';
+
+@import 'core';
+
+@import 'components';
+
+@import '~ngx-toastr/toastr';

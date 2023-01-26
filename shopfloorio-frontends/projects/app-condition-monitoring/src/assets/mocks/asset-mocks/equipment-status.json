@@ -1,0 +1,16 @@
+{
+  "perf": {
+    "mock": {
+      "oee": 0.4,
+      "yield": 0.3,
+      "availability": 0.5,
+      "utilization": 0.8
+    }
+  },
+  "status": {
+    "mock": {
+      "status": "IDLE",
+      "color": "#ffdf00"
+    }
+  }
+}

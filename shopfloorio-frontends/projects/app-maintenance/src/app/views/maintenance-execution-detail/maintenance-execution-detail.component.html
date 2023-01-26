@@ -1,0 +1,291 @@
+<div class="d-flex justify-content-between align-items-center content">
+  <div id="navigation">
+    <a [routerLink]="execution.completedAt ? ['/archive'] : ['/executions']"
+      ><u>{{ execution.completedAt ? 'Archived maintenances' : 'Active maintenances' }}</u></a
+    >
+    <span class="mx-2">></span> {{ execution.procedureName }}
+  </div>
+  <div class="d-flex">
+    <a
+      class="btn btn-outline font-weight-bold"
+      [routerLink]="execution.completedAt ? ['/archive'] : ['/executions']"
+      ><u>{{ 'Back' | uppercase }}</u></a
+    >
+    <button
+      *ngIf="!execution.completedAt"
+      class="btn btn-primary"
+      type="button"
+      [disabled]="disabled"
+      (click)="complete()"
+    >
+      {{ 'Mark maintenance as done' | uppercase }}
+    </button>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center">
+      <h4>
+        {{ execution.procedureName }}
+        <span [className]="'badge badge-pill badge-warning ' + execution.state">
+          {{ 'EXECUTION.' + execution.state | uppercase | translate }}</span
+        >
+      </h4>
+      <button class="btn btn-sm btn-transparent btn-icon" (click)="collapse.toggle()">
+        <i class="material-icons"> {{ isCollapsed ? 'expand_more' : 'expand_less' }}</i>
+      </button>
+    </div>
+    <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+      <div class="row">
+        <div class="col-3 card-info">
+          <div class="card-unit">
+            <div><b>Description</b></div>
+            <div>
+              {{ execution.procedureDescription }}
+            </div>
+          </div>
+        </div>
+        <div class="col-3 card-info">
+          <div class="card-unit">
+            <div><b>Status</b></div>
+            <div [class]="execution.state">
+              {{ 'EXECUTION.' + execution.state | uppercase | translate }}
+            </div>
+          </div>
+          <div class="card-unit">
+            <div>
+              <b>Progress</b>
+            </div>
+            <div>
+              <ngb-progressbar type="dark" [value]="progress" [max]="execution.totalSteps">
+                {{ execution.completedSteps }} / {{ execution.totalSteps }}
+              </ngb-progressbar>
+            </div>
+          </div>
+        </div>
+        <div class="col-3 card-info">
+          <ng-container *ngIf="!execution.completedAt; else completedDates">
+            <div class="card-unit">
+              <div><b>Remaining Hours</b></div>
+              <div class="d-flex">
+                <div [class]="execution.state">{{ -1 * remainingHours }} Hrs&nbsp;</div>
+                <div>
+                  ({{ execution.dueDate | date: 'mediumDate' }} |
+                  {{ execution.dueDate | date: 'mediumTime' }})
+                </div>
+              </div>
+            </div>
+
+            <div class="card-unit">
+              <div><b>Interval</b></div>
+              <div>{{ execution.procedureInterval }} {{ execution.procedureIntervalUnit }}</div>
+            </div>
+          </ng-container>
+          <ng-template #completedDates>
+            <div class="card-unit">
+              <div><b>Planned date of completion</b></div>
+              <div>
+                {{ execution.dueDate | date: 'mediumDate' }} |
+                {{ execution.dueDate | date: 'mediumTime' }}
+              </div>
+            </div>
+            <div class="card-unit">
+              <div><b>Actual date of completion</b></div>
+              <div [ngClass]="{ 'over-due': isOverDue }">
+                {{ execution.completedAt | date: 'mediumDate' }} |
+                {{ execution.completedAt | date: 'mediumTime' }}
+              </div>
+            </div>
+          </ng-template>
+        </div>
+        <div class="col-3 card-info">
+          <div class="card-unit">
+            <div><b>Asset</b></div>
+            <div>
+              <span [multilang]="(asset$ | async)?.name || {}"></span>
+            </div>
+          </div>
+          <div class="card-unit">
+            <div><b>Version</b></div>
+            <div>
+              {{ execution.procedureVersion || 1 }} ({{
+                execution.createdAt | date: 'mediumDate'
+              }}
+              | {{ execution.createdAt | date: 'mediumTime' }})
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="context$ | async as ctx">
+  <div class="steps-header">
+    <div>
+      <h4>Maintenance steps ({{ execution.totalSteps }})</h4>
+    </div>
+    <div>
+      <h4>Step {{ ctx.index + 1 }}: {{ ctx.step.name }}</h4>
+    </div>
+    <div *ngIf="!execution.completedAt" class="actions">
+      <button
+        class="btn btn-danger"
+        type="button"
+        (click)="completeStep(ctx, resultStatus.ERROR)"
+        [disabled]="ctx.form.invalid"
+      >
+        {{ 'Mark step as error' | uppercase }}
+      </button>
+      <button
+        class="btn btn-warning"
+        type="button"
+        (click)="completeStep(ctx, resultStatus.SKIPPED)"
+        [disabled]="!ctx.step.skippable"
+      >
+        {{ 'Skip' | uppercase }}
+      </button>
+      <button
+        class="btn btn-success"
+        type="button"
+        (click)="completeStep(ctx, resultStatus.OK)"
+        [disabled]="ctx.form.invalid"
+      >
+        {{ 'Mark step as done' | uppercase }}
+      </button>
+    </div>
+  </div>
+  <div class="steps-body">
+    <div class="step-list">
+      <div
+        *ngFor="let step of stepsWithResult; let i = index"
+        class="step-list-item"
+        [ngClass]="{ selected: step.id === ctx.step.id }"
+      >
+        <ng-container [ngSwitch]="step.status">
+          <i *ngSwitchCase="'current'" class="material-icons">radio_button_checked</i>
+          <i *ngSwitchCase="'done'" class="material-icons step-done">check_circle</i>
+          <i *ngSwitchCase="'skipped'" class="material-icons">cancel</i>
+          <i *ngSwitchCase="'open'" class="material-icons">radio_button_unchecked</i>
+          <i *ngSwitchCase="'error'" class="material-icons step-error">error</i>
+        </ng-container>
+
+        <div
+          *ngIf="step.id === ctx.step.id || i < ctx.completedUntil; else link"
+          class="d-flex justify-content-between align-items-center"
+        >
+          <div [class]="step.status">{{ step.name }}</div>
+        </div>
+        <i *ngIf="step.id === ctx.step.id" class="material-icons">chevron_right</i>
+        <ng-template #link>
+          <a
+            [routerLink]="[]"
+            class="d-flex justify-content-between align-items-center"
+            [queryParams]="{ step: step.id }"
+          >
+            <div [class]="step.status">
+              {{ step.name }}
+            </div>
+            <i *ngIf="step.id === ctx.step.id" class="material-icons align-items-right"
+              >chevron_right</i
+            >
+          </a>
+        </ng-template>
+      </div>
+    </div>
+    <div>
+      <div class="step-content">
+        <div *ngIf="!execution.completedAt; else result">
+          <div *ngIf="ctx.step.type !== 'description'" class="result-input">
+            <form [ngSwitch]="ctx.step.type" [formGroup]="ctx.form">
+              <div *ngSwitchCase="'numeric_input'" class="form-group">
+                <label [for]="'numericInput'">{{ ctx.step.content.label }}</label>
+                <div class="input-group">
+                  <input
+                    #numInput
+                    id="numericInput"
+                    type="number"
+                    class="form-control"
+                    formControlName="value"
+                    placeholder="Please enter"
+                    [ngClass]="{ 'is-invalid': isInvalidForm(ctx.form) }"
+                    [autofocus]="true"
+                  />
+                  <div class="input-group-append">
+                    <span class="input-group-text">{{ ctx.step.content.unit }}</span>
+                  </div>
+                </div>
+                <small *ngIf="isInvalidForm(ctx.form)" class="text-danger">
+                  {{ 'ERRORS.INPUT_ERROR_MESSAGE' | translate: { field: ctx.step.content.label } }}
+                </small>
+              </div>
+              <div *ngSwitchCase="'text_input'" class="form-group">
+                <label [for]="'textInput'">{{ ctx.step.content.label }}</label>
+                <input
+                  #textInput
+                  [id]="'textInput'"
+                  type="text"
+                  class="form-control"
+                  formControlName="value"
+                  placeholder="Please enter"
+                  [ngClass]="{ 'is-invalid': isInvalidForm(ctx.form) }"
+                  [autofocus]="true"
+                />
+                <small *ngIf="isInvalidForm(ctx.form)" class="text-danger">
+                  {{ 'ERRORS.INPUT_ERROR_MESSAGE' | translate: { field: ctx.step.content.label } }}
+                </small>
+              </div>
+              <div *ngSwitchCase="'checkbox'">
+                <lib-checkbox
+                  #checkbox
+                  [label]="ctx.step.content.label"
+                  formControlName="value"
+                ></lib-checkbox>
+              </div>
+              <div *ngSwitchDefault></div>
+            </form>
+          </div>
+        </div>
+
+        <ng-template #result>
+          <div class="result" *ngIf="ctx.step.type !== 'description'">
+            <ng-container [ngSwitch]="ctx.step.type">
+              <ng-container *ngSwitchCase="'numeric_input'">
+                <div class="label">{{ ctx.step.content.label }}</div>
+                <div *ngIf="ctx.step.result as result">
+                  {{
+                    result.value.value !== null
+                      ? result.value.value + ' ' + ctx.step.content.unit
+                      : 'No numeric value was recorded'
+                  }}
+                </div>
+              </ng-container>
+              <div *ngSwitchDefault></div>
+              <ng-container *ngSwitchCase="'text_input'">
+                <div class="label">{{ ctx.step.content.label }}</div>
+                <div *ngIf="ctx.step.result as result">
+                  {{
+                    result.value.value !== null ? result.value.value : 'No text input was recorded'
+                  }}
+                </div>
+              </ng-container>
+              <ng-container *ngSwitchCase="'checkbox'">
+                <div class="label">{{ ctx.step.content.label }}</div>
+                <div *ngIf="ctx.step.result as result">
+                  {{ result.value.value ? 'Confirmed' : 'Not confirmed' }}
+                </div>
+              </ng-container>
+              <div *ngSwitchDefault></div>
+            </ng-container>
+          </div>
+        </ng-template>
+      </div>
+      <mnt-maintenance-step-detail
+        [step]="ctx.step"
+        [assetId]="execution.assetId"
+        [hideMachineData]="execution.completedAt"
+      ></mnt-maintenance-step-detail>
+    </div>
+  </div>
+</div>

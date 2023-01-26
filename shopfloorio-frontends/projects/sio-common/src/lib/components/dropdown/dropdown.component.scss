@@ -1,0 +1,43 @@
+.menu-wrapper {
+  height: 42px;
+  .title {
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 6px solid #000;
+      right: 15px;
+      transition: 0.3s ease-in-out;
+      transform: scale(-1);
+    }
+  }
+}
+
+.menu-wrapper-dynamic {
+  border: 2px solid #000;
+  overflow: hidden;
+  height: auto;
+  transition: max-height 0.3s ease-in-out;
+  max-height: 42px;
+  background-color: #fff;
+  font-size: 12px;
+  z-index: 9;
+  &.open {
+    max-height: 300px;
+    .title::after {
+      transform: scale(1);
+    }
+  }
+  .label {
+    cursor: pointer;
+    height: 42px;
+    transition: 0.3s ease-in-out;
+  }
+  .menu {
+    .label:hover {
+      background-color: #c4c4c433;
+    }
+  }
+}

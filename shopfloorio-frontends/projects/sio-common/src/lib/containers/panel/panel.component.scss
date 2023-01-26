@@ -1,0 +1,64 @@
+@import 'variables';
+@import 'mixins';
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+:host ::ng-deep {
+  .panel {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .panel-header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    min-height: 65px;
+    padding: $panel-padding-y $panel-padding-x;
+    border-bottom: 1px solid $neutrals-300;
+
+    h2,
+    h4 {
+      margin-bottom: 0;
+      color: rgba($black, 87%);
+    }
+
+    .panel-header-actions {
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+
+      & > * + * {
+        margin-left: 1.5rem;
+      }
+    }
+  }
+
+  .panel-header + .panel-body-container .panel-body {
+    padding: 0 $panel-padding-x $panel-padding-y;
+  }
+
+  .panel-body-container {
+    flex-grow: 1;
+
+    &.container-scrollable {
+      position: relative;
+
+      .panel-body {
+        overflow-y: auto;
+        @include custom-scrollbar;
+        @include absolute-container;
+      }
+    }
+
+    .panel-body {
+      display: flex;
+      height: 100%;
+      padding: $panel-padding-y $panel-padding-x;
+    }
+  }
+}

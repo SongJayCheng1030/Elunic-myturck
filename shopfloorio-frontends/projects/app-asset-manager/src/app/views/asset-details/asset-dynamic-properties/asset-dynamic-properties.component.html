@@ -1,0 +1,66 @@
+<lib-panel>
+  <lib-panel-header>
+    <h4>{{ 'VIEWS.ASSET_DETAILS.DYNAMIC_PROPERTIES' | translate }}</h4>
+  </lib-panel-header>
+
+  <lib-panel-body class="p-0">
+    <div class="d-flex align-items-center justify-content-center w-100" *ngIf="loading">
+      <lib-loader></lib-loader>
+    </div>
+
+    <lib-table
+      class="w-100"
+      [data]="properties"
+      [scrollable]="true"
+      cdkDropList
+      (cdkDropListDropped)="changePosition($event)"
+      *ngIf="!loading"
+    >
+      <lib-row
+        libDataRow
+        *libDataRowDef="let property"
+        cdkDrag
+        cdkDragLockAxis="y"
+        class="px-3"
+        [cdkDragData]="property"
+      >
+        <lib-cell class="flex-inherit"><span class="material-icons"> drag_handle </span></lib-cell>
+        <lib-cell [multilang]="property.name"></lib-cell>
+        <lib-cell class="w-100" style="flex: 50%">
+          <div class="d-flex w-100">
+            <input
+              class="form-control edit-readonly-field w-100"
+              [value]="property.renderedValue || property.value || ''"
+              (focus)="setInputPropertyFocus($event, property)"
+              (blur)="switchPropertyToReadOnlyMode()"
+              (change)="changeInputProperty($event, property)"
+              [disabled]="!(editMode.enable ? editMode.propertyId === property.id : false)"
+              [ngStyle]="{
+                'border-color':
+                  editMode.enable && editMode.propertyId === property.id ? '#e6e6e6' : 'transparent'
+              }"
+              #input
+            />
+            <div class="d-flex align-items-center justify-content-center pl-2">
+              <span
+                class="material-icons mi-22"
+                [ngStyle]="{
+                  visibility:
+                    editMode.enable && editMode.propertyId === property.id ? 'hidden' : 'visible'
+                }"
+                (click)="switchToEditModeAndFocus(property.id, input)"
+                role="button"
+              >
+                edit
+              </span>
+            </div>
+          </div>
+        </lib-cell>
+      </lib-row>
+
+      <lib-row libEmptyRow *libEmptyRowDef>
+        <span>No properties found</span>
+      </lib-row>
+    </lib-table>
+  </lib-panel-body>
+</lib-panel>

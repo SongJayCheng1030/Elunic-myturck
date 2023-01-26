@@ -1,0 +1,81 @@
+@import 'variables';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+
+  &::ng-deep {
+    .panel-actions {
+      .panel {
+        height: auto;
+      }
+    }
+  }
+}
+
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  padding: 1rem 0;
+}
+
+.grid-wrapper {
+  grid-template-columns: 1fr 2fr;
+  gap: 26px;
+}
+
+.live-status {
+  font-style: italic;
+}
+
+.image-container {
+  min-height: 250px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.info-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 1.5rem;
+  .info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 26px;
+  }
+}
+
+.entry {
+  .row {
+    padding: 0.7rem 0;
+  }
+  .name {
+    font-weight: bold;
+  }
+}
+
+.sections,
+.kpi-wrapper,
+.table-wrapper {
+  display: grid;
+  gap: 26px;
+}
+
+.sections,
+.kpi-wrapper {
+  grid-template-columns: 1fr 1fr;
+}
+
+.table-wrapper {
+  grid-template-columns: 1fr;
+}
+
+.sections {
+  margin-top: 28px;
+}

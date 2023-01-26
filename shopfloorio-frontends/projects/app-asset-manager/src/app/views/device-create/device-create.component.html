@@ -1,0 +1,33 @@
+<form [formGroup]="form">
+  <div class="modal-header align-items-center">
+    <h4 class="modal-title">Add Device</h4>
+    <button type="button" class="btn btn-xs btn-icon btn-transparent" (click)="close()">
+      <i class="material-icons mi-18">close</i>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group p-relative">
+          <label class="top-label">Device identifier*</label>
+          <ng-select
+            [items]="devices"
+            formControlName="deviceId"
+            [loading]="deviceLoading"
+            [placeholder]="'Search'"
+          >
+          </ng-select>
+        </div>
+      </div>
+    </div>
+    <div class="custom-footer">
+      <button
+        [disabled]="!form.dirty && !form.valid"
+        class="btn btn-warning btn-lg btn-block"
+        (click)="save()"
+      >
+        ADD DEVICE
+      </button>
+    </div>
+  </div>
+</form>

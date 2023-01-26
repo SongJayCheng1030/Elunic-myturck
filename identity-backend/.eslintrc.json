@@ -1,0 +1,8 @@
+{
+  "extends": "@elunic/eslint-config-ecs",
+  "rules": {
+    "sort-imports": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/array-type": ["error", { "default": "array" }]
+  }
+}

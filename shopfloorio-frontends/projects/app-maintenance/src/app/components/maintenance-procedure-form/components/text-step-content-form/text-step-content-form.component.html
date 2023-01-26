@@ -1,0 +1,15 @@
+<div [formGroup]="form" class="row">
+  <div class="col-6">
+    <label for="labelText">Label</label>
+    <input
+      id="labelText"
+      formControlName="label"
+      type="text"
+      class="form-control"
+      [ngClass]="{ 'is-invalid': isInvalidForm('label') }"
+    />
+    <small *ngIf="isInvalidForm('label')" class="text-danger">
+      {{ 'ERRORS.INPUT_ERROR_MESSAGE' | translate: { field: 'label' } }}
+    </small>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+# ---
+# Prometheus image
+# ---
+FROM nginx/nginx-prometheus-exporter:latest AS exporter
+
+# ---
+# Final image
+# ---
+FROM nginx:alpine
+ARG APP_NAME
+
+COPY ./docker/docker-entrypoint.sh /docker-entrypoint.sh
+RUN rm -rf /usr/share/nginx/html/* && \
+  rm -rf /etc/nginx/conf.d/* && \
+  chmod +x /docker-entrypoint.sh
+COPY ./docker/default.conf /etc/nginx/conf.d/default.conf
+
+COPY ./dist/${APP_NAME} /usr/share/nginx/html
+COPY --from=exporter /usr/bin/nginx-prometheus-exporter /usr/bin/nginx-prometheus-exporter
+
+# -------------------------------------------------
+# IMPORTANT: please change those two values only together and don't
+# forget to change also the 'default.conf' port definition!
+# -------------------------------------------------
+EXPOSE 80
+ENV NGINX_PORT=80
+# -------------------------------------------------
+
+CMD ["/bin/sh", "/docker-entrypoint.sh"]

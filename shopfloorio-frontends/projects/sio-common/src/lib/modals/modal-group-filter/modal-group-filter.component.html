@@ -1,0 +1,71 @@
+<div class="modal-header align-items-center" *ngIf="content">
+  <h4 class="modal-title" [title]="selectedTitle">
+    {{ content.title | translate }}{{ selectedTitle ? ': ' : '' }}<span>{{ selectedTitle }}</span>
+  </h4>
+
+  <div class="d-flex">
+    <a href="javascript:void(0)" class="select-all" (click)="toggleSelectAll()">
+      {{
+        (allSelected ? 'TOOLBAR.BUTTONS.DESELECT_ALL' : 'TOOLBAR.BUTTONS.SELECT_ALL') | translate
+      }}
+    </a>
+    <button type="button" class="btn btn-xs btn-icon btn-transparent" (click)="close()">
+      <i class="material-icons mi-18">close</i>
+    </button>
+  </div>
+</div>
+
+<div class="modal-body" *ngIf="content">
+  <div class="body-wrapper">
+    <div class="items">
+      <div class="title">
+        {{ content.group | translate }}
+      </div>
+      <div class="content-scrollable">
+        <div class="content-scroll list-group">
+          <div
+            *ngFor="let group of groups"
+            class="list-group-item list-group-item-action"
+            [ngClass]="{ active: group.selected }"
+            (click)="onGroup(group)"
+          >
+            <lib-checkbox
+              [label]="group.name"
+              [checked]="group.selected"
+              (changed)="onGroupChange(group, $event)"
+            ></lib-checkbox>
+            <div class="arrow-next" *ngIf="group.active">
+              <i class="material-icons">navigate_next</i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="items">
+      <div class="title">
+        {{ content.item | translate }}
+      </div>
+      <div class="content-scrollable">
+        <div class="content-scroll list-group">
+          <div
+            *ngFor="let item of activeGroup?.children"
+            class="list-group-item list-group-item-action"
+            [ngClass]="{ active: item.selected }"
+          >
+            <lib-checkbox
+              [label]="item.name"
+              [checked]="item.selected"
+              (changed)="onItemChange()"
+            ></lib-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" (click)="onSubmit()">
+    {{ 'TOOLBAR.BUTTONS.CONFIRM' | translate }}
+  </button>
+</div>

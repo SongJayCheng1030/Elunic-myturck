@@ -1,0 +1,127 @@
+<lib-panel>
+  <lib-panel-header>
+    <i class="material-icons mr-3">info</i>
+    <h4>{{ 'VIEWS.ASSET_DETAILS.ASSET_DETAILS' | translate }}</h4>
+
+    <lib-panel-header-actions>
+      <button class="btn btn-transparent btn-icon" *ngIf="imageId.value" (click)="deleteImage()">
+        <i class="material-icons">delete_outline</i>
+      </button>
+
+      <button uploadButton class="btn btn-outline-primary" (uploaded)="onUploadThumbnail($event)">
+        <span>
+          {{
+            (imageId.value
+              ? 'VIEWS.ASSET_DETAILS.CHANGE_IMAGE'
+              : 'VIEWS.ASSET_DETAILS.UPLOAD_IMAGE'
+            ) | translate
+          }}
+          <sup class="pl-1" *ngIf="!imageId.value">*</sup>
+        </span>
+      </button>
+    </lib-panel-header-actions>
+  </lib-panel-header>
+
+  <lib-panel-body class="py-3">
+    <div class="d-flex flex-center w-100" *ngIf="loading">
+      <lib-loader></lib-loader>
+    </div>
+
+    <div class="row" *ngIf="!loading">
+      <div class="col-md-4">
+        <div
+          class="image-container"
+          [class.empty]="!imageId.value"
+          [ngStyle]="{
+            'background-image': imageId.value
+              ? 'url(' + imageIdToUrl(imageId.value) + ')'
+              : 'url(\'\')'
+          }"
+        ></div>
+      </div>
+
+      <div class="col-md-8">
+        <div class="row" [formGroup]="form">
+          <div class="col-12 col-sm-6">
+            <div class="form-group">
+              <label for="name">
+                {{ 'VIEWS.ASSET_DETAILS.ASSET_NAME' | translate }}
+                <sup class="pl-1">*</sup>
+              </label>
+              <input type="text" id="name" class="form-control" multilangFormControl="name" />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6">
+            <div class="form-group">
+              <label>
+                {{ 'VIEWS.ASSET_DETAILS.PARENT_ASSET' | translate }}
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                [multilang]="parentAssetName"
+                [disabled]="true"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6">
+            <div class="form-group">
+              <label>
+                {{ 'VIEWS.ASSET_DETAILS.ASSET_TYPE' | translate }}
+                <sup class="pl-1">*</sup>
+              </label>
+              <div ngbDropdown class="dropdown form-dropdown">
+                <button
+                  ngbDropdownToggle
+                  [multilang]="
+                    selectedAssetType?.name || { translate: 'VIEWS.ASSET_DETAILS.PLEASE_CHOOSE' }
+                  "
+                  class="btn btn-outline-secondary"
+                ></button>
+
+                <div ngbDropdownMenu class="form-dropdown-menu">
+                  <button
+                    ngbDropdownItem
+                    [multilang]="assetType.name"
+                    (click)="onSelectAssetType(assetType)"
+                    *ngFor="let assetType of assetTypes"
+                  ></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6">
+            <div class="form-group">
+              <label>
+                {{ 'VIEWS.ASSET_DETAILS.ISA95_TYPE' | translate }}
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                [value]="selectedAssetType?.equipmentType"
+                [disabled]="true"
+              />
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="form-group mb-0">
+              <label for="description">
+                {{ 'VIEWS.ASSET_DETAILS.DESCRIPTION' | translate }}
+              </label>
+              <textarea
+                id="description"
+                class="form-control"
+                rows="4"
+                formControlName="description"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </lib-panel-body>
+</lib-panel>

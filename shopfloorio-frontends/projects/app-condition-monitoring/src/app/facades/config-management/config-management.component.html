@@ -1,0 +1,54 @@
+<div class="app-body">
+  <main class="main">
+    <div class="container-fluid">
+      <lib-panel class="h-100">
+        <lib-panel-header>
+          <button class="btn btn-transparent btn-icon mr-2">
+            <i class="material-icons">navigate_before</i>
+          </button>
+          <h4>{{ 'VIEWS.CONFIG_MANAGEMENT.CONFIGS' | translate }}</h4>
+          <lib-panel-header-actions>
+            <button
+              type="button"
+              class="btn btn-primary"
+              [disabled]="!isSettingsValid"
+              (click)="onSubmit()"
+            >
+              {{ 'VIEWS.CONFIG_MANAGEMENT.SAVE_CHANGES' | translate }}
+            </button>
+          </lib-panel-header-actions>
+        </lib-panel-header>
+        <lib-panel-body>
+          <div class="row header">
+            <div class="col-3">
+              {{ 'VIEWS.CONFIG_MANAGEMENT.NAME' | translate }}
+              <button class="btn btn-transparent btn-icon sort" (click)="onSort()">
+                <i class="material-icons">{{
+                  sortOrder === 'asc' ? 'arrow_upward' : 'arrow_downward'
+                }}</i>
+              </button>
+            </div>
+            <div class="col-4">{{ 'VIEWS.CONFIG_MANAGEMENT.VALUE' | translate }}</div>
+            <div class="col-5">{{ 'VIEWS.CONFIG_MANAGEMENT.DESCRIPTION' | translate }}</div>
+          </div>
+          <div class="content-scrollable">
+            <div class="content-scroll">
+              <div class="row" *ngFor="let config of settings">
+                <div class="col-3">{{ 'SETTINGS.' + config.key | translate }}</div>
+                <div class="col-4">
+                  <input
+                    type="number"
+                    class="form-control input-value"
+                    [ngClass]="{ 'is-invalid': !isValid(config) }"
+                    [(ngModel)]="config.value"
+                  />
+                </div>
+                <div class="col-5">{{ config.description }}</div>
+              </div>
+            </div>
+          </div>
+        </lib-panel-body>
+      </lib-panel>
+    </div>
+  </main>
+</div>

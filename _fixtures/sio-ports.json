@@ -1,0 +1,177 @@
+[
+  {
+    "type": "SERVICE",
+    "name": "asset-manager-backend",
+    "displayName": "Assets (core service)",
+    "port": 13001,
+    "path": "/service/asset/",
+    "envVars": [
+      "APP_SERVICE_URL_ASSET"
+    ]
+  },
+  {
+    "type": "SERVICE",
+    "name": "condition-monitoring-backend",
+    "displayName": "Condition Monitoring",
+    "port": 13002,
+    "path": "/service/condition-monitoring/",
+    "envVars": [
+      "APP_SERVICE_URL_CONDITION_MONITORING"
+    ]
+  },
+  {
+    "type": "SERVICE",
+    "name": "file-backend",
+    "displayName": "Files (core service)",
+    "port": 13003,
+    "path": "/service/file/",
+    "envVars": [
+      "APP_SERVICE_URL_FILE"
+    ]
+  },
+  {
+    "type": "SERVICE",
+    "name": "hub-backend",
+    "displayName": "Hub (core service)",
+    "port": 13004,
+    "path": "/service/hub/",
+    "envVars": [
+      "APP_SERVICE_URL_HUB"
+    ]
+  },
+  {
+    "type": "SERVICE",
+    "name": "maintenance-backend",
+    "displayName": "Maintenance Manager",
+    "port": 13005,
+    "path": "/service/maintenance/",
+    "envVars": [
+      "APP_SERVICE_URL_MAINTENANCE"
+    ]
+  },
+  {
+    "type": "SERVICE",
+    "name": "identity-backend",
+    "displayName": "Identity backend: users & tenants",
+    "port": 13007,
+    "path": "/service/identity/",
+    "envVars": [
+      "APP_SERVICE_URL_IDENTITY"
+    ]
+  },
+  {
+    "type": "SERVICE",
+    "name": "demo-data-backend",
+    "displayName": "Demo data backend",
+    "port": 13008,
+    "path": "/service/demo-data/",
+    "envVars": [
+      "APP_SERVICE_URL_DEMO_DATA"
+    ]
+  },
+  {
+    "type": "FRONTEND",
+    "name": "asset-manager-frontend",
+    "port": 13102,
+    "path": "/asset/",
+    "devDependencies": [
+      "asset-manager-backend",
+      "hub-backend",
+      "file-backend"
+    ]
+  },
+  {
+    "type": "FRONTEND",
+    "name": "asset-monitoring-frontend",
+    "port": 13103,
+    "path": "/asset-monitoring/",
+    "devDependencies": [
+      "asset-manager-backend",
+      "hub-backend",
+      "file-backend"
+    ]
+  },
+  {
+    "type": "FRONTEND",
+    "name": "condition-monitoring-frontend",
+    "port": 13104,
+    "path": "/condition-monitoring/",
+    "devDependencies": [
+      "asset-manager-backend",
+      "hub-backend",
+      "grafana",
+      "condition-monitoring-backend",
+      "file-backend"
+    ]
+  },
+  {
+    "type": "FRONTEND",
+    "name": "document-frontend",
+    "port": 13105,
+    "path": "/documents/",
+    "devDependencies": [
+      "asset-manager-backend",
+      "hub-backend",
+      "file-backend",
+      "identity-backend"
+    ]
+  },
+  {
+    "type": "FRONTEND",
+    "name": "hub-frontend",
+    "port": 13106,
+    "path": "/hub/",
+    "devDependencies": [
+      "file-backend",
+      "identity-backend",
+      "hub-backend"
+    ]
+  },
+  {
+    "type": "FRONTEND",
+    "name": "maintenance-frontend",
+    "port": 13107,
+    "path": "/maintenance/",
+    "devDependencies": [
+      "file-backend",
+      "identity-backend",
+      "hub-backend"
+    ]
+  },
+  {
+    "type": "FRONTEND",
+    "name": "tenant-frontend",
+    "port": 13108,
+    "path": "/tenant/",
+    "devDependencies": [
+      "identity-backend",
+      "hub-backend",
+      "tenant-backend",
+      "file-backend"
+    ]
+  },
+  {
+    "type": "FRONTEND",
+    "name": "user-frontend",
+    "port": 13109,
+    "path": "/user/",
+    "devDependencies": [
+      "hub-backend",
+      "identity-backend",
+      "file-backend"
+    ]
+  },
+  {
+    "type": "FRONTEND",
+    "name": "support-frontend",
+    "port": 13111,
+    "path": "/support/",
+    "devDependencies": [
+      "file-backend",
+      "asset-manager-backend",
+      "hub-backend",
+      "user-backend"
+    ]
+  }
+]
+

@@ -1,0 +1,59 @@
+<div class="modal-header align-items-center">
+  <h4 class="modal-title">
+    {{ 'MODALS.ASSET_POOL.TITLE' | translate }}
+  </h4>
+
+  <button type="button" class="btn btn-xs btn-icon btn-transparent" (click)="onCancel()">
+    <i class="material-icons mi-18">close</i>
+  </button>
+</div>
+
+<div class="modal-body p-0">
+  <lib-table [data]="assets" [scrollable]="true">
+    <lib-row *libHeaderRowDef>
+      <lib-header-cell></lib-header-cell>
+      <lib-header-cell>
+        {{ 'MODALS.ASSET_POOL.NAME' | translate }}
+      </lib-header-cell>
+      <lib-header-cell>
+        {{ 'MODALS.ASSET_POOL.TYPE' | translate }}
+      </lib-header-cell>
+      <lib-header-cell>
+        {{ 'MODALS.ASSET_POOL.UPDATED_AT' | translate }}
+      </lib-header-cell>
+    </lib-row>
+
+    <lib-row libDataRow *libDataRowDef="let asset; let i = index">
+      <lib-cell>
+        <lib-checkbox class="d-flex" (changed)="onSelect(i, $event)"></lib-checkbox>
+      </lib-cell>
+      <lib-cell [multilang]="asset.name"></lib-cell>
+      <lib-cell [multilang]="asset.assetType.name"></lib-cell>
+      <lib-cell>
+        {{ asset.updatedAt | date: 'dd.MM.yyyy | HH:mm' }}
+      </lib-cell>
+    </lib-row>
+
+    <lib-row libEmptyRow *libEmptyRowDef>
+      <lib-loader *ngIf="loading"></lib-loader>
+
+      <span *ngIf="!loading">
+        {{ 'MODALS.ASSET_POOL.NO_ASSETS_FOUND' | translate }}
+      </span>
+    </lib-row>
+  </lib-table>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-secondary" (click)="onCancel()">
+    {{ 'MODALS.ASSET_POOL.ABORT' | translate }}
+  </button>
+  <button
+    type="button"
+    class="btn btn-primary"
+    [disabled]="!indexesToAssign.length"
+    (click)="onConfirm()"
+  >
+    {{ 'MODALS.ASSET_POOL.CONFIRM' | translate }}
+  </button>
+</div>

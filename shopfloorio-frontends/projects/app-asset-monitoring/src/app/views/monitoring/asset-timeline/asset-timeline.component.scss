@@ -1,0 +1,23 @@
+:host {
+  &::ng-deep {
+    .panel {
+      .panel-header {
+        min-height: 50px;
+        padding: 0.5rem 1rem;
+      }
+    }
+  }
+}
+
+.table-row {
+  padding: 0 1.5rem;
+
+  .table-header-cell {
+    overflow: visible;
+  }
+
+  .type-cell {
+    flex: 0 1 40px;
+    justify-content: flex-end;
+  }
+}

@@ -1,0 +1,19 @@
+@import 'variables';
+
+:host {
+  display: bold;
+}
+
+:host::ng-deep .state {
+  font-weight: 700;
+}
+
+:host::ng-deep {
+  &.date-over-due {
+    color: $red;
+  }
+}
+
+:host::ng-deep .full-width {
+  padding: 0;
+}

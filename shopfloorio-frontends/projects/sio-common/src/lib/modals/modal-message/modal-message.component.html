@@ -1,0 +1,29 @@
+<div class="modal-header align-items-center">
+  <div class="d-flex align-items-center">
+    <i class="material-icons text-{{ type }} mr-2">
+      {{
+        type === 'danger'
+          ? 'error_outline'
+          : type === 'warning'
+          ? 'warning_amber'
+          : 'check_circle_outline'
+      }}
+    </i>
+
+    <h4 class="modal-title">{{ content.title | translate }}</h4>
+  </div>
+
+  <button type="button" class="btn btn-xs btn-icon btn-transparent" (click)="close()">
+    <i class="material-icons mi-18">close</i>
+  </button>
+</div>
+
+<div class="modal-body">
+  <p>{{ content.body | translate }}</p>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="close()">
+    {{ content.dismiss | translate }}
+  </button>
+</div>

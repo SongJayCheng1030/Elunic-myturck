@@ -1,0 +1,50 @@
+<div class="modal-header align-items-center">
+  <h4 class="modal-title">
+    {{ 'VIEWS.DOCUMENTS.LINK_TO_ASSETS' | translate }}
+  </h4>
+
+  <button type="button" class="btn btn-xs btn-icon btn-transparent" (click)="close()">
+    <i class="material-icons mi-18">close</i>
+  </button>
+</div>
+
+<div class="modal-body">
+  <lib-table [data]="content.assets" [scrollable]="true">
+    <lib-row *libHeaderRowDef>
+      <lib-header-cell></lib-header-cell>
+      <lib-header-cell>
+        {{ 'VIEWS.DOCUMENT_DETAILS.ASSET_NAME' | translate }}
+      </lib-header-cell>
+      <lib-header-cell>
+        {{ 'VIEWS.DOCUMENT_DETAILS.TYPE' | translate }}
+      </lib-header-cell>
+    </lib-row>
+
+    <lib-row libDataRow *libDataRowDef="let asset; let i = index">
+      <lib-cell>
+        <lib-checkbox
+          class="d-flex"
+          (changed)="onSelect(i, $event)"
+          [checked]="selectedIds.includes(asset.id)"
+        ></lib-checkbox>
+      </lib-cell>
+      <lib-cell [multilang]="asset.name"></lib-cell>
+      <lib-cell [multilang]="asset.assetType.name"></lib-cell>
+    </lib-row>
+
+    <lib-row libEmptyRow *libEmptyRowDef>
+      <span>
+        {{ 'VIEWS.DOCUMENT_DETAILS.NO_ASSET_LINKED_FOUND' | translate }}
+      </span>
+    </lib-row>
+  </lib-table>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-secondary" (click)="close()">
+    {{ 'ABORT' | translate }}
+  </button>
+  <button type="button" class="btn btn-primary" (click)="confirm()">
+    {{ 'SAVE' | translate }}
+  </button>
+</div>

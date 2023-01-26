@@ -1,0 +1,88 @@
+<div class="modal-header align-items-center">
+  <h4 class="modal-title">
+    <ng-container *ngIf="mode === 'new'"> {{ 'MODALS.PROPERTY.TITLE' | translate }}</ng-container>
+    <ng-container *ngIf="mode === 'edit'">
+      {{ 'VIEWS.ASSET_TYPE_DETAILS.DYNAMIC_PROPERTIES' | translate }} >
+      <span [multilang]="property.name"></span>
+    </ng-container>
+  </h4>
+
+  <button type="button" class="btn btn-xs btn-icon btn-transparent" (click)="onCancel()">
+    <i class="material-icons mi-18">close</i>
+  </button>
+</div>
+
+<div class="modal-body" [formGroup]="form">
+  <div class="row">
+    <div class="col-12 col-md-12">
+      <div class="form-group">
+        <label for="propertyName">
+          {{ 'VIEWS.ASSET_TYPE_DETAILS.PROPERTY_NAME' | translate }}
+        </label>
+        <input type="text" id="propertyName" class="form-control" multilangFormControl="name" />
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 mt-2">
+      <div class="form-group">
+        <label for="key">
+          {{ 'VIEWS.ASSET_TYPE_DETAILS.DEFAULT_VALUE' | translate }}
+        </label>
+        <input type="text" id="value" class="form-control" formControlName="value" />
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 mt-2">
+      <div class="form-group">
+        <label for="key"> {{ 'VIEWS.ASSET_TYPE_DETAILS.KEY' | translate }} * </label>
+        <input type="text" id="key" class="form-control" formControlName="key" />
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div class="form-group">
+        <label> {{ 'VIEWS.ASSET_TYPE_DETAILS.TYPE' | translate }} * </label>
+        <div ngbDropdown class="dropdown form-dropdown">
+          <button ngbDropdownToggle class="btn btn-outline-secondary">
+            {{ type.value || 'VIEWS.ASSET_TYPE_DETAILS.PLEASE_CHOOSE' | translate }}
+          </button>
+
+          <div ngbDropdownMenu class="form-dropdown-menu">
+            <button ngbDropdownItem (click)="onSelectType(type)" *ngFor="let type of typeOptions">
+              {{ type }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div class="row">
+        <div class="col-6">
+          <lib-checkbox
+            formControlName="isRequired"
+            label="{{ 'VIEWS.ASSET_TYPE_DETAILS.MANDATORY' | translate }}"
+          >
+          </lib-checkbox>
+        </div>
+        <div class="col-6">
+          <lib-checkbox
+            class="mr-3"
+            formControlName="display"
+            label="{{ 'VIEWS.ASSET_TYPE_DETAILS.DISPLAY' | translate }}"
+          >
+          </lib-checkbox>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-sm btn-transparent btn-icon" (click)="onDelete()" *ngIf="mode === 'edit'">
+    <i class="material-icons mi-18">delete_outline</i>
+  </button>
+  <button type="button" class="btn btn-primary" [disabled]="form.invalid" (click)="onSubmit()">
+    {{ (mode === 'new' ? 'MODALS.PROPERTY.CONFIRM' : 'MODALS.PROPERTY.CONFIRM_EDIT') | translate }}
+  </button>
+</div>

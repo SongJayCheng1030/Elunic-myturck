@@ -1,0 +1,12 @@
+{
+  "oeeDaily": [],
+  "oeeDailyTrend": [],
+  "throughputDaily": [],
+  "throughputDailyTrend": [],
+  "equipmentStatusHistory": [],
+  "throughput": {},
+  "kpi": {},
+  "hasKpiDataAvailable": false,
+  "hasThroughputDataAvailable": false,
+  "aggrMode": "day"
+}

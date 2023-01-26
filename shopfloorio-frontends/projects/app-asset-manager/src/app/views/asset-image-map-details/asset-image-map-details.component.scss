@@ -1,0 +1,110 @@
+@import 'variables';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &::ng-deep {
+    .parent-assets-select .ng-select-container {
+      height: 40px !important;
+    }
+
+    .panel-actions {
+      .panel {
+        background-color: transparent;
+        border: 0;
+      }
+
+      .panel-header {
+        border: 0;
+        padding: 0;
+        min-height: 0;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+}
+
+.photo-editor {
+  display: flex;
+  gap: 15px;
+
+  .photo-canvas {
+    min-height: 50vh;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    box-shadow: 0 3px 6px rgba($black, 16%);
+  }
+
+  .assets {
+    box-shadow: 0 3px 6px rgba($black, 16%);
+  }
+}
+
+.remove-icon {
+  position: absolute;
+  right: -15px;
+  top: -15px;
+  font-size: 1.1rem;
+  cursor: pointer !important;
+}
+
+lib-panel-body {
+  min-height: 50vh;
+}
+
+.image-container {
+  box-shadow: 0 3px 6px rgba($black, 16%);
+  object-fit: contain;
+  max-width: 100%;
+  max-height: 100%;
+
+  &.empty {
+    &::after {
+      content: '';
+      position: absolute;
+      top: 60%;
+      left: 45%;
+      height: 1px;
+      width: 35%;
+      background-color: #e6e6e6;
+      transform: rotate(135deg);
+    }
+  }
+}
+
+.item-container {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  border-radius: 50%;
+  background-size: contain;
+  background-repeat: no-repeat no-repeat;
+  width: 50px;
+  height: 50px;
+  cursor: move;
+}
+
+@media screen and (max-width: 768px) {
+  .image-container {
+    &.empty {
+      &::after {
+        width: unset !important;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1223px) {
+  .form-dropdown {
+    .dropdown-toggle {
+      width: unset !important;
+    }
+  }
+}

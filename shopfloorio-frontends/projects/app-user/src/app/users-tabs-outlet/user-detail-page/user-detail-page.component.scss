@@ -1,0 +1,57 @@
+.additional-header {
+  display: flex;
+  align-items: center;
+  .button-component {
+    width: 200px;
+    margin-left: 25px;
+    @media screen and (max-width: 800px) {
+      width: auto;
+    }
+  }
+}
+
+.inputs {
+  margin-right: 0px;
+}
+.user-pic {
+  padding: 70px 0 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .image-wrapper {
+    width: 168px;
+    height: 168px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 50%;
+    img {
+      min-width: 168px;
+      max-width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background-color: #fff;
+      background-image: url('../../../assets/icons/incognito.svg');
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+  }
+  .button-group {
+    padding-top: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    lib-button {
+      &:first-child {
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+.label {
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}

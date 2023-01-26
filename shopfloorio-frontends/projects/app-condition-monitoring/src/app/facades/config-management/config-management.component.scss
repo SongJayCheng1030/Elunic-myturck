@@ -1,0 +1,79 @@
+@import 'variables';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  &::ng-deep {
+    .panel {
+      .panel-header {
+        padding: $panel-padding-y 1.5rem $panel-padding-y 0.8rem;
+      }
+
+      .panel-body-container {
+        .panel-body {
+          padding: 35px 0 !important;
+          flex-direction: column;
+        }
+      }
+    }
+  }
+}
+
+.row {
+  margin: 0;
+  padding: 15px 60px;
+  border-bottom: 1px solid $gray-300;
+
+  [class^='col-'] {
+    padding: 0 10px 0 0;
+    display: flex;
+    align-items: center;
+
+    .input-value {
+      max-width: 70%;
+    }
+  }
+
+  &.header {
+    font-weight: bold;
+  }
+}
+
+.sort {
+  margin-left: 12;
+  width: 30px;
+  height: 30px;
+
+  .material-icons {
+    font-size: 12px;
+  }
+}
+
+.content-scrollable {
+  min-height: 300px;
+
+  .content-scroll {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.app-body {
+  margin: 2rem;
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+
+  .main {
+    flex: 1;
+
+    .container-fluid {
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      height: 100%;
+    }
+  }
+}

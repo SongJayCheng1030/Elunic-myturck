@@ -1,0 +1,106 @@
+.form-dropdown {
+  min-width: 13rem;
+
+  &.show .dropdown-toggle::after {
+    transform: scaleY(-1);
+  }
+
+  &.dropup .dropdown-menu {
+    box-shadow: $dropup-box-shadow;
+  }
+
+  .dropdown-toggle {
+    position: relative;
+    padding-right: $input-btn-padding-x * 2;
+    width: 100%;
+
+    &:not(.btn).form-control {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      background-color: $white;
+      border: $input-border-width solid $input-focus-border-color;
+      color: $primary;
+      text-align: left;
+      transition: $input-transition;
+
+      &:focus {
+        border-color: $input-focus-border-color;
+      }
+
+      &[aria-expanded='true'] {
+        z-index: 100;
+      }
+
+      &[disabled] {
+        cursor: default;
+      }
+
+      & + .dropdown-menu {
+        margin-top: -1px;
+      }
+    }
+
+    &::after {
+      content: 'expand_more';
+      top: 0;
+      left: 0;
+      right: $input-btn-padding-x / 2;
+      // right: math.div($input-btn-padding-x, 2); // Use it after Angular 13 migration
+      bottom: 0;
+      display: flex;
+      position: absolute;
+      align-items: center;
+      justify-content: flex-end;
+      font-family: 'Material Icons';
+      font-weight: $font-weight-normal;
+      font-size: 18px;
+      margin-left: 0;
+      border: 0;
+      transition: transform 0.15s ease-in-out;
+    }
+  }
+
+  .dropdown-menu {
+    width: 100%;
+    height: auto;
+    max-height: 250px;
+    margin: 0;
+    padding: 0;
+    border: $btn-border-width solid $secondary;
+    overflow-y: auto;
+    @include custom-scrollbar;
+
+    &[x-placement='top-start'] {
+      margin-top: 3px;
+    }
+
+    .dropdown-item {
+      height: $input-height;
+    }
+  }
+}
+
+.dropup,
+.dropdown {
+  .dropdown-toggle::after {
+    border: 0;
+    margin: 0;
+  }
+
+  .dropdown-menu {
+    box-shadow: $dropdown-box-shadow;
+
+    .dropdown-item {
+      outline: none;
+      transition: 0.25s ease;
+      transition-property: color, background-color;
+    }
+  }
+}
+
+.dropup {
+  .dropdown-menu {
+    box-shadow: $dropup-box-shadow;
+  }
+}

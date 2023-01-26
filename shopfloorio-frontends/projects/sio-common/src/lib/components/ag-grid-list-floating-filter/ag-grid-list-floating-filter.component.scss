@@ -1,0 +1,16 @@
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+:host::ng-deep ng-select {
+  height: 100%;
+}
+
+:host::ng-deep .ng-select-container {
+  height: 100%;
+  border: none;
+}

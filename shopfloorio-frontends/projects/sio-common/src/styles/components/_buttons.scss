@@ -1,0 +1,117 @@
+.btn {
+  display: flex;
+  align-items: center;
+  height: $input-height;
+
+  &.btn-block {
+    width: 100%;
+    justify-content: center;
+  }
+
+  &:not(.btn-icon) {
+    .material-icons {
+      margin-right: 12px;
+
+      &:not([class*='mi-']) {
+        font-size: 18px;
+        // Fix: icon appears cropped/blurry when its size is under recommended size (24px)
+        // https://github.com/google/material-design-icons/issues/648#issuecomment-335735429
+        transform: rotate(0.03deg);
+      }
+    }
+  }
+
+  &.btn-icon {
+    padding: 0;
+    width: $input-height;
+    justify-content: center;
+    flex-shrink: 0;
+
+    &.btn-sm {
+      width: $input-height-sm;
+      height: $input-height-sm;
+    }
+
+    &.btn-lg {
+      width: $input-height-lg;
+      height: $input-height-lg;
+    }
+  }
+
+  &[disabled],
+  &.disabled {
+    cursor: default;
+  }
+
+  &.loading {
+    pointer-events: none;
+    position: relative;
+    padding-left: 2.5rem;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      left: 10px;
+      border-radius: 50%;
+      z-index: 10;
+    }
+
+    &::before {
+      border: 2px solid rgba(0, 0, 0, 0.15);
+    }
+
+    &::after {
+      border-width: 2px;
+      border-style: solid;
+      border-color: currentColor transparent transparent;
+      animation: spin 0.6s linear;
+      animation-iteration-count: infinite;
+    }
+  }
+}
+
+.btn-transparent {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    border: 0;
+    background-color: rgba($black, 5%);
+    transform: scale(0);
+    border-radius: $border-radius;
+    transition: 0.25s ease-in-out;
+    transition-property: background-color, transform;
+  }
+
+  &:not(:disabled):hover::after,
+  &:not(:disabled):focus::after {
+    transform: none;
+  }
+
+  &:focus::after {
+    background-color: rgba($black, 10%);
+  }
+
+  &.btn-icon {
+    padding: 0;
+
+    &::after {
+      border-radius: 50%;
+    }
+  }
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,45 @@
+<div class="d-flex justify-content-between align-items-center">
+  <h4 *ngIf="asset" [multilang]="asset.name"></h4>
+  <h4 *ngIf="!asset">&nbsp;</h4>
+  <div class="d-flex">
+    <lib-time-range
+      class="mx-2"
+      [dateRangeCont]="dateRange | async"
+      (rangeSelect)="onRangeSelect($event)"
+    ></lib-time-range>
+    <button class="btn btn-outline-primary mx-2" (click)="toggleViewMode()">
+      {{ 'TOOLBAR.BUTTONS.ADMIN_VIEW' | translate }}
+    </button>
+    <button class="btn btn-primary mx-2" (click)="onAddTile()" *ngIf="adminView">
+      <i class="material-icons">add</i>
+      <span>{{ 'VIEWS.ANALYTICS_RULES.ADD_TILE' | translate }}</span>
+    </button>
+  </div>
+</div>
+
+<div class="outer-wrapper mt-4">
+  <div
+    *ngIf="deviceId$ | async as deviceId"
+    class="main-wrapper grid-{{ gridRows }}x4"
+    [ngClass]="{ 'grid-border-tl': adminView }"
+  >
+    <app-grafana-panel
+      *ngFor="let tile of tiles"
+      class="grid-col grid-row-span-{{ tile.height }} grid-column-span-{{ tile.width }}"
+      [ngClass]="{ 'grid-border-br': adminView }"
+      [adminView]="adminView"
+      [deviceId]="deviceId"
+      [property]="tile"
+      [totalTiles]="tiles.length"
+      (action)="onAction($event)"
+      (onLinkClick)="onLinkClick($event)"
+    ></app-grafana-panel>
+    <ng-container *ngIf="maxCells > gridCells">
+      <div
+        class="grid-col"
+        [ngClass]="{ 'grid-border-br': adminView }"
+        *ngFor="let i of numSequence(maxCells - gridCells)"
+      ></div>
+    </ng-container>
+  </div>
+</div>

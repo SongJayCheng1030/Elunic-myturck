@@ -1,0 +1,32 @@
+<div [class]="content.custom?.class">
+  <div class="modal-header align-items-center">
+    <h4 class="modal-title">{{ content.title | translate }}</h4>
+
+    <button type="button" class="btn btn-xs btn-icon btn-transparent" (click)="onAction('close')">
+      <i class="material-icons mi-18">close</i>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <p>{{ content.body | translate }}</p>
+  </div>
+
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn {{ content.custom?.abortButton.class || 'btn-outline-secondary' }}"
+      [disabled]="content.custom?.abortButton?.disabled"
+      (click)="onAction('abort')"
+    >
+      {{ content.abort | translate }}
+    </button>
+    <button
+      type="button"
+      class="btn {{ content.custom?.confirmButton.class || 'btn-danger' }}"
+      [disabled]="content.custom?.confirmButton.disabled"
+      (click)="onAction('confirm')"
+    >
+      {{ content.confirm | translate }}
+    </button>
+  </div>
+</div>

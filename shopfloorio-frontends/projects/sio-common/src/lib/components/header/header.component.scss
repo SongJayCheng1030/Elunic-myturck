@@ -1,0 +1,109 @@
+@import 'abstracts/variables';
+
+::ng-deep {
+  .border-0 .modal-content,
+  .modal-dialog .modal-content {
+    border: none !important;
+  }
+}
+
+header {
+  display: flex;
+  align-items: center;
+  padding: $header-padding-y $header-padding-x;
+  height: $header-height;
+  background-color: $yellow;
+
+  .service-contract-status-btn {
+    height: 35px;
+    border-radius: 5px;
+    color: #ffffff;
+    width: 180px;
+    background: transparent linear-gradient(180deg, #dba513 0%, #c69320 100%) 0% 0% no-repeat
+      padding-box;
+    opacity: 1;
+
+    &-text {
+      font: normal normal normal 12px/29px Oxygen;
+    }
+    &-status {
+      font: normal normal bold 12px/29px Oxygen;
+    }
+  }
+
+  &::after {
+    content: '';
+    background-color: #000;
+    position: absolute;
+    top: 56px;
+    width: 100%;
+    left: 0;
+    height: 6px;
+    background: linear-gradient(#00000020, transparent);
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    margin-left: 1.5rem;
+
+    h1 {
+      position: relative;
+      margin-bottom: 0;
+      padding-left: 18px;
+      margin-left: 18px;
+      color: rgba($black, 87%);
+
+      &.divider {
+        border-left: solid 2px rgba(0, 0, 0, 0.42);
+      }
+    }
+  }
+}
+
+button {
+  background-color: transparent;
+  border: none;
+}
+
+.userpic-stub {
+  width: 35px !important;
+  height: 35px !important;
+  background-color: $white;
+  border-radius: 100%;
+  display: inline-block;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.dropdown-item {
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 5px 15px;
+
+  .icon {
+    margin-right: 15px;
+
+    img {
+      max-width: 16px;
+      max-height: 20px;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.current-user-name {
+  font-weight: bold;
+
+  &:hover {
+    background-color: transparent !important;
+  }
+}
+
+.logo {
+  height: 36px;
+}

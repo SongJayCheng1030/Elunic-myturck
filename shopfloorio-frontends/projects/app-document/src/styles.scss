@@ -1,0 +1,35 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@400;700&display=swap');
+
+@import url('https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp');
+
+@import 'abstracts';
+
+@import 'vendors';
+
+@import 'core';
+
+@import 'components';
+
+@import '~ngx-toastr/toastr';
+
+// drap-and-drop styling
+.cdk-drag-placeholder {
+  opacity: 0.6;
+}
+.cdk-drag-preview.table-row {
+  color: red !important;
+  display: flex;
+
+  background-color: $table-bg;
+  border-bottom: 1px solid $gray-300;
+  border-top: 1px solid $gray-300;
+  .table-cell {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: $table-cell-padding-y $table-cell-padding-x;
+  }
+}

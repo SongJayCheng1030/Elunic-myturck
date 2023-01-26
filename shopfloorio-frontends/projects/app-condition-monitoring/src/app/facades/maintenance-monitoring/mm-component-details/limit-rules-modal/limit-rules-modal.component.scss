@@ -1,0 +1,31 @@
+.modal-title {
+  font-size: 14px;
+}
+
+.modal-body {
+  padding: 14px 0 0;
+}
+
+.row {
+  margin: 0;
+
+  [class^='col-'] {
+    padding: 0 38px;
+    display: flex;
+    align-items: center;
+
+    .legend {
+      width: 20px;
+      margin-right: 26px;
+      margin-top: 0.5rem;
+    }
+  }
+}
+
+hr {
+  margin-top: 0;
+}
+
+.name {
+  color: #0053a1;
+}

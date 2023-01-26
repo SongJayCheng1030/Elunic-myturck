@@ -1,0 +1,36 @@
+<lib-panel>
+  <lib-panel-header class="pl-3">
+    <h2>{{ 'USER_MANAGEMENT' | translate }}</h2>
+    <div class="tabs">
+      <a
+        class="tab"
+        [class.active]="selectedTabIndex === i"
+        (click)="onNavigate(i)"
+        *ngFor="let tab of tabs; let i = index"
+      >
+        {{ tab.label | translate }}
+      </a>
+    </div>
+    <lib-panel-header-actions>
+      <lib-search
+        *ngIf="selectedTabIndex === 0"
+        [formControl]="search"
+        placeholder="{{ 'SEARCH' | translate }}"
+      >
+      </lib-search>
+      <lib-button
+        mode="primary"
+        class="d-flex align-items-center justify-content-center"
+        [routerLink]="tabs[selectedTabIndex].createBtn.link"
+      >
+        <div class="d-flex align-items-center justify-content-center">
+          <i class="icon pr-1 material-icons">add</i>
+          <span>{{ tabs[selectedTabIndex].createBtn.label | translate }}</span>
+        </div>
+      </lib-button>
+    </lib-panel-header-actions>
+  </lib-panel-header>
+  <lib-panel-body class="p-0">
+    <router-outlet></router-outlet>
+  </lib-panel-body>
+</lib-panel>

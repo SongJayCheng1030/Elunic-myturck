@@ -1,0 +1,344 @@
+<lib-panel class="panel-actions">
+  <lib-panel-header>
+    <button class="btn btn-transparent btn-icon" (click)="onBack()">
+      <i class="material-icons">navigate_before</i>
+    </button>
+    <a href="javascript:void(0)" (click)="onBack()">
+      <h4>Fleet #1</h4>
+    </a>
+    <span class="mx-2">|</span><span class="oee-id" [multilang]="activeTreeNode?.name"></span>
+  </lib-panel-header>
+</lib-panel>
+
+<div class="details-wrapper mt-2">
+  <app-mm-equipment-status></app-mm-equipment-status>
+  <ul ngbNav #nav="ngbNav" class="nav-tabs nav-justified">
+    <li ngbNavItem>
+      <a ngbNavLink>
+        <span class="title">{{ 'VIEWS.MAINTENANCE_MONITORING.SUMMARY.TITLE' | translate }}</span>
+      </a>
+      <ng-template ngbNavContent>
+        <div class="row summary">
+          <div class="col-5 overview">
+            <span class="title">{{
+              'VIEWS.MAINTENANCE_MONITORING.SUMMARY.OVERVIEW' | translate
+            }}</span>
+            <div class="overview-list">
+              <div class="overview-item">
+                <div class="overview-title">
+                  {{ 'VIEWS.MAINTENANCE_MONITORING.SUMMARY.OEE' | translate }}
+                </div>
+                <div class="overview-desc">{{ overview?.oee }}</div>
+              </div>
+              <div class="overview-item">
+                <div class="overview-title">
+                  {{ 'VIEWS.MAINTENANCE_MONITORING.SUMMARY.MCBI' | translate }}
+                </div>
+                <div class="overview-desc">{{ overview?.mcbi }}</div>
+              </div>
+              <div class="overview-item">
+                <div class="overview-title">
+                  {{ 'VIEWS.MAINTENANCE_MONITORING.SUMMARY.ALARM_COUNT' | translate }}
+                </div>
+                <div class="overview-desc">{{ overview?.alarmCount }}</div>
+              </div>
+              <div class="overview-item">
+                <div class="overview-title">
+                  {{ 'VIEWS.MAINTENANCE_MONITORING.SUMMARY.PDM_EVENTS' | translate }}
+                </div>
+                <div class="overview-desc">{{ overview?.pdmEvents }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-7 alarms-events">
+            <span class="title">{{
+              'VIEWS.MAINTENANCE_MONITORING.ALARM_ANALYTICS.RECOMMENDATIONS' | translate
+            }}</span>
+            <ngb-accordion (panelChange)="panelChange($event)" [activeIds]="activePanelIds">
+              <ngb-panel
+                *ngFor="let analytic of recommendedAlarms; let i = index"
+                id="panel-{{ i }}"
+                [cardClass]="isActivePanel('panel-' + i) ? 'active' : ''"
+              >
+                <ng-template ngbPanelHeader let-opened="opened">
+                  <button class="d-flex justify-content-between alarm-header" ngbPanelToggle>
+                    <div class="d-flex justify-content-start">
+                      <div class="alarm-title">
+                        {{ 'VIEWS.MAINTENANCE_MONITORING.ANALYTICS.ACTION' | translate }} #{{
+                          i + 1
+                        }}
+                      </div>
+                      <div class="alarm-desc">{{ analytic.action }}</div>
+                    </div>
+                    <i class="material-icons">{{ opened ? 'arrow_drop_up' : 'arrow_drop_down' }}</i>
+                  </button>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                  <div class="row alarm-content d-flex">
+                    <ul class="col-6 alarm-content-list">
+                      <li>
+                        {{ 'VIEWS.MAINTENANCE_MONITORING.ANALYTICS.SOURCE' | translate }} =
+                        {{ analytic.source }}
+                      </li>
+                      <li>
+                        {{ 'VIEWS.MAINTENANCE_MONITORING.ANALYTICS.ALARM_ID' | translate }} =
+                        {{ analytic.alarmId }}
+                      </li>
+                      <li>
+                        {{ 'VIEWS.MAINTENANCE_MONITORING.ANALYTICS.COMPONENT' | translate }} =
+                        <a [routerLink]="analytic.componentId" class="link">{{
+                          analytic.component
+                        }}</a>
+                      </li>
+                      <li>
+                        {{ 'VIEWS.MAINTENANCE_MONITORING.ANALYTICS.DESCRIPTION' | translate }} =
+                        {{ analytic.description }}
+                      </li>
+                      <li>
+                        {{ 'VIEWS.MAINTENANCE_MONITORING.ANALYTICS.SUB_ID' | translate }} =
+                        {{ analytic.subId }}
+                      </li>
+                    </ul>
+                    <ul class="col-6 alarm-content-list">
+                      <li>
+                        {{ 'VIEWS.MAINTENANCE_MONITORING.ANALYTICS.TIME_STAMP' | translate }} =
+                        {{ analytic.createdAt | date: 'HH:mm:ss' }}
+                      </li>
+                      <li>
+                        {{ 'VIEWS.MAINTENANCE_MONITORING.ANALYTICS.ROOT_CAUSE_INFO' | translate }} =
+                        {{ analytic.rootCauseInfo }}
+                      </li>
+                      <li>
+                        {{ 'VIEWS.MAINTENANCE_MONITORING.ANALYTICS.KIT_RECIPE' | translate }} =
+                        {{ analytic.kitRecipe }}
+                      </li>
+                      <li>
+                        {{ 'VIEWS.MAINTENANCE_MONITORING.ANALYTICS.TEMP' | translate }} =
+                        {{ analytic.temp }}
+                      </li>
+                      <li>
+                        {{ 'VIEWS.MAINTENANCE_MONITORING.ANALYTICS.USER_NOTES' | translate }} =
+                        {{ analytic.userNotes }}
+                      </li>
+                    </ul>
+                  </div>
+                </ng-template>
+              </ngb-panel>
+            </ngb-accordion>
+          </div>
+        </div>
+      </ng-template>
+    </li>
+    <li ngbNavItem>
+      <a ngbNavLink>
+        <span class="title">{{
+          'VIEWS.MAINTENANCE_MONITORING.ALARM_ANALYTICS.TITLE' | translate
+        }}</span>
+      </a>
+      <ng-template ngbNavContent>
+        <lib-table class="w-100" [data]="alarmAnalytics" [scrollable]="true">
+          <lib-row *libHeaderRowDef>
+            <lib-header-cell>
+              {{ 'VIEWS.MAINTENANCE_MONITORING.ANALYTICS.ACTION' | translate }}
+            </lib-header-cell>
+            <lib-header-cell>
+              {{ 'VIEWS.MAINTENANCE_MONITORING.ANALYTICS.ALARM_ID' | translate }}
+            </lib-header-cell>
+            <lib-header-cell>
+              {{ 'VIEWS.MAINTENANCE_MONITORING.ANALYTICS.COMPONENT' | translate }}
+            </lib-header-cell>
+            <lib-header-cell>
+              {{ 'VIEWS.MAINTENANCE_MONITORING.ANALYTICS.DESCRIPTION' | translate }}
+            </lib-header-cell>
+            <lib-header-cell>
+              {{ 'VIEWS.MAINTENANCE_MONITORING.ANALYTICS.SUB_ID' | translate }}
+            </lib-header-cell>
+            <lib-header-cell>
+              {{ 'VIEWS.MAINTENANCE_MONITORING.ANALYTICS.TIME_STAMP' | translate }}
+            </lib-header-cell>
+            <lib-header-cell>
+              {{ 'VIEWS.MAINTENANCE_MONITORING.ANALYTICS.ROOT_CAUSE_INFO' | translate }}
+            </lib-header-cell>
+            <lib-header-cell>
+              {{ 'VIEWS.MAINTENANCE_MONITORING.ANALYTICS.KIT_RECIPE' | translate }}
+            </lib-header-cell>
+            <lib-header-cell>
+              {{ 'VIEWS.MAINTENANCE_MONITORING.ANALYTICS.TEMP' | translate }}
+            </lib-header-cell>
+            <lib-header-cell>
+              {{ 'VIEWS.MAINTENANCE_MONITORING.ANALYTICS.USER_NOTES' | translate }}
+            </lib-header-cell>
+          </lib-row>
+          <lib-row libDataRow *libDataRowDef="let analytic">
+            <lib-cell>{{ analytic.action }}</lib-cell>
+            <lib-cell>{{ analytic.alarmId }}</lib-cell>
+            <lib-cell
+              ><a [routerLink]="analytic.componentId" class="link">{{
+                analytic.component
+              }}</a></lib-cell
+            >
+            <lib-cell>{{ analytic.description }}</lib-cell>
+            <lib-cell>{{ analytic.subId }}</lib-cell>
+            <lib-cell>{{ analytic.createdAt | date: 'HH:mm:ss' }}</lib-cell>
+            <lib-cell>{{ analytic.rootCauseInfo }}</lib-cell>
+            <lib-cell>{{ analytic.kitRecipe }}</lib-cell>
+            <lib-cell>{{ analytic.temp }}</lib-cell>
+            <lib-cell>{{ analytic.userNotes }}</lib-cell>
+          </lib-row>
+          <lib-row appEmptyRow *libEmptyRowDef>
+            <span>{{ 'VIEWS.MAINTENANCE_MONITORING.NO_ALARM_FOUND' | translate }}</span>
+          </lib-row>
+        </lib-table>
+      </ng-template>
+    </li>
+    <li ngbNavItem>
+      <a ngbNavLink>
+        <span class="title">{{
+          'VIEWS.MAINTENANCE_MONITORING.COMPONENT_ANALYTICS.TITLE' | translate
+        }}</span>
+      </a>
+      <ng-template ngbNavContent>
+        <lib-table class="w-100" [data]="componentAnalytics" [scrollable]="true">
+          <lib-row *libHeaderRowDef class="table-header-wrapper">
+            <lib-header-cell>
+              {{ 'VIEWS.MAINTENANCE_MONITORING.ANALYTICS.ACTION' | translate }}
+            </lib-header-cell>
+            <lib-header-cell>
+              {{ 'VIEWS.MAINTENANCE_MONITORING.ANALYTICS.ALERT_TYPES' | translate }}
+            </lib-header-cell>
+            <lib-header-cell class="action-header">
+              <div class="label">
+                {{ 'VIEWS.MAINTENANCE_MONITORING.ANALYTICS.STATUS' | translate }}
+              </div>
+              <div
+                ngbDropdown
+                class="dropdown form-dropdown btn-filter"
+                container="body"
+                *ngIf="filterForm"
+                [formGroup]="filterForm"
+              >
+                <button class="btn btn-transparent btn-icon" ngbDropdownToggle>
+                  <img src="assets/icons/filter.svg" alt="Filter" />
+                </button>
+                <div ngbDropdownMenu class="form-dropdown-menu">
+                  <div class="filter" *ngFor="let status of statuses | keyvalue">
+                    <lib-checkbox [formControlName]="status.key"></lib-checkbox>
+                    <app-status-legend
+                      [backgroundColor]="status.value.color"
+                      [icon]="status.value.icon"
+                      [label]="status.value.label"
+                      width="20"
+                      height="20"
+                    ></app-status-legend>
+                  </div>
+                </div>
+              </div>
+            </lib-header-cell>
+            <lib-header-cell>
+              {{ 'VIEWS.MAINTENANCE_MONITORING.ANALYTICS.SUB_SYSTEM' | translate }}
+            </lib-header-cell>
+            <lib-header-cell>
+              {{ 'VIEWS.MAINTENANCE_MONITORING.ANALYTICS.ASSEMBLY' | translate }}
+            </lib-header-cell>
+            <lib-header-cell>
+              {{ 'VIEWS.MAINTENANCE_MONITORING.ANALYTICS.COMPONENT' | translate }}
+            </lib-header-cell>
+            <lib-header-cell>
+              {{ 'VIEWS.MAINTENANCE_MONITORING.ANALYTICS.PERFORMANCE' | translate }}
+            </lib-header-cell>
+            <lib-header-cell>
+              {{ 'VIEWS.MAINTENANCE_MONITORING.ANALYTICS.USAGE' | translate }}
+            </lib-header-cell>
+            <lib-header-cell>
+              {{ 'VIEWS.MAINTENANCE_MONITORING.ANALYTICS.RUL_DAYS' | translate }}
+            </lib-header-cell>
+            <lib-header-cell>
+              {{ 'VIEWS.MAINTENANCE_MONITORING.ANALYTICS.NEXT_PM_DAYS' | translate }}
+            </lib-header-cell>
+            <lib-header-cell>
+              {{ 'VIEWS.MAINTENANCE_MONITORING.ANALYTICS.DETAILS' | translate }}
+            </lib-header-cell>
+          </lib-row>
+          <lib-row libDataRow *libDataRowDef="let analytic">
+            <lib-cell>{{ analytic.action }}</lib-cell>
+            <lib-cell>{{ analytic.alertTypes }}</lib-cell>
+            <lib-cell>
+              <ng-template
+                [ngTemplateOutlet]="statusTemplate"
+                [ngTemplateOutletContext]="{ status: analytic.status }"
+              ></ng-template>
+            </lib-cell>
+            <lib-cell>{{ analytic.subSystem }}</lib-cell>
+            <lib-cell>{{ analytic.assembly }}</lib-cell>
+            <lib-cell
+              ><a [routerLink]="analytic.id" class="link">{{ analytic.name }}</a></lib-cell
+            >
+            <lib-cell
+              >{{ analytic.performance }}
+              {{ analytic.performance !== null ? 'ms' : 'N/A' }}</lib-cell
+            >
+            <lib-cell
+              >{{ analytic.usage }}
+              {{ 'VIEWS.MAINTENANCE_MONITORING.ANALYTICS.CYCLES' | translate }}</lib-cell
+            >
+            <lib-cell>{{ analytic.rulDays }}</lib-cell>
+            <lib-cell>{{ analytic.nextPmDays !== null ? analytic.nextPmDays : 'N/A' }}</lib-cell>
+            <lib-cell>
+              <button class="btn btn-transparent btn-icon" [routerLink]="analytic.id">
+                <i class="material-icons">navigate_next</i>
+              </button>
+            </lib-cell>
+          </lib-row>
+          <lib-row appEmptyRow *libEmptyRowDef>
+            <span>{{ 'VIEWS.MAINTENANCE_MONITORING.NO_COMPONENT_FOUND' | translate }}</span>
+          </lib-row>
+        </lib-table>
+      </ng-template>
+    </li>
+  </ul>
+  <div class="content-scrollable">
+    <div [ngbNavOutlet]="nav" class="content-scroll"></div>
+  </div>
+</div>
+
+<ng-template #statusTemplate let-status="status">
+  <ng-container [ngSwitch]="status">
+    <app-status-legend
+      *ngSwitchCase="'critical'"
+      [backgroundColor]="statuses.critical.color"
+      backgroundShape="circle"
+      [icon]="statuses.critical.icon"
+      [label]="statuses.critical.label"
+      width="20"
+      height="20"
+    ></app-status-legend>
+    <app-status-legend
+      *ngSwitchCase="'degrading'"
+      [backgroundColor]="statuses.degrading.color"
+      backgroundShape="circle"
+      [icon]="statuses.degrading.icon"
+      [label]="statuses.degrading.label"
+      width="20"
+      height="20"
+    ></app-status-legend>
+    <app-status-legend
+      *ngSwitchCase="'warning'"
+      [backgroundColor]="statuses.warning.color"
+      backgroundShape="circle"
+      [icon]="statuses.warning.icon"
+      [label]="statuses.warning.label"
+      width="20"
+      height="20"
+    ></app-status-legend>
+    <app-status-legend
+      *ngSwitchCase="'good'"
+      [backgroundColor]="statuses.good.color"
+      backgroundShape="circle"
+      [icon]="statuses.good.icon"
+      [label]="statuses.good.label"
+      width="20"
+      height="20"
+    ></app-status-legend>
+    <ng-container *ngSwitchDefault>{{ status }}</ng-container>
+  </ng-container>
+</ng-template>

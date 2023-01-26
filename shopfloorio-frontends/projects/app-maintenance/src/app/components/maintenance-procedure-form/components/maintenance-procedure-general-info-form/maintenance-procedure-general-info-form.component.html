@@ -1,0 +1,97 @@
+<form [formGroup]="form">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 d-flex justify-content-between align-items-center">
+        <h4>General information</h4>
+        <button class="btn btn-sm btn-transparent btn-icon" (click)="collapse.toggle()">
+          <i class="material-icons"> {{ isCollapsed ? 'expand_more' : 'expand_less' }}</i>
+        </button>
+      </div>
+    </div>
+    <div class="row" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+      <div class="col-3">
+        <div class="form-group">
+          <label for="name">Procedure name*</label>
+          <input
+            autocomplete="off"
+            type="text"
+            formControlName="name"
+            class="form-control"
+            id="name"
+            [ngClass]="{ 'is-invalid': isInvalidForm('name') }"
+          />
+          <small *ngIf="isInvalidForm('name')" class="text-danger">
+            {{ 'ERRORS.INPUT_ERROR_MESSAGE' | translate: { field: 'name' } }}
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label for="assetType">Asset type*</label>
+          <ng-select
+            id="assetType"
+            formControlName="assetTypeId"
+            [clearable]="false"
+            [ngClass]="{ 'is-invalid': isInvalidForm('assetTypeId') }"
+          >
+            <ng-option
+              *ngFor="let assetType of assetTypes$ | async"
+              [value]="assetType | objectValue: 'id'"
+            >
+              {{ assetType | objectValue: 'name' | multilang | translate }}
+            </ng-option>
+          </ng-select>
+          <small *ngIf="isInvalidForm('assetTypeId')" class="text-danger">
+            {{ 'ERRORS.INPUT_ERROR_MESSAGE' | translate: { field: 'asset type' } }}
+          </small>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label for="description">Description*</label>
+          <textarea
+            id="description"
+            class="form-control"
+            rows="4"
+            formControlName="description"
+            [ngClass]="{ 'is-invalid': isInvalidForm('description') }"
+          ></textarea>
+          <small *ngIf="isInvalidForm('description')" class="text-danger">
+            {{ 'ERRORS.INPUT_ERROR_MESSAGE' | translate: { field: 'description' } }}
+          </small>
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="form-group">
+          <label for="interval">Interval*</label>
+          <input
+            autocomplete="off"
+            type="text"
+            formControlName="interval"
+            class="form-control"
+            id="interval"
+            mask="separator.0"
+            thousandSeparator=""
+            [ngClass]="{ 'is-invalid': isInvalidForm('interval') }"
+          />
+          <small *ngIf="isInvalidForm('interval')" class="text-danger">
+            {{ 'ERRORS.INPUT_ERROR_MESSAGE' | translate: { field: 'interval' } }}
+          </small>
+        </div>
+        <div class="form-group">
+          <label for="intervalUnit">Interval unit*</label>
+          <ng-select
+            id="intervalUnit"
+            [items]="intervalUnits"
+            [clearable]="false"
+            formControlName="intervalUnit"
+          >
+            <ng-template ng-label-tmp let-item="item">{{ item | translate }}</ng-template>
+            <ng-template ng-option-tmp let-item="item">{{
+              item | translate | titlecase
+            }}</ng-template>
+          </ng-select>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

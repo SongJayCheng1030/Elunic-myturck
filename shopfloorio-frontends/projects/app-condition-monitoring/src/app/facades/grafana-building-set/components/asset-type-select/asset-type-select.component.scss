@@ -1,0 +1,22 @@
+@import 'variables';
+
+.app-body {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+
+  .main {
+    flex: 1;
+  }
+}
+
+lib-sidebar {
+  margin-right: 0;
+  border-right: 1px solid $gray-300;
+  height: 100vh !important;
+  background: $white;
+}
+
+lib-sidebar .sidebar-nav {
+  height: 100vh !important;
+}

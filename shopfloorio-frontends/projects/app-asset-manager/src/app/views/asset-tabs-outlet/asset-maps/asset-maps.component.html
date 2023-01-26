@@ -1,0 +1,42 @@
+<lib-table class="w-100" [data]="tableData" [scrollable]="true" [searchCols]="['id']">
+  <lib-row *libHeaderRowDef>
+    <lib-header-cell>
+      {{ 'VIEWS.ASSET_MAPS.ASSOCIATED_ASSET' | translate }}
+    </lib-header-cell>
+    <lib-header-cell>
+      {{ 'VIEWS.ASSET_MAPS.NUMBER_OF_ASSETS' | translate }}
+    </lib-header-cell>
+    <lib-header-cell></lib-header-cell>
+  </lib-row>
+
+  <lib-row
+    libDataRow
+    *libDataRowDef="let item"
+    [hoverable]="true"
+    [routerLink]="['/asset-maps', item.id]"
+  >
+    <lib-cell [multilang]="item.firstLinkedName"></lib-cell>
+    <lib-cell>{{ item.countItems }}</lib-cell>
+    <lib-cell class="p-0 overflow-visible" (click)="preventInteraction($event)">
+      <div ngbDropdown placement="bottom-right top-right" class="btn-group">
+        <button ngbDropdownToggle class="btn btn-transparent btn-icon">
+          <i class="material-icons mi-26">more_vert</i>
+        </button>
+
+        <div ngbDropdownMenu class="text-right">
+          <button ngbDropdownItem [routerLink]="['/asset-maps', item.id]">
+            {{ 'VIEWS.ASSET_MAPS.EDIT' | translate }}
+          </button>
+
+          <button ngbDropdownItem class="text-danger" (click)="onDelete(item.id)">
+            {{ 'VIEWS.ASSET_MAPS.DELETE' | translate }}
+          </button>
+        </div>
+      </div>
+    </lib-cell>
+  </lib-row>
+
+  <lib-row libEmptyRow *libEmptyRowDef>
+    <span>{{ 'VIEWS.ASSET_MAPS.NO_ASSET_MAPS_FOUND' | translate }}</span>
+  </lib-row>
+</lib-table>

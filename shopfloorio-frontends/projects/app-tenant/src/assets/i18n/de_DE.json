@@ -1,0 +1,46 @@
+{
+  "HOME": {
+    "WELCOME": "Willkommen"
+  },
+  "OPTIONS": {
+    "PROFIL": {
+      "LOGOUT": "Logout"
+    },
+    "EDIT": "Bearbeiten",
+    "DELETE": "Löschen",
+    "CANCEL": "Abbrechen",
+    "SAVE_CHANGES": "Speichern",
+    "SWITCH_TO": "Zu Tenant wechseln"
+  },
+  "TENANT_LIST": {
+    "NAME": "Name",
+    "STATUS": "Status",
+    "LAST_CHANGED": "Zuletzt Geändert",
+    "OWNED_BY": "Gehört",
+    "NEW_TENANT": "Neuer Tenant",
+    "FILTER_FOR_STATUS": "Statusfilter",
+    "SEARCH": "Suche",
+    "TENANTS": "Tenant",
+    "ACTIVE": "Aktiv",
+    "INACTIVE": "Inaktiv",
+    "INSTRUCTION": "Wählen sie einen Tenant um direkt in den Hub des Tenants zu wechseln oder verwalten sie die Tenants."
+  },
+  "TENANT_DETAIL": {
+    "SETTINGS": "Einstellungen",
+    "TENANT_NAME": "Tenant Name",
+    "MAINTENANCE_MANAGER_INTERVAL_CALCULATION": "Wartungsmanager Intervallberechnung",
+    "CUMULOCITY_GROUP": "Cumulocity Gruppe"
+  },
+  "TENANT_SETTINGS": {
+    "ON_EXECUTION": "Nach Ausführung",
+    "STRICT_BY_INTERVAL": "Strikt nach Intervall"
+  },
+  "MODALS": {
+    "IMMUTABLE_CONFIRM": {
+      "TITLE": "Cumulocity group",
+      "BODY": "Die Cumuloctiy Gruppe nur initial zugewiesen werden. Eine spätere Änderung ist nicht möglich. Haben sie die korrekte Gruppe ausgewählt?",
+      "CONFIRM": "Bestätigen",
+      "ABORT": "Abbruck"
+    }
+  }
+}

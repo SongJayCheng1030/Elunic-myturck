@@ -1,0 +1,49 @@
+<div class="row mb-4">
+  <div class="col-12">
+    <lib-panel>
+      <lib-panel-header>
+        <button backButton class="btn btn-transparent btn-icon mr-3">
+          <i class="material-icons">navigate_before</i>
+        </button>
+
+        <h2 [multilang]="docType?.name"></h2>
+
+        <lib-panel-header-actions>
+          <ng-container *ngIf="docType">
+            <button class="btn btn-transparent btn-icon ml-3" (click)="onDelete(docType.id)">
+              <i class="material-icons mi-26">delete_outline</i>
+            </button>
+          </ng-container>
+
+          <a role="button" class="font-weight-bold a-button" routerLink="/">
+            <span style="color: black">{{ 'VIEWS.DOCUMENT_TYPE_DETAILS.CANCEL' | translate }}</span>
+          </a>
+
+          <button
+            [disabled]="(docForm.valid | async) === false || docForm.loading"
+            (click)="docForm.submit(docType?.id)"
+            class="btn btn-primary"
+          >
+            {{
+              (editMode
+                ? 'VIEWS.DOCUMENT_TYPE_DETAILS.SAVE_CHANGES'
+                : 'VIEWS.DOCUMENT_TYPE_DETAILS.CREATE_DOCUMENT_TYPE'
+              ) | translate
+            }}
+          </button>
+        </lib-panel-header-actions>
+      </lib-panel-header>
+      <lib-panel-body class="py-5">
+        <app-document-category-form #docForm [documentType]="docType"></app-document-category-form>
+      </lib-panel-body>
+    </lib-panel>
+  </div>
+</div>
+<div *ngIf="editMode" class="row flex-grow-1">
+  <div class="col-12 col-md-6">
+    <app-linked-documents [documents]="documents$ | async"></app-linked-documents>
+  </div>
+  <div *ngIf="activities$ | async as activities" class="col-12 col-md-6">
+    <app-document-category-history [activities]="activities"></app-document-category-history>
+  </div>
+</div>

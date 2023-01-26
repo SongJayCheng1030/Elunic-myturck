@@ -1,0 +1,16 @@
+@import 'variables';
+
+:host {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.text {
+  position: absolute;
+  color: $gray-600;
+  left: 50%;
+  transform: translate(-50%, 0);
+}

@@ -1,0 +1,35 @@
+.additional-header {
+  display: flex;
+  align-items: center;
+  .button-component {
+    width: 200px;
+    margin-left: 25px;
+    @media screen and (max-width: 800px) {
+      width: auto;
+    }
+  }
+}
+
+.inputs {
+  margin-right: 0px;
+}
+
+.container-fluid {
+  background-color: #efefef;
+  min-height: 78vh;
+}
+
+.header {
+  background-color: #ffffff;
+}
+
+.form-wrapper {
+  background-color: #ffffff;
+}
+
+.resource {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 15px;
+}

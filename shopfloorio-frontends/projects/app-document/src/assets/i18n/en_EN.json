@@ -1,0 +1,153 @@
+{
+  "ABORT": "Abort",
+  "SAVE": "Save",
+  "CLEAR_IMAGE": "Clear image",
+  "REPLACE_IMAGE": "Replace image",
+  "USER_NAME": "User name",
+  "FIRST_NAME": "First name",
+  "SURNAME": "Surname",
+  "EMAIL": "E-mail",
+  "ROLE": "Role",
+  "SET_A_NEW_PASSWORD": "Set a new password",
+  "REPEAT_PASSWORD": "Repeat password",
+  "CREATE_A_NEW_USER": "Create a new user",
+  "USER_MANAGEMENT": "User management",
+  "PRIVACY": "Privacy",
+  "USER": "Users",
+  "TENANT_MANAGEMENT": "Tenant Management",
+  "ASSET_MANAGEMENT": "Asset Management",
+  "LOGOUT": "Log out",
+  "SELECT_CONTAINS_ERRORS": "Selection contains errors",
+  "HUB": "Hub",
+  "EMPTY_NAME": "Empty name",
+  "NEW_USER": "New user",
+  "FIELD_SHOULD_BE_VALID": "Field should be valid",
+  "FIELD_IS_TOO_SHORT": "Field is too short",
+  "PASSWORDS_DO_NOT_MATCH": "Passwords do not match",
+  "THE_FIELD_IS_REQUIRED": "The field is required",
+  "SEARCH": "Search",
+  "MODALS": {
+    "DOCUMENT": {
+      "TITLE": "Add new document",
+      "TITLE_EDIT": "Edit document",
+      "CONFIRM": "Submit",
+      "CONFIRM_EDIT": "Save",
+      "ABORT": "Cancel"
+    },
+    "DELETE_DOCUMENT_CONFIRM": {
+      "TITLE": "Delete document?",
+      "BODY": "Deleting an document will permanently remove it from the list",
+      "CONFIRM": "Delete",
+      "ABORT": "Cancel"
+    },
+    "DELETE_DOCUMENT_ERROR_MESSAGE": {
+      "TITLE": "Invalid action",
+      "BODY": "This action cannot be completed",
+      "DISMISS": "Close"
+    },
+    "DELETE_DOCUMENT_TYPE_CONFIRM": {
+      "TITLE": "Delete document category?",
+      "BODY": "Deleting an document category will permanently remove it from the list",
+      "CONFIRM": "Delete",
+      "ABORT": "Cancel"
+    },
+    "DELETE_DOCUMENT_TYPE_CONFLICT_MESSAGE": {
+      "TITLE": "Invalid action",
+      "BODY": "Cannot delete document category with documents assigned to it",
+      "DISMISS": "Close"
+    }
+  },
+  "VIEWS": {
+    "DOCUMENT_TABS": {
+      "DOCUMENTS": "Documents",
+      "ALL_DOCUMENTS": "All documents",
+      "DOCUMENT_TYPES": "Document category",
+      "CREATE_NEW_DOCUMENT": "Add document",
+      "CREATE_NEW_DOCUMENT_TYPE": "Add document category"
+    },
+    "DOCUMENTS": {
+      "NAME": "Name",
+      "TYPE": "Category",
+      "LINK_TO_ASSETS": "Linked assets",
+      "LAST_CHANGED": "Last changed",
+      "CREATED_BY": "Created by",
+      "EDIT": "Edit",
+      "DELETE": "Delete",
+      "NO_DOCUMENT_FOUND": "No document found"
+    },
+    "DOCUMENT_DETAILS": {
+      "EDIT": "Edit",
+      "REMOVE": "Remove",
+      "CANCEL": "Cancel",
+      "SAVE_CHANGES": "Save changes",
+      "ADD_DOCUMENT": "Add document",
+      "DOCUMENT_HISTORY": "Document history",
+      "DOCUMENT_NAME": "Document name",
+      "DOCUMENT_TYPE": "Document type",
+      "DOCUMENT_CATEGORY": "Document category",
+      "DOCUMENT_DETAILS": "Document details",
+      "DOCUMENT_LINKED_ASSETS": "Linked Assets",
+      "ASSET_NAME": "Asset name",
+      "ASSET_HIERARCHY": "Asset hierarchy",
+      "NO_ASSET_LINKED_FOUND": "No assets linked",
+      "NAME": "Name",
+      "TYPE": "Type",
+      "VIEW_FILE": "View File",
+      "RENAME": "Rename",
+      "DELETE": "Delete",
+      "DATE_OR_TIME": "Date/Time",
+      "CHANGES_MADE": "Changes made",
+      "CHANGED_BY": "Changed by",
+      "CREATED_AT": "Created at",
+      "CREATED_BY": "Created by",
+      "NO_ACTIVITIES_FOUND": "No history",
+      "DOCUMENT": "Document",
+      "DOCUMENT_ID": "Document ID",
+      "CREATE_DOCUMENT": "Create document",
+      "UPLOAD_FILE": "Upload new File",
+      "PLEASE_CHOOSE": "Please choose",
+      "CATEGORY_FILTER": "Filter for category",
+      "ASSET_FILTER": "Filter for asset"
+    },
+    "DOCUMENT_TYPES": {
+      "NAME": "Name",
+      "LINKED_DOCUMENTS": "Linked documents",
+      "LAST_CHANGED": "Last changed",
+      "CREATED_BY": "Created by",
+      "EDIT": "Edit",
+      "DELETE": "Delete",
+      "NO_DOCUMENT_TYPES_FOUND": "No document categories found"
+    },
+    "DOCUMENT_TYPE_DETAILS": {
+      "DOCUMENT_TYPE_DETAILS": "Document category details",
+      "CATEGORY_NAME": "Category name",
+      "DOCUMENT_TYPE_HISTORY": "Document category history",
+      "DATE_OR_TIME": "Date/Time",
+      "CHANGES_MADE": "Changes made",
+      "CHANGED_BY": "Changed by",
+      "DOCUMENT_NAME": "Document name",
+      "LINKED_DOCUMENTS": "Linked documents",
+      "NO_DOCUMENT_TYPES_FOUND": "No document linked found",
+      "CANCEL": "Cancel",
+      "SAVE_CHANGES": "Save changes",
+      "CREATE_DOCUMENT_TYPE": "Create document category",
+      "NO_ACTIVITIES": "No history",
+      "NO_DOCUMENTS": "No documents"
+    }
+  },
+  "MESSAGES": {
+    "CHANGES_SAVED": "Changes are saved",
+    "CHANGES_ARE_NOT_SAVED_DUE_TO_SOME_ERROR": "Changes are not saved due to some error",
+    "ERROR": "Error",
+    "SUCCESS": "Success"
+  },
+  "ACTIVITY": {
+    "CREATED": "Created",
+    "UPDATED": "Updated",
+    "TYPE_CHANGED": "Category changed",
+    "FILE_REPLACED": "File replaced",
+    "REF_ASSIGNED": "Reference assigned",
+    "REF_UNASSIGNED": "Reference unassigned",
+    "DELETED": "Deleted"
+  }
+}

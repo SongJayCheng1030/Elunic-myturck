@@ -1,0 +1,26 @@
+@import 'variables';
+
+:host {
+  &::ng-deep {
+    .panel-header {
+      padding: $panel-padding-y 1rem;
+
+      .panel-header-actions {
+        & > * + * {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+}
+
+.panel-body {
+  display: flex;
+  flex-direction: row;
+
+  .main-frame {
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+  }
+}

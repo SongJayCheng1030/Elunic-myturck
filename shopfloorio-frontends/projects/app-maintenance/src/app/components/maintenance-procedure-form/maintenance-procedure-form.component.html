@@ -1,0 +1,89 @@
+<form
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+  *ngIf="{ idx: selectedStepIndex$ | async } as context"
+>
+  <mnt-maintenance-procedure-general-info-form
+    formControlName="generalInfo"
+    [isEdit]="isEdit"
+  ></mnt-maintenance-procedure-general-info-form>
+  <div>
+    <div class="steps-header">
+      <div>
+        <h4>Maintenance steps ({{ steps.length }})</h4>
+      </div>
+      <div>
+        <button
+          type="button"
+          class="btn btn-outline-dark font-weight-bold"
+          (click)="openStepFromLibraryModal()"
+          [disabled]="steps.length >= maxCountSteps"
+        >
+          <i class="material-icons">add</i>
+          Add Step
+        </button>
+      </div>
+      <div>
+        <h4>Maintenance step details</h4>
+      </div>
+      <div>
+        <ng-container *ngIf="saveToLibraryControl$ | async as saveToLibraryControl">
+          <div class="saveToLibraryCheckbox">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              name="saveStep"
+              [formControl]="saveToLibraryControl"
+              id="saveStep"
+            />
+            <label class="form-check-label" for="saveStep"> Save step in library </label>
+          </div>
+        </ng-container>
+      </div>
+      <div *ngIf="steps.controls.length">
+        <button
+          *ngIf="context.idx !== null"
+          class="btn btn-outline font-weight-bold"
+          type="button"
+          (click)="removeStep(context.idx)"
+        >
+          <u>{{ 'Remove step' | uppercase }}</u>
+        </button>
+      </div>
+    </div>
+    <div class="steps-body">
+      <div class="step-list" cdkDropList (cdkDropListDropped)="onStepItemDrop($event)">
+        <div
+          cdkDrag
+          *ngFor="let step of stepNamesWithSelection$ | async; let i = index"
+          role="button"
+          class="content step-list-item"
+          (click)="selectStep(i)"
+          [ngClass]="{ selected: step.selected }"
+        >
+          <i class="material-icons" cdkDragHandle> drag_indicator </i>
+          <div>{{ step.name || 'Step ' + (i + 1) }}</div>
+          <i *ngIf="step.selected" class="material-icons mi-24">chevron_right</i>
+        </div>
+      </div>
+      <ng-container formArrayName="steps">
+        <ng-container *ngFor="let control of steps.controls; let i = index" [formGroupName]="i">
+          <mnt-maintenance-procedure-step-form
+            *ngIf="(selectedStepIndex$ | async) === i"
+            formControlName="step"
+            [saveToLibrary]="steps.value[i].saveToLibrary"
+            [availableTags]="availableTags$ | async"
+            [isEdit]="isEdit"
+          ></mnt-maintenance-procedure-step-form>
+        </ng-container>
+      </ng-container>
+      <div *ngIf="steps && steps.length === 0" class="first-step">
+        <p>No steps added yet.</p>
+        <button (click)="addStep()" class="btn btn-outline-dark font-weight-bold">
+          <i class="material-icons">add</i>
+          <span>CLICK HERE TO ADD THE FIRST STEP</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

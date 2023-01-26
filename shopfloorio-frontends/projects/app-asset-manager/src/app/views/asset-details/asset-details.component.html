@@ -1,0 +1,76 @@
+<lib-panel class="panel-actions">
+  <lib-panel-header>
+    <h2 [multilang]="name$ | async"></h2>
+
+    <lib-panel-header-actions>
+      <ng-container *ngIf="editMode">
+        <button class="btn btn-transparent btn-icon">
+          <i class="material-icons mi-22">content_copy</i>
+        </button>
+
+        <button class="btn btn-transparent btn-icon ml-3" (click)="onDelete()">
+          <i class="material-icons mi-26">delete_outline</i>
+        </button>
+      </ng-container>
+
+      <!-- <a
+        (click)="resetChanges()"
+        role="button"
+        class="font-weight-bold a-button"
+        [ngClass]="{ disabled: !saveButtonEnabled }"
+      > -->
+      <a role="button" class="font-weight-bold a-button" (click)="navigateBack()">
+        <span style="color: black"> {{ 'VIEWS.ASSET_DETAILS.CANCEL' | translate }} </span>
+      </a>
+
+      <button class="btn btn-outline-primary" (click)="onDeallocate()" *ngIf="editMode">
+        <span> {{ 'VIEWS.ASSET_DETAILS.DEALLOCATE' | translate }} </span>
+      </button>
+
+      <button class="btn btn-primary" (click)="onSave()" [disabled]="!saveButtonEnabled">
+        {{
+          (editMode ? 'VIEWS.ASSET_DETAILS.SAVE_CHANGES' : 'VIEWS.ASSET_DETAILS.CREATE_ASSET')
+            | translate
+        }}
+      </button>
+    </lib-panel-header-actions>
+  </lib-panel-header>
+</lib-panel>
+
+<ng-container [formGroup]="form">
+  <div class="row mb-4">
+    <div class="col-12 col-md-7">
+      <app-asset-details-form
+        [parentForm]="form"
+        [parentAssetName]="parent?.name"
+        [assetTypeId]="asset.assetType?.id || null"
+        (triggerEditing)="triggerEditing()"
+      ></app-asset-details-form>
+    </div>
+
+    <div class="col-12 col-md-5">
+      <app-asset-aliases formControlName="aliases"></app-asset-aliases>
+    </div>
+  </div>
+
+  <div class="row flex-grow-1">
+    <div class="col-12 col-md-4">
+      <app-asset-dynamic-properties
+        [assetId]="asset.id"
+        [assetTypeId]="form.controls.assetType?.value"
+        (setChangedProperties)="setChangedProperties($event)"
+        (triggerEditing)="triggerEditing()"
+      ></app-asset-dynamic-properties>
+    </div>
+    <div class="col-12 col-md-4">
+      <app-asset-documents
+        formControlName="documents"
+        (triggerEditing)="triggerEditing()"
+      ></app-asset-documents>
+    </div>
+
+    <div class="col-12 col-md-4">
+      <app-asset-history [assetId]="asset.id"></app-asset-history>
+    </div>
+  </div>
+</ng-container>

@@ -1,0 +1,21 @@
+.custom-footer {
+  padding: 0 !important;
+  .btn-submit {
+    width: 100%;
+    font-size: 500;
+    text-align: center;
+  }
+}
+
+.p-relative {
+  position: relative;
+
+  .top-label {
+    position: absolute;
+    top: -0.35rem;
+    z-index: 1;
+    left: 0.5rem;
+    font-size: 9px;
+    background: white;
+  }
+}

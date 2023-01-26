@@ -1,0 +1,22 @@
+<app-chart-panel>
+  <app-chart-panel-header>
+    <h4 *ngIf="title">{{ title | translate }}</h4>
+  </app-chart-panel-header>
+  <app-chart-panel-body>
+    <div class="container">
+      <span class="number">{{ property?.current }}</span>
+      <span
+        class="icon"
+        [ngClass]="{ up: property?.trendDirection >= 0, down: property?.trendDirection < 0 }"
+      >
+        <i class="material-icons">arrow_right_alt</i>
+        <span class="sub">{{ property?.trendDirection >= 0 ? '+' : '' }}{{ property?.trend }}</span>
+      </span>
+    </div>
+    <!-- <div class="more">
+      <a href="javascript:void(0)" class="link" (click)="onMore()">
+        {{ 'TOOLBAR.BUTTONS.MORE' | translate }}
+      </a>
+    </div> -->
+  </app-chart-panel-body>
+</app-chart-panel>

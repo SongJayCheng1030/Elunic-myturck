@@ -1,0 +1,23 @@
+$marginElements: 1.5rem;
+
+.gf-buildingset-container {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 56px);
+  width: 100%;
+  padding: $marginElements;
+
+  .gf-buildingset-sidebar {
+    margin-right: $marginElements;
+
+    .sidebar {
+      margin: 0 !important;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .gf-buildingset-body {
+    flex-grow: 1;
+  }
+}

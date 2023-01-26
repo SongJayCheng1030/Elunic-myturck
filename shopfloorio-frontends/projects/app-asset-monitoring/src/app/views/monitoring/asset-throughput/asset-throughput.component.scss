@@ -1,0 +1,95 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-shadow: 0px 3px 6px #00000029;
+
+  &::ng-deep {
+    .panel-actions {
+      height: 100%;
+      .panel {
+        height: 100%;
+        border: 0;
+        .panel-header {
+          min-height: 50px;
+          border: 0;
+          padding: 0.5rem 1rem;
+        }
+
+        .panel-body {
+          padding: 0 12px 24px 12px !important;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    }
+  }
+}
+
+.container {
+  min-height: 145px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.content-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+
+  .number {
+    font-size: 46px;
+    font-weight: bold;
+  }
+
+  .unit {
+    margin-top: 10px;
+    color: #818181;
+  }
+
+  .icon {
+    position: absolute;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    top: 0;
+    right: -72px;
+
+    &.down {
+      color: #fd5064;
+
+      i {
+        transform: rotate(90deg);
+      }
+    }
+
+    &.up {
+      color: #31d697;
+
+      i {
+        transform: rotate(-90deg);
+      }
+    }
+
+    i {
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    .sub {
+      display: flex;
+      flex-direction: column;
+      font-size: 12px;
+
+      .sub-unit {
+        color: #818181;
+        white-space: nowrap;
+      }
+    }
+  }
+}

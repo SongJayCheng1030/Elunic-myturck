@@ -1,0 +1,23 @@
+<div class="label">{{ config.label }}</div>
+<div class="linear-gauge">
+  <div class="value" [style.width.%]="barPercentage" [style.backgroundColor]="barColor">
+    <div class="display-value">
+      {{ value | number: '1.0-' + (config.amountDecimals || '2') }}
+      <span *ngIf="config.unit as unit">{{ unit }}</span>
+    </div>
+    <div class="display-pointer"></div>
+  </div>
+  <div
+    class="warning-label"
+    [style.width.%]="warningMarkPercentage"
+    [style.borderColor]="warningMarkColor"
+  ></div>
+  <div
+    class="error-label"
+    [style.width.%]="errorMarkPercentage"
+    [style.borderColor]="errorMarkColor"
+  ></div>
+  <div class="measurement measurement-start">{{ config.min }}</div>
+  <div class="measurement measurement-middle">{{ median }}</div>
+  <div class="measurement measurement-end">{{ config.max }}</div>
+</div>

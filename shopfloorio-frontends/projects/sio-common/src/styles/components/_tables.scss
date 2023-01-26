@@ -1,0 +1,24 @@
+.asset-table {
+  .table-row {
+    .table-cell,
+    .table-header-cell {
+      &:nth-child(2) {
+        flex: 0 1 20%;
+      }
+
+      &:last-child {
+        padding: 0 8px 0 0;
+        flex: 0 1 $input-height + 8px;
+        justify-content: flex-end;
+      }
+    }
+  }
+
+  .asset-thumbnail {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    margin-right: 16px;
+    box-shadow: 0 1px 4px rgba($black, 12%);
+  }
+}

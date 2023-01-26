@@ -1,0 +1,48 @@
+<div class="modal-header align-items-center">
+  <h4 class="modal-title">
+    {{ (mode === 'new' ? 'MODALS.DOCUMENT.TITLE' : 'MODALS.DOCUMENT.TITLE_EDIT') | translate }}
+  </h4>
+
+  <button type="button" class="btn btn-xs btn-icon btn-transparent" (click)="onCancel()">
+    <i class="material-icons mi-18">close</i>
+  </button>
+</div>
+
+<div class="modal-body" [formGroup]="form">
+  <div class="form-group">
+    <label> {{ 'VIEWS.ASSET_DETAILS.DOCUMENT' | translate }} * </label>
+    <p *ngIf="documentId.value">{{ documentId.value }}</p>
+    <button
+      uploadButton
+      class="btn btn-block btn-outline-secondary"
+      (uploaded)="onUploadDocument($event)"
+      *ngIf="!documentId.value"
+    >
+      {{ 'VIEWS.ASSET_DETAILS.SELECT_FILE_TO_UPLOAD' | translate }}
+    </button>
+  </div>
+
+  <div class="form-group">
+    <label for="documentType"> {{ 'VIEWS.ASSET_DETAILS.TYPE' | translate }} * </label>
+    <input type="text" id="documentType" class="form-control" formControlName="documentType" />
+  </div>
+
+  <div class="form-group mb-0">
+    <label for="documentDescription"> {{ 'VIEWS.ASSET_DETAILS.DESCRIPTION' | translate }} * </label>
+    <textarea
+      id="documentDescription"
+      class="form-control"
+      rows="4"
+      formControlName="description"
+    ></textarea>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-secondary" (click)="onCancel()">
+    {{ 'MODALS.DOCUMENT.ABORT' | translate }}
+  </button>
+  <button type="button" class="btn btn-primary" [disabled]="form.invalid" (click)="onSubmit()">
+    {{ (mode === 'new' ? 'MODALS.DOCUMENT.CONFIRM' : 'MODALS.DOCUMENT.CONFIRM_EDIT') | translate }}
+  </button>
+</div>

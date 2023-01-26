@@ -1,0 +1,12 @@
+<div class="card-page">
+  <div class="card-page-header">
+    <button *ngIf="showBackButton" class="back-arrow" (click)="location.back()">
+      <span class="material-icons"> chevron_left </span>
+    </button>
+    <div class="card-page-title d-md-block d-none">{{ title }}</div>
+    <ng-content select="[header]"></ng-content>
+  </div>
+  <div class="card-page-body">
+    <ng-content select="[body]"></ng-content>
+  </div>
+</div>

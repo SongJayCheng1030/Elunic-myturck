@@ -1,0 +1,23 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.app-body {
+  margin: 2rem;
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+
+  .main {
+    flex: 1;
+
+    .container-fluid {
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      height: 100%;
+    }
+  }
+}

@@ -1,0 +1,26 @@
+.card-page {
+  background-color: #fff;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .card-page-header {
+    height: 65px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #efefef;
+    padding: 0 1.5rem;
+
+    .card-page-title {
+      margin-left: 25px;
+      font-weight: bold;
+      font-size: 20px;
+    }
+  }
+
+  .card-page-body {
+    flex: 1;
+    padding-bottom: 50px;
+  }
+}

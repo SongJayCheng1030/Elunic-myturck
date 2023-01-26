@@ -1,0 +1,8 @@
+<div
+  class="page"
+  [ngStyle]="{ 'background-image': 'url(' + (bgImage | iconUrl: 'noStubImg') + ')' }"
+>
+  <div class="page-wrapper">
+    <ng-content></ng-content>
+  </div>
+</div>

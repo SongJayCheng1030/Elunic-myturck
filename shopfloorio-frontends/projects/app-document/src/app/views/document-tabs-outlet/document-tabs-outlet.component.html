@@ -1,0 +1,55 @@
+<lib-panel>
+  <lib-panel-header class="pl-3">
+    <div class="btn btn-transparent btn-icon mr-3">
+      <i class="material-icons">navigate_before</i>
+    </div>
+
+    <h2>{{ 'VIEWS.DOCUMENT_TABS.DOCUMENTS' | translate }}</h2>
+
+    <div class="tabs">
+      <a
+        class="tab"
+        [class.active]="selectedTabIndex === i"
+        (click)="onNavigate(i)"
+        *ngFor="let tab of tabs; let i = index"
+      >
+        {{ tab.label | translate }}
+      </a>
+    </div>
+
+    <lib-panel-header-actions>
+      <lib-search [formControl]="search" [placeholder]="'SEARCH' | translate"></lib-search>
+      <ng-container *ngIf="selectedTabIndex == 0">
+        <div ngbDropdown class="dropdown form-dropdown">
+          <button
+            ngbDropdownToggle
+            [multilang]="
+              (selectedDocType$ | async)?.name || {
+                translate: 'VIEWS.DOCUMENT_DETAILS.CATEGORY_FILTER'
+              }
+            "
+            class="btn btn-outline-secondary"
+          ></button>
+
+          <div ngbDropdownMenu class="form-dropdown-menu">
+            <button ngbDropdownItem (click)="resetDocType()"></button>
+            <button
+              *ngFor="let type of docTypes$ | async"
+              ngbDropdownItem
+              [multilang]="type.name"
+              (click)="onDocTypeChange(type)"
+            ></button>
+          </div>
+        </div>
+      </ng-container>
+      <button class="btn btn-primary" [routerLink]="tabs[selectedTabIndex].createBtn.link">
+        <i class="material-icons">add</i>
+        <span>{{ tabs[selectedTabIndex].createBtn.label | translate }}</span>
+      </button>
+    </lib-panel-header-actions>
+  </lib-panel-header>
+
+  <lib-panel-body class="p-0">
+    <router-outlet></router-outlet>
+  </lib-panel-body>
+</lib-panel>

@@ -1,0 +1,34 @@
+<lib-panel>
+  <lib-panel-header>
+    <span class="material-icons"> pending_actions </span>
+    <h4 class="title-history">
+      {{ 'VIEWS.DOCUMENT_TYPE_DETAILS.DOCUMENT_TYPE_HISTORY' | translate }}
+    </h4>
+  </lib-panel-header>
+
+  <lib-panel-body class="p-0">
+    <lib-table class="w-100" [data]="activities" [scrollable]="true">
+      <lib-row *libHeaderRowDef>
+        <lib-header-cell>
+          {{ 'VIEWS.DOCUMENT_DETAILS.DATE_OR_TIME' | translate }}
+        </lib-header-cell>
+        <lib-header-cell>
+          {{ 'VIEWS.DOCUMENT_DETAILS.CHANGES_MADE' | translate }}
+        </lib-header-cell>
+        <lib-header-cell>
+          {{ 'VIEWS.DOCUMENT_DETAILS.CHANGED_BY' | translate }}
+        </lib-header-cell>
+      </lib-row>
+
+      <lib-row libDataRow *libDataRowDef="let activity">
+        <lib-cell>{{ activity.createdAt | date: 'dd.MM.yyyy | HH:mm' }}</lib-cell>
+        <lib-cell>{{ 'ACTIVITY.' + activity.type | uppercase | translate }}</lib-cell>
+        <lib-cell>{{ activity.createdBy | username | async }}</lib-cell>
+      </lib-row>
+
+      <lib-row libEmptyRow *libEmptyRowDef>
+        <span> {{ 'VIEWS.DOCUMENT_DETAILS.NO_ACTIVITIES' | translate }}</span>
+      </lib-row>
+    </lib-table>
+  </lib-panel-body>
+</lib-panel>

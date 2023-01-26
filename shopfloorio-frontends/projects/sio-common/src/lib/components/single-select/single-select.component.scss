@@ -1,0 +1,20 @@
+:host {
+  &.ng-touched.ng-invalid {
+    .form-dropdown:not(.show) {
+      .btn-outline-secondary:not(:hover) {
+        border-color: #dc3545;
+
+        &:after {
+          color: #dc3545;
+        }
+      }
+    }
+  }
+}
+
+.form-dropdown,
+.form-dropdown-menu {
+  min-width: 130px;
+  border-top: none;
+  box-shadow: none;
+}

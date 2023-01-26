@@ -1,0 +1,13 @@
+:host,
+.page,
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.page {
+  background-color: #efefef;
+  background-position: center;
+  background-size: cover;
+}

@@ -1,0 +1,20 @@
+@import 'variables';
+
+.select-box {
+  background-color: transparent;
+  border: 1px solid #efefef;
+  padding: 9px 13px;
+  width: 100%;
+  outline: none;
+  min-width: 250px;
+  option {
+    font-size: 12px;
+  }
+  font-size: 12px;
+}
+.select-label {
+  color: #0a0a0a;
+  margin-bottom: 7px;
+  font-size: 12px;
+  font-weight: bold;
+}

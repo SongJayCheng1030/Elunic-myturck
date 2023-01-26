@@ -1,0 +1,51 @@
+<lib-panel class="panel-actions">
+  <lib-panel-header>
+    <h2 [multilang]="name$ | async"></h2>
+
+    <lib-panel-header-actions>
+      <a role="button" class="font-weight-bold a-button" (click)="navigateToAllocatedTypes()">
+        <span style="color: black"> {{ 'VIEWS.ASSET_TYPES.CANCEL' | translate }} </span>
+      </a>
+
+      <ng-container *ngIf="editMode">
+        <!-- <button class="btn btn-transparent btn-icon">
+          <i class="material-icons mi-22">content_copy</i>
+        </button> -->
+
+        <button class="btn btn-transparent btn-icon ml-3" (click)="onDelete()">
+          <i class="material-icons mi-26">delete_outline</i>
+        </button>
+      </ng-container>
+
+      <button class="btn btn-primary" (click)="onSave()">
+        {{
+          (editMode
+            ? 'VIEWS.ASSET_TYPE_DETAILS.SAVE_CHANGES'
+            : 'VIEWS.ASSET_TYPE_DETAILS.CREATE_ASSET_TYPE'
+          ) | translate
+        }}
+      </button>
+    </lib-panel-header-actions>
+  </lib-panel-header>
+</lib-panel>
+
+<ng-container [formGroup]="form">
+  <div class="row">
+    <div class="col-12 col-md-12 mb-4">
+      <app-asset-type-details-form
+        [parentForm]="form"
+        [assetType]="assetType"
+      ></app-asset-type-details-form>
+    </div>
+  </div>
+
+  <div class="row flex-grow-1 mb-4">
+    <div class="col-12 col-md-6">
+      <app-asset-type-properties [assetTypeId]="assetType.id"></app-asset-type-properties>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <app-asset-type-assigned-assets [assetTypeId]="assetType.id"></app-asset-type-assigned-assets>
+    </div>
+  </div>
+</ng-container>

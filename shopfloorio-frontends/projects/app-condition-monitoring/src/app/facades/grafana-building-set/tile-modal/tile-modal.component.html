@@ -1,0 +1,113 @@
+<div class="modal-header align-items-center">
+  <h4 class="modal-title">
+    {{ (isNew ? 'MODALS.TILE.ADD_TILE' : 'MODALS.TILE.EDIT_TILE') | translate }}
+  </h4>
+
+  <button type="button" class="btn btn-xs btn-icon btn-transparent" (click)="onCancel()">
+    <i class="material-icons mi-18">close</i>
+  </button>
+</div>
+
+<div class="modal-body" [formGroup]="form">
+  <div class="form-group">
+    <label for="name"> {{ 'MODALS.TILE.NAME' | translate }} * </label>
+    <input type="text" id="name" class="form-control" formControlName="name" />
+  </div>
+  <div class="form-group">
+    <label for="parameter"> {{ 'MODALS.TILE.MACHINE_VARIABLE' | translate }} * </label>
+    <ng-select
+      [items]="machineVariables"
+      bindLabel="name"
+      bindValue="id"
+      formControlName="machineVariable"
+    >
+    </ng-select>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="form-group">
+        <label>
+          {{ 'MODALS.TILE.GRAFANA_DASHBOARD' | translate }} &gt;
+          {{ 'MODALS.TILE.GRAFANA_PANEL' | translate }} *
+        </label>
+
+        <ng-select
+          [items]="dashboardsAndPanels"
+          bindLabel="title"
+          bindValue="uid"
+          groupBy="dashboardTitle"
+          formControlName="grafanaDashboardAndPanel"
+        >
+          <ng-template ng-label-tmp let-item="item">
+            <span *ngIf="item.isDynamicDashboard" class="badge badge-success mr-2">{{
+              'MODALS.TILE.GRAFANA_PANEL_DYNAMIC_TEXT' | translate
+            }}</span
+            >{{ item.dashboardTitle }} &gt; <strong>{{ item.title }}</strong>
+          </ng-template>
+
+          <ng-template ng-option-tmp let-item="item">
+            <span *ngIf="item.isDynamicDashboard" class="badge badge-success mr-2">{{
+              'MODALS.TILE.GRAFANA_PANEL_DYNAMIC_TEXT' | translate
+            }}</span
+            ><strong>{{ item.title }}</strong>
+          </ng-template>
+
+          <ng-template ng-optgroup-tmp let-item="item">
+            {{ item.dashboardTitle || 'Unnamed group' }}
+          </ng-template>
+        </ng-select>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group">
+        <label for="tileWidth"> {{ 'MODALS.TILE.WIDTH' | translate }} * </label>
+        <select id="tileWidth" class="form-control" formControlName="width">
+          <option *ngFor="let width of widths" [ngValue]="width">{{ width }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group">
+        <label for="tileHeight"> {{ 'MODALS.TILE.HEIGHT' | translate }} * </label>
+        <select id="tileHeight" class="form-control" formControlName="height">
+          <option *ngFor="let height of heights" [ngValue]="height">{{ height }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <div class="row">
+        <div class="col-9">
+          <div class="form-group">
+            <label for="tileOrder"> {{ 'MODALS.TILE.ORDER' | translate }} * </label>
+            <select id="tileOrder" class="form-control" formControlName="order">
+              <option *ngFor="let order of orders" [ngValue]="order">{{ order }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-3 text-total-order">
+          {{ 'MODALS.TILE.OF' | translate }} {{ totalTiles }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <ng-container *ngIf="isNew">
+    <button type="button" class="btn btn-outline-secondary" (click)="onCancel()">
+      {{ 'MODALS.TILE.CANCEL' | translate }}
+    </button>
+  </ng-container>
+  <ng-container *ngIf="!isNew">
+    <button class="btn btn-transparent btn-icon mr-3" (click)="onDelete()">
+      <i class="material-icons">delete_outline</i>
+    </button>
+  </ng-container>
+  <button type="button" class="btn btn-primary" [disabled]="form.invalid" (click)="onSubmit()">
+    {{ (isNew ? 'MODALS.TILE.SUBMIT' : 'MODALS.TILE.SAVE_CHANGES') | translate }}
+  </button>
+</div>

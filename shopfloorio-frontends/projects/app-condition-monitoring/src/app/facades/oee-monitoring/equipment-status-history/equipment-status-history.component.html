@@ -1,0 +1,33 @@
+<app-chart-panel>
+  <app-chart-panel-header>
+    <h4 *ngIf="title">{{ title | translate }}</h4>
+    <app-chart-panel-header-actions>
+      <div class="chart-legend">
+        <div class="item">
+          <span class="status" [ngStyle]="{ 'background-color': producingStatusColor }"></span>
+          <span class="label">{{ 'STATUS.PRODUCING' | translate }}</span>
+        </div>
+        <div class="item">
+          <span class="status" [ngStyle]="{ 'background-color': standByStatusColor }"></span>
+          <span class="label">{{ 'STATUS.STANDBY' | translate }}</span>
+        </div>
+        <div class="item">
+          <span
+            class="status"
+            [ngStyle]="{ 'background-color': unscheduledDownStatusColor }"
+          ></span>
+          <span class="label">{{ 'STATUS.UNSCHEDULED_DOWN' | translate }}</span>
+        </div>
+        <div class="item">
+          <span class="status" [ngStyle]="{ 'background-color': scheduledDownStatusColor }"></span>
+          <span class="label">{{ 'STATUS.SCHEDULED_DOWN' | translate }}</span>
+        </div>
+      </div>
+    </app-chart-panel-header-actions>
+  </app-chart-panel-header>
+  <app-chart-panel-body>
+    <div class="line-chart">
+      <canvas #lineChart id="canvas"></canvas>
+    </div>
+  </app-chart-panel-body>
+</app-chart-panel>

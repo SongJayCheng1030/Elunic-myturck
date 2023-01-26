@@ -1,0 +1,21 @@
+<form *ngIf="form" [formGroup]="form" (ngSubmit)="onDelete()">
+  <div class="d-flex justify-content-between align-items-center content">
+    <div class="navigation">
+      <a [routerLink]="['/steps-library']">
+        <u>{{ 'MAINTENANCE_STEP_LIBRARY.TITLE' | translate }}</u>
+      </a>
+      <span class="mx-2">></span>
+      {{ 'MAINTENANCE_STEP_LIBRARY.MAINTENANCE_STEP_DETAIL' | translate }}
+    </div>
+    <div class="header-actions">
+      <button type="submit" class="btn btn-primary">
+        {{ 'HEADER_ACTIONS.DELETE' | translate }}
+      </button>
+    </div>
+  </div>
+
+  <mnt-maintenance-procedure-step-form
+    formControlName="step"
+    [availableTags]="availableTags$ | async"
+  ></mnt-maintenance-procedure-step-form>
+</form>

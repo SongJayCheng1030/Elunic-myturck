@@ -1,0 +1,22 @@
+.footer {
+  width: 100%;
+  background-color: transparent;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  .footer-content {
+    width: 95%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+    div {
+      color: #c7c7c8;
+      font-size: 12px;
+      a {
+        color: #c7c7c8;
+      }
+    }
+  }
+}

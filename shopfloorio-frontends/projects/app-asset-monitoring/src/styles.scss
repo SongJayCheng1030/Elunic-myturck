@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@400;700&display=swap');
+@import '~leaflet/dist/leaflet.css';
+@import 'abstracts';
+@import 'vendors';
+@import 'core';
+@import 'components';
+
+body {
+  overflow: hidden !important;
+}
+
+.badge {
+  border-radius: 0;
+  font-size: 10px;
+  padding: 0.375rem 0.5625rem;
+}
+
+.panel-header {
+  h4 {
+    opacity: 0.87;
+  }
+}
+
+.grid-wrapper {
+  display: grid;
+}
+
+@for $i from 1 through 6 {
+  .grid-column-#{$i} {
+    grid-template-columns: repeat($i, 1fr);
+  }
+}
+
+@for $i from 2 through 4 {
+  .grid-row-span-#{$i} {
+    grid-row: span $i;
+  }
+
+  .grid-column-span-#{$i} {
+    grid-column: span $i;
+  }
+}
+
+$media-grid-list: ((1750px, 3, 2), (1400px, 2, 1), (1100px, 1, 1));
+
+@each $max-width, $columns, $span in $media-grid-list {
+  @media screen and (max-width: $max-width) {
+    .grid-wrapper {
+      @for $i from $columns through 6 {
+        &.grid-column-#{$i} {
+          grid-template-columns: repeat($columns, 1fr) !important;
+        }
+        .grid-column-span-#{$i} {
+          grid-column: span $span;
+        }
+      }
+    }
+  }
+}
+
+.content-scrollable {
+  flex-grow: 1;
+  position: relative;
+
+  .content-scroll {
+    overflow: auto;
+    overflow-y: overlay;
+    @include custom-scrollbar;
+    @include absolute-container;
+  }
+}

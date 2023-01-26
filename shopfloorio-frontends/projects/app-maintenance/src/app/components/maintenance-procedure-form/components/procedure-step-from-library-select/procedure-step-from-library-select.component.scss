@@ -1,0 +1,28 @@
+@import 'variables';
+
+@mixin defaultDisplayCenter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.host {
+  display: block;
+  min-width: 50vh;
+  max-height: 80vh;
+}
+
+ag-grid-angular {
+  height: 55vh;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+
+  p {
+    margin: 0 2rem;
+  }
+}

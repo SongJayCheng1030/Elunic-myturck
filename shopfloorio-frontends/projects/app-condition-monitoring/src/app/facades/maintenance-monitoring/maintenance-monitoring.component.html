@@ -1,0 +1,15 @@
+<div class="app-body">
+  <lib-sidebar
+    class="sidebar"
+    *ngIf="treeNode"
+    [title]="'Asset'"
+    [treeNode]="treeNode"
+    [treeNodeStatus]="treeNodeStatus"
+    (treeNodeSelect)="onTreeNodeSelect($event)"
+  ></lib-sidebar>
+  <main class="main">
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

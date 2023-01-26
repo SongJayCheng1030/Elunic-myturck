@@ -1,0 +1,16 @@
+@import 'variables';
+
+.page {
+  width: 100%;
+  background-color: $light-grey;
+  padding-top: 50px;
+  min-height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  .content-wrapper {
+    width: 97%;
+    margin: 0 auto;
+  }
+}

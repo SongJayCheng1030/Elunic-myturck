@@ -1,0 +1,128 @@
+<app-page-layout>
+  <div class="settings">
+    <app-page-card-layout [title]="'SETTINGS.SETTINGS' | translate">
+      <div header class="settings-config">
+        <div class="tabs ms-md-5 ms-2">
+          <button
+            class="tab"
+            (click)="setting = 'general'"
+            [ngClass]="{ selected: setting === 'general' }"
+          >
+            {{ 'SETTINGS.GENERAL_SETTING' | translate }}
+          </button>
+          <button
+            class="tab ms-lg-4 ms-0"
+            (click)="setting = 'tile'"
+            [ngClass]="{ selected: setting === 'tile' }"
+          >
+            {{ 'SETTINGS.TILE_CONFIGURATION' | translate }}
+          </button>
+        </div>
+        <div class="actions d-lg-flex d-none" *ngIf="setting === 'general'">
+          <a routerLink="/home" href="">
+            <app-button mode="transparent">{{ 'COMMON.CANCEL' | translate }}</app-button>
+          </a>
+          <app-button (click)="setGeneralConfiguration()">{{
+            'COMMON.SAVE_CHANGES' | translate
+          }}</app-button>
+        </div>
+        <div class="actions d-lg-flex d-none" *ngIf="setting === 'tile'">
+          <a routerLink="/home" href="" class="ms-3">
+            <app-button mode="transparent">{{ 'COMMON.CANCEL' | translate }}</app-button>
+          </a>
+          <app-button (click)="addTile()" class="mr-3">
+            <i class="material-icons">add</i>
+            <span>{{ 'SETTINGS.ADD_TILE' | translate }}</span>
+          </app-button>
+          <app-button (click)="saveTiles()" class="ms-3">
+            {{ 'COMMON.SAVE_CHANGES' | translate }}
+          </app-button>
+        </div>
+      </div>
+      <div body class="px-lg-0 px-3">
+        <div class="my-3 actions d-lg-none d-flex justify-content-end">
+          <a routerLink="/home" href="" *ngIf="setting === 'general'" class="me-4">
+            <app-button mode="transparent">
+              {{ 'COMMON.CANCEL' | translate }}
+            </app-button>
+          </a>
+
+          <app-button (click)="setGeneralConfiguration()" *ngIf="setting === 'general'">
+            {{ 'COMMON.SAVE_CHANGES' | translate }}
+          </app-button>
+
+          <app-button (click)="addTile()" *ngIf="setting === 'tile'">
+            <i class="material-icons">add</i>
+            <span>{{ 'SETTINGS.ADD_TILE' | translate }}</span>
+          </app-button>
+        </div>
+        <div
+          class="settings-content general mt-lg-5 ms-lg-4 mt-3 ms-0"
+          [ngClass]="{ show: setting === 'general' }"
+          *ngIf="generalConfiguration && generalConfiguration.length"
+        >
+          <div class="d-flex">
+            <div class="input-wrap">
+              <app-input
+                [configs]="{
+                  autoClear: true,
+                  defaultValue: logoImage,
+                  type: 'file'
+                }"
+                (changeInput)="setConfigValues({ key: 'logoImage', value: $event })"
+                >{{ 'SETTINGS.LOGO_IMAGE' | translate }}</app-input
+              >
+            </div>
+            <div class="image-wrapper logo ml-3">
+              <img [src]="logoImage | iconUrl" />
+            </div>
+          </div>
+          <div class="input-wrap">
+            <app-input
+              [configs]="{
+                mode: 'color',
+                defaultValue: primaryColor
+              }"
+              (blurInput)="setConfigValues({ key: 'primaryColor', value: $event })"
+              >{{ 'SETTINGS.PRIMARY_COLOR' | translate }}</app-input
+            >
+          </div>
+          <div class="input-wrap">
+            <app-input
+              [configs]="{
+                mode: 'color',
+                defaultValue: bgColor
+              }"
+              (blurInput)="setConfigValues({ key: 'bgColor', value: $event })"
+              >{{ 'SETTINGS.BACKGROUND_COLOR' | translate }}</app-input
+            >
+          </div>
+          <div class="input-wrap">
+            <app-checkbox
+              [configs]="{ defaultChecked: light }"
+              (changeCheckbox)="setConfigValues({ key: 'light', value: $event })"
+              >{{ 'SETTINGS.LIGHT_WELCOME_TEXT' | translate }}</app-checkbox
+            >
+          </div>
+          <div class="input-wrap">
+            <app-input
+              [configs]="{
+                autoClear: true,
+                defaultValue: bgImage,
+                type: 'file'
+              }"
+              (changeInput)="setConfigValues({ key: 'bgImage', value: $event })"
+              >{{ 'SETTINGS.BACKGROUND_IMAGE' | translate }}</app-input
+            >
+          </div>
+          <div class="image-wrapper mt-3" *ngIf="bgImage">
+            <img [src]="bgImage | iconUrl" />
+          </div>
+        </div>
+      </div>
+      <div body class="settings-content tile" [ngClass]="{ show: setting === 'tile' }">
+        <app-tile-configs [onSave]="saveTiles$ | async"></app-tile-configs>
+      </div>
+    </app-page-card-layout>
+  </div>
+</app-page-layout>

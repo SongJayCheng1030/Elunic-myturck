@@ -1,0 +1,191 @@
+{
+  "data": [
+    {
+      "id": "0d15b3ad-f5fe-4105-aad6-1c3cf8fd4f94",
+      "createdAt": "2021-03-17T13:06:19.000Z",
+      "updatedAt": "2021-03-17T15:57:21.000Z",
+      "isDeleted": false,
+      "description": "CM",
+      "imageId": "/assets/mocks/asset-mocks/icons/sample-icon.jpg",
+      "name": {
+        "de_DE": "CM",
+        "en_US": "CM"
+      },
+      "assetType": {
+        "id": "2dfc6593-a97b-4b03-9e31-9c8d71c3a028",
+        "isBuiltIn": true,
+        "name": {
+          "de_DE": "Unternehmen",
+          "en_EN": "Enterprise"
+        },
+        "description": null,
+        "extendsType": null,
+        "equipmentType": "ENTERPRISE",
+        "createdAt": "2021-03-17T13:04:41.000Z",
+        "updatedAt": "2021-03-17T13:04:41.000Z",
+        "isDeleted": false
+      },
+      "documents": [],
+      "aliases": [],
+      "children": [
+        {
+          "id": "7a8f940d-da8f-4bcf-bdc3-b4ed8ab572e6",
+          "createdAt": "2021-03-17T13:10:50.000Z",
+          "updatedAt": "2021-03-17T14:34:49.000Z",
+          "isDeleted": false,
+          "description": "Kolbermoor",
+          "imageId": "/assets/mocks/asset-mocks/icons/sample-icon.jpg",
+          "name": {
+            "de_DE": "Kolbermoor",
+            "en_US": "Kolbermoor"
+          },
+          "assetType": {
+            "id": "7e9d16f8-94db-4090-9b51-5ac6d02c5278",
+            "isBuiltIn": true,
+            "name": {
+              "de_DE": "Bearbeitungszentrum",
+              "en_EN": "Work center"
+            },
+            "description": null,
+            "extendsType": null,
+            "equipmentType": "WORK_CENTER",
+            "createdAt": "2021-03-17T13:04:41.000Z",
+            "updatedAt": "2021-03-17T13:04:41.000Z",
+            "isDeleted": false
+          },
+          "documents": [],
+          "aliases": [],
+          "children": [
+            {
+              "id": "4332f4b2-d5a2-4210-90a0-b4c8a3116b9f",
+              "createdAt": "2021-03-17T13:14:08.000Z",
+              "updatedAt": "2021-03-17T14:52:39.000Z",
+              "isDeleted": false,
+              "description": "Showroom",
+              "imageId": "/assets/mocks/asset-mocks/icons/sample-icon.jpg",
+              "name": {
+                "de_DE": "Showroom",
+                "en_US": "Showroom"
+              },
+              "assetType": {
+                "id": "69f9ddd0-8073-4f48-857f-3a576f046bfd",
+                "isBuiltIn": true,
+                "name": {
+                  "de_DE": "Anlagenkomplex",
+                  "en_EN": "Area"
+                },
+                "description": null,
+                "extendsType": null,
+                "equipmentType": "AREA",
+                "createdAt": "2021-03-17T13:04:41.000Z",
+                "updatedAt": "2021-03-17T13:04:41.000Z",
+                "isDeleted": false
+              },
+              "documents": [],
+              "aliases": [],
+              "children": [
+                {
+                  "id": "16123160-3215-4a9d-9be1-833ae90625d6",
+                  "createdAt": "2021-03-17T13:16:51.000Z",
+                  "updatedAt": "2021-04-07T09:09:55.000Z",
+                  "isDeleted": false,
+                  "description": "Maschine 1",
+                  "imageId": "/assets/mocks/asset-mocks/icons/sample-icon.jpg",
+                  "name": {
+                    "de_DE": "Maschine 1",
+                    "en_US": "Machine 1"
+                  },
+                  "assetType": {
+                    "id": "96a3e554-fba1-41a2-8d35-ef18d0d7d5c3",
+                    "isBuiltIn": true,
+                    "name": {
+                      "de_DE": "Arbeitseinheit",
+                      "en_EN": "CM Equipment"
+                    },
+                    "description": null,
+                    "extendsType": null,
+                    "equipmentType": "WORK_UNITS",
+                    "createdAt": "2021-03-17T13:04:41.000Z",
+                    "updatedAt": "2021-03-17T13:04:41.000Z",
+                    "isDeleted": false
+                  },
+                  "documents": [],
+                  "aliases": [],
+                  "children": []
+                },
+                {
+                  "id": "6ebb6958-982e-4c15-8507-436a587fba1d",
+                  "createdAt": "2021-03-17T13:24:29.000Z",
+                  "updatedAt": "2021-03-17T14:57:21.000Z",
+                  "isDeleted": false,
+                  "description": "Maschine 2",
+                  "imageId": "/assets/mocks/asset-mocks/icons/sample-icon.jpg",
+                  "name": {
+                    "de_DE": "Maschine 2",
+                    "en_US": "Machine 2"
+                  },
+                  "assetType": {
+                    "id": "96a3e554-fba1-41a2-8d35-ef18d0d7d5c3",
+                    "isBuiltIn": true,
+                    "name": {
+                      "de_DE": "Arbeitseinheit",
+                      "en_EN": "CM Equipment"
+                    },
+                    "description": null,
+                    "extendsType": null,
+                    "equipmentType": "WORK_UNITS",
+                    "createdAt": "2021-03-17T13:04:41.000Z",
+                    "updatedAt": "2021-03-17T13:04:41.000Z",
+                    "isDeleted": false
+                  },
+                  "documents": [
+                    {
+                      "id": "dedd8e4f-8796-4ef7-91e6-363fd03ad1a5",
+                      "documentId": "f28bcf37898590f648a31ff4623a8f9a",
+                      "documentType": "Icon",
+                      "description": "Random Icon",
+                      "createdAt": "2021-04-01T12:51:37.000Z",
+                      "createdBy": "1653dd24-714c-454a-9cf2-aa0bad425a0a"
+                    }
+                  ],
+                  "aliases": [],
+                  "children": []
+                },
+                {
+                  "id": "c05a9535-2e14-41a1-9abe-1b6cc7197316",
+                  "createdAt": "2021-03-17T13:16:51.000Z",
+                  "updatedAt": "2021-04-07T09:07:47.000Z",
+                  "isDeleted": false,
+                  "description": "Maschine 3",
+                  "imageId": "/assets/mocks/asset-mocks/icons/sample-icon.jpg",
+                  "name": {
+                    "de_DE": "Maschine 3",
+                    "en_US": "Machine 3"
+                  },
+                  "assetType": {
+                    "id": "96a3e554-fba1-41a2-8d35-ef18d0d7d5c3",
+                    "isBuiltIn": true,
+                    "name": {
+                      "de_DE": "Arbeitseinheit",
+                      "en_EN": "CM Equipment"
+                    },
+                    "description": null,
+                    "extendsType": null,
+                    "equipmentType": "WORK_UNITS",
+                    "createdAt": "2021-03-17T13:04:41.000Z",
+                    "updatedAt": "2021-03-17T13:04:41.000Z",
+                    "isDeleted": false
+                  },
+                  "documents": [],
+                  "aliases": [],
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "meta": {}
+}

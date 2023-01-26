@@ -1,0 +1,251 @@
+@import '~@fontsource/oxygen/400';
+@import '~@fontsource/oxygen/700';
+
+@import '~@ag-grid-community/core/dist/styles/ag-grid.css';
+@import '~@ag-grid-community/core/dist/styles/ag-theme-material.css';
+
+@import 'perfect-scrollbar/css/perfect-scrollbar.css';
+
+@import 'abstracts';
+
+@import 'vendors';
+
+@import 'core';
+
+@import 'components';
+
+@import '~@ng-select/ng-select/themes/default.theme.css';
+
+@import '~ngx-toastr/toastr';
+
+body {
+  height: 100vh;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  background-color: $white;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Oxygen';
+}
+
+.archive {
+  width: 26px;
+  height: 27px;
+  content: url('./assets/icons/archive.svg');
+}
+
+.dark {
+  background-color: #1d4f91 !important;
+}
+
+.red {
+  background-color: #aa312c !important;
+}
+
+.black {
+  background-color: #403f3f !important;
+}
+
+.square {
+  min-width: 36px;
+  height: 36px;
+  width: 36px;
+  display: flex;
+  padding: 0;
+  background: #1d4f91;
+  color: hsla(0, 0%, 100%, 0.8);
+  font-weight: 700;
+  border: none;
+  align-items: center;
+  justify-content: center;
+}
+
+// AG-Grid global styles
+$grid-row-height: 42px;
+
+ag-grid-angular {
+  height: 100%;
+  width: 100%;
+}
+
+.ag-theme-material {
+  --ag-checkbox-checked-color: $gray-900;
+  --ag-header-background-color: #{$gray-400};
+  --ag-foreground-color: #{$gray-900};
+  --ag-header-height: #{$grid-row-height};
+  --ag-row-height: #{$grid-row-height};
+}
+
+.ag-theme-material .ag-row-even {
+  background-color: $gray-100;
+}
+
+.ag-body-viewport,
+.ag-body-horizontal-scroll-viewport {
+  position: relative;
+  overflow: hidden !important;
+}
+
+.ag-theme-material .ag-header-cell {
+  border-left: 1px solid $gray-300;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.ag-theme-material .ag-cell {
+  border-left: 1px solid $gray-300;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.ag-theme-material .ag-header-cell.ag-floating-filter {
+  background-color: $white;
+  padding: 0;
+
+  &:hover {
+    background-color: $white !important;
+  }
+}
+
+// ngb-bootstrap overrides
+ngb-progressbar {
+  border-radius: 50px;
+  color: $gray-200;
+
+  .progress-bar {
+    border-radius: 50px;
+  }
+}
+
+.header-actions {
+  display: flex;
+  .btn {
+    text-transform: uppercase;
+  }
+}
+
+.pill-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+// ng-select custom styling
+.ng-select {
+  &.ng-select-multiple,
+  &.ng-select-single {
+    .ng-select-container {
+      border-radius: 0;
+      border-color: $gray-300;
+    }
+  }
+  &.ng-select-focused,
+  &.ng-select-focused:not(.ng-select-opened) {
+    .ng-select-container {
+      border-color: $gray-900;
+      box-shadow: unset;
+    }
+  }
+  &.pill-select {
+    &.ng-select-multiple,
+    &.ng-select-single {
+      .ng-select-container {
+        min-height: 40px;
+        .ng-value-container {
+          .ng-value {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row-reverse;
+            color: $white;
+            background-color: $gray-800;
+            font-size: 12px;
+            border-radius: 20px;
+            height: 30px;
+            line-height: 30px;
+            mask-image: radial-gradient(white, black);
+
+            .ng-value-label {
+              .state-over-due {
+                @extend .pill-bg;
+                background-color: $red;
+              }
+              .state-due-soon {
+                @extend .pill-bg;
+                background-color: $orange;
+              }
+              padding: 0 12px;
+            }
+
+            .ng-value-icon {
+              padding: 0 8px 4px 0;
+              margin-left: -8px;
+              font-size: 20px;
+              z-index: 1;
+              &.left {
+                border: 0;
+              }
+              &:hover {
+                background-color: unset;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.ng-select.is-invalid {
+  .ng-select-container {
+    border-color: $danger;
+  }
+}
+
+.ng-select.ng-select-focused {
+  .ng-select-container {
+    border-color: $gray-900;
+  }
+}
+
+.custom-modal {
+  .modal-body {
+    padding-top: 2rem;
+    text-align: center;
+  }
+
+  .modal-footer {
+    justify-content: center;
+    border: none;
+    flex-direction: row-reverse;
+
+    button {
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .btn-confirm {
+      // In place while platform
+      background-color: $yellow;
+      border-color: $yellow;
+      color: $black;
+    }
+
+    .btn-abort {
+      background-color: $gray-900;
+      border-color: $gray-900;
+      color: $white;
+    }
+  }
+}

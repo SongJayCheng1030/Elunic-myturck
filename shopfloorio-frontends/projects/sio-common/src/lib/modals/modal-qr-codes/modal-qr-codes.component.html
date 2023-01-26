@@ -1,0 +1,14 @@
+<div class="modal-header align-items-center">
+  <h4 class="modal-title" *ngIf="title">{{ title | translate }}</h4>
+  <button type="button" class="btn btn-xs btn-icon btn-transparent ml-auto" (click)="onCancel()">
+    <i class="material-icons mi-18">close</i>
+  </button>
+</div>
+
+<div class="modal-body qr-codes">
+  <div class="qr-code" *ngFor="let qrCode of qrCodes">
+    <h5 class="name" *ngIf="qrCode.name" [multilang]="qrCode.name"></h5>
+    <div class="subTitle" *ngIf="qrCode.subTitle">{{ qrCode.subTitle }}</div>
+    <qrcode [qrdata]="qrCode.data" [width]="qrWidth" [margin]="2"></qrcode>
+  </div>
+</div>

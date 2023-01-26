@@ -1,0 +1,95 @@
+<lib-page-card-layout [title]="tenant.name" *ngIf="tenant" [showBackButton]="false">
+  <div header class="ml-auto d-flex align-items-center">
+    <button class="btn btn-transparent btn-icon mr-5" (click)="deleteTenant()" *ngIf="tenant.id">
+      <i class="material-icons mi-26">delete_outline</i>
+    </button>
+    <a [ngClass]="{ 'mr-5': !tenant.id }" role="button" [routerLink]="''">
+      <b
+        ><u>{{ 'OPTIONS.CANCEL' | translate }}</u></b
+      >
+    </a>
+    <lib-button *ngIf="!tenant.id" (click)="saveTenant()">{{
+      'OPTIONS.SAVE_CHANGES' | translate
+    }}</lib-button>
+  </div>
+  <div body class="container-fluid w-100 px-5 pt-5">
+    <div class="row px-5 justify-content-between">
+      <div class="col-5">
+        <label>{{ 'TENANT_DETAIL.TENANT_NAME' | translate }}</label>
+        <div class="form-group">
+          <lib-input
+            class="input-control"
+            [config]="{ defaultValue: tenant.name }"
+            [disabled]="tenant.id && !isActionModeEnabled('tenantName')"
+            (changeInput)="tenant.name = $event"
+          ></lib-input>
+          <div class="actions" *ngIf="tenant.id">
+            <a class="mr-3" role="button" (click)="toggleActionMode('tenantName')">
+              <b
+                ><u>{{
+                  (isActionModeEnabled('tenantName') ? 'OPTIONS.CANCEL' : 'OPTIONS.EDIT')
+                    | translate
+                }}</u></b
+              >
+            </a>
+            <lib-button *ngIf="isActionModeEnabled('tenantName')" (click)="saveTenant()">
+              {{ 'OPTIONS.SAVE_CHANGES' | translate }}
+            </lib-button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-container *ngIf="tenant.id">
+      <h4 class="py-2 px-5">{{ 'TENANT_DETAIL.SETTINGS' | translate }}</h4>
+      <div class="row px-5 justify-content-between" *ngFor="let setting of settings">
+        <div class="col-5">
+          <label>{{ setting.name | translate }}</label>
+          <div class="form-group">
+            <ng-container [ngSwitch]="setting.type">
+              <ng-select
+                *ngSwitchCase="'select'"
+                class="input-control"
+                bindValue="value"
+                [(ngModel)]="setting.value"
+                [items]="setting.options"
+                [clearable]="false"
+                [searchable]="false"
+                [disabled]="setting.mode !== 'enabled'"
+              >
+                <ng-template ng-label-tmp let-item="item">
+                  {{ item.name | translate }}
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item">
+                  {{ item.name | translate }}
+                </ng-template>
+              </ng-select>
+              <lib-input
+                *ngSwitchDefault
+                class="input-control"
+                [config]="{ defaultValue: setting.value }"
+                [disabled]="setting.mode !== 'enabled'"
+                (changeInput)="setting.value = $event"
+              ></lib-input>
+            </ng-container>
+            <div class="actions" *ngIf="!setting.disableActions">
+              <a class="mr-3" role="button" (click)="toggleSettingMode(setting)">
+                <b
+                  ><u>{{
+                    (setting.mode === 'enabled' ? 'OPTIONS.CANCEL' : 'OPTIONS.EDIT') | translate
+                  }}</u></b
+                >
+              </a>
+              <lib-button
+                *ngIf="setting.mode === 'enabled'"
+                (click)="saveSetting(setting)"
+                [mode]="setting.value !== null ? 'primary' : 'disabled'"
+              >
+                {{ 'OPTIONS.SAVE_CHANGES' | translate }}
+              </lib-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</lib-page-card-layout>

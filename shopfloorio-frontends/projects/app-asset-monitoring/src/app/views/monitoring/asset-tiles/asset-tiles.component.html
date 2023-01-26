@@ -1,0 +1,48 @@
+<lib-panel class="panel-actions">
+  <lib-panel-header>
+    <h4>{{ 'VIEWS.ASSET_OVERVIEW.OVERVIEW' | translate }}</h4>
+  </lib-panel-header>
+</lib-panel>
+<div class="main-wrapper mt-2">
+  <div class="content-scrollable">
+    <div class="content-scroll grid-wrapper grid-column-4">
+      <lib-panel class="tile" *ngFor="let tile of tiles" (click)="onTile(tile)">
+        <lib-panel-header>
+          <app-status-legend
+            class="mb-1"
+            [backgroundColor]="'#d5d7d8'"
+            [bordered]="true"
+            backgroundShape="circle"
+            width="22"
+            height="22"
+          ></app-status-legend>
+          <h5 class="pl-3" [multilang]="tile.name"></h5>
+        </lib-panel-header>
+        <lib-panel-body class="p-0">
+          <div
+            class="image-container"
+            [ngStyle]="{
+              'background-image': tile.imageId
+                ? 'url(' + imageIdToUrl(tile.imageId) + ')'
+                : 'url(\'assets/mocks/asset-mocks/icons/sample-icon.jpg\')'
+            }"
+          ></div>
+          <div class="info">
+            <div class="entry">
+              <div class="name">{{ 'VIEWS.ASSET_OVERVIEW.ASSET_NAME' | translate }}</div>
+              <div class="value" [multilang]="tile.name"></div>
+            </div>
+            <div class="entry">
+              <div class="name">{{ 'VIEWS.ASSET_OVERVIEW.ASSET_TYPE' | translate }}</div>
+              <div class="value" [multilang]="tile.assetType?.name"></div>
+            </div>
+            <div class="entry">
+              <div class="name">{{ 'VIEWS.ASSET_OVERVIEW.SUB_ASSETS' | translate }}</div>
+              <div class="value">{{ tile.children?.length || 0 }}</div>
+            </div>
+          </div>
+        </lib-panel-body>
+      </lib-panel>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<div class="oee-monitoring-container">
+  <div class="oee-monitoring-sidebar">
+    <lib-sidebar
+      class="sidebar"
+      *ngIf="treeNode"
+      [title]="'Equipment'"
+      [treeNode]="treeNode"
+      [treeNodeStatus]="treeNodeStatus"
+      [activeTreeNode]="activeTreeNode"
+      (treeNodeSelect)="onTreeNodeSelect($event)"
+    >
+    </lib-sidebar>
+  </div>
+  <div class="oee-monitoring-body d-flex">
+    <app-oee-monitoring-overview
+      *ngIf="activeTreeNode && !isDetail"
+      [treeNode]="activeTreeNode"
+    ></app-oee-monitoring-overview>
+    <app-oee-monitoring-details
+      *ngIf="activeTreeNode && isDetail"
+      [treeNode]="activeTreeNode"
+    ></app-oee-monitoring-details>
+  </div>
+</div>

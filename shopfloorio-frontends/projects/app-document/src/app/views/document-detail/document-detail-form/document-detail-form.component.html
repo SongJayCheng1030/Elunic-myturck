@@ -1,0 +1,95 @@
+<div class="col-12">
+  <div class="d-flex flex-center w-100" *ngIf="loading">
+    <lib-loader></lib-loader>
+  </div>
+
+  <div class="row" *ngIf="!loading">
+    <div class="col-md-4">
+      <div class="image-container">
+        <div *ngIf="fileType$ | async as type" class="img-wrapper">
+          <ng-container [ngSwitch]="type">
+            <pdf-viewer
+              *ngSwitchCase="'pdf'"
+              [src]="pdfViewerSrc$ | async"
+              [show-all]="false"
+              [page]="1"
+              [render-text]="true"
+              [autoresize]="true"
+              [original-size]="false"
+              style="width: 150px; height: 150px"
+            ></pdf-viewer>
+            <img *ngSwitchCase="'image'" [src]="fileUrl$ | async" />
+            <div *ngSwitchDefault>No Preview</div>
+          </ng-container>
+        </div>
+        <a *ngIf="fileUrl$ | async as url" class="btn" target="_blank" [href]="url">
+          {{ 'VIEWS.DOCUMENT_DETAILS.VIEW_FILE' | translate }}
+        </a>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+      <form [formGroup]="form">
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="name"> {{ 'VIEWS.DOCUMENT_DETAILS.DOCUMENT_NAME' | translate }} </label>
+              <input multilangFormControl="name" type="text" id="name" class="form-control" />
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="form-group">
+              <label for="type"> {{ 'VIEWS.DOCUMENT_DETAILS.DOCUMENT_CATEGORY' | translate }} </label>
+              <div ngbDropdown class="dropdown form-dropdown">
+                <button
+                  ngbDropdownToggle
+                  [multilang]="
+                    (selectedDocType$ | async)?.name || {
+                      translate: 'VIEWS.DOCUMENT_DETAILS.PLEASE_CHOOSE'
+                    }
+                  "
+                  class="btn btn-outline-secondary"
+                ></button>
+
+                <div ngbDropdownMenu class="form-dropdown-menu">
+                  <button
+                    *ngFor="let type of docTypes$ | async"
+                    ngbDropdownItem
+                    [multilang]="type.name"
+                    (click)="onDocTypeChange(type)"
+                  ></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="form-group">
+              <button class="btn btn-upload" (click)="fileInput.click()">
+                <i class="material-icons mi-22"> vertical_align_top </i>
+                <span>
+                  {{ 'VIEWS.DOCUMENT_DETAILS.UPLOAD_FILE' | translate }}
+                </span>
+              </button>
+
+              <input
+                #fileInput
+                type="file"
+                class="hidden-input"
+                (change)="onFileChange($event.target.files)"
+              />
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="form-group">
+              <label for="type"> {{ 'VIEWS.DOCUMENT_DETAILS.DOCUMENT_TYPE' | translate }} </label>
+              <span class="file-type">{{ fileType$ | async }}</span>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

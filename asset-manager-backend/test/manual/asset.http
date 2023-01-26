@@ -1,0 +1,115 @@
+POST http://localhost:8080/assets/
+Content-Type: application/json
+
+{
+  "name": {
+    "de_DE": "Neuer Name",
+    "en_US": "New name"
+  },
+  "assetType": "dcca9a84-7742-40bf-8341-ffda7224108e",
+  "description": "Hello world",
+  "documents": [
+    {
+      "id": "3bb5466a-71b9-48de-baa9-d2922a1a8799",
+      "documentId": "Möpo",
+      "description": null,
+      "createdAt": "2021-03-04T08:31:29.000Z",
+      "createdBy": "dd188ea8-2847-4ff8-9142-e9364bcd95f4"
+    },
+    {
+      "id": "b681bf46-efd9-422d-b9e7-d6721adcef55",
+      "documentId": "ID-1234_neu",
+      "description": null,
+      "createdAt": "2021-03-02T21:49:28.000Z",
+      "createdBy": "dd188ea8-2847-4ff8-9142-e9364bcd95f4"
+    },
+    {
+      "documentId": "9489589-3223"
+    }
+  ],
+  "requiredProperties": {
+    "PROP_1": "That is the value"
+  }
+}
+
+
+####
+
+PATCH http://localhost:8080/assets/18518971-19eb-45b4-b934-07f01b020d3f
+Content-Type: application/json
+
+{
+  "assetType": "d1ec4760-5e02-4d4b-a77e-377c5d50e49e"
+}
+
+
+####
+
+
+GET http://localhost:8080/assets/18518971-19eb-45b4-b934-07f01b020d3f
+
+
+###
+
+PATCH http://localhost:8080/assets/b681bf46-efd9-422d-b9e7-d6721adcef44
+Content-Type: application/json
+
+{
+  "name": {
+    "de_DE": "Neuer Name",
+    "en_US": "New name"
+  },
+  "description": "Hello world",
+  "documents": [
+    {
+      "id": "3bb5466a-71b9-48de-baa9-d2922a1a8799",
+      "documentId": "Möpo",
+      "description": null,
+      "createdAt": "2021-03-04T08:31:29.000Z",
+      "createdBy": "dd188ea8-2847-4ff8-9142-e9364bcd95f4"
+    },
+    {
+      "id": "b681bf46-efd9-422d-b9e7-d6721adcef55",
+      "documentId": "ID-1234_neu",
+      "description": null,
+      "createdAt": "2021-03-02T21:49:28.000Z",
+      "createdBy": "dd188ea8-2847-4ff8-9142-e9364bcd95f4"
+    },
+    {
+      "documentId": "9489589-3223"
+    }
+  ]
+}
+
+
+###
+
+PATCH http://localhost:8080/assets/b681bf46-efd9-422d-b9e7-d6721adcef44
+Content-Type: application/json
+
+{
+  "aliases": [
+    {
+      "alias": "My new one"
+    }
+  ]
+}
+
+
+###
+
+PATCH http://localhost:8080/assets/a5aa3ed9-5e41-49fd-a25e-7d292e8ce5eb
+Content-Type: application/json
+
+{
+  "description": "Hello world! It works!"
+}
+
+###
+
+POST http://localhost:8080/assets/clone/a5aa3ed9-5e41-49fd-a25e-7d292e8ce5eb
+Content-Type: application/json
+
+{
+  "description": "This has been cloned"
+}

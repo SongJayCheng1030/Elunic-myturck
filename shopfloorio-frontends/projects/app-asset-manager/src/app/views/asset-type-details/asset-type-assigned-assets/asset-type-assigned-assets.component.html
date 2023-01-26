@@ -1,0 +1,23 @@
+<lib-panel>
+  <lib-panel-header>
+    <h4>{{ 'VIEWS.ASSET_TYPE_DETAILS.ASSIGNED_ASSETS' | translate }}</h4>
+  </lib-panel-header>
+
+  <lib-panel-body class="p-0">
+    <lib-table class="w-100" [data]="assets" [scrollable]="true">
+      <lib-row *libHeaderRowDef>
+        <lib-header-cell libHeaderSort="name" [isMultilang]="true">
+          {{ 'VIEWS.ASSET_DETAILS.ASSET_NAME' | translate }}
+        </lib-header-cell>
+      </lib-row>
+
+      <lib-row libDataRow *libDataRowDef="let property">
+        <lib-cell [multilang]="property.name"></lib-cell>
+      </lib-row>
+
+      <lib-row libEmptyRow *libEmptyRowDef>
+        <span>No properties found</span>
+      </lib-row>
+    </lib-table>
+  </lib-panel-body>
+</lib-panel>

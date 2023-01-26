@@ -1,0 +1,18 @@
+<div class="d-flex justify-content-between align-items-center">
+  <ul ngbNav class="navigation">
+    <li [ngbNavItem]="link.route" *ngFor="let link of links" class="nav-tab">
+      <a
+        ngbNavLink
+        [routerLink]="link.route"
+        [queryParamsHandling]="link.queryParamsHandling"
+        routerLinkActive="active-item"
+      >
+        {{ link.title }}
+      </a>
+    </li>
+  </ul>
+
+  <div class="actions">
+    <ng-content></ng-content>
+  </div>
+</div>

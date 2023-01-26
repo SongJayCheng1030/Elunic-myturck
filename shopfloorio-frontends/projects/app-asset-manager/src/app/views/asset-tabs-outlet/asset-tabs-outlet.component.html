@@ -1,0 +1,46 @@
+<lib-panel [scrollable]="true">
+  <lib-panel-header class="pl-3">
+    <h2>{{ 'VIEWS.ASSET_TABS.ASSETS' | translate }}</h2>
+    <div class="tabs">
+      <a
+        class="tab"
+        [class.active]="selectedTabIndex === i"
+        (click)="onNavigate(i)"
+        *ngFor="let tab of tabs; let i = index"
+      >
+        {{ tab.label | translate }}
+      </a>
+    </div>
+
+    <lib-panel-header-actions>
+      <!-- TEMPORARY REMOVE FOR PRESENTATION
+        <button class="btn btn-transparent btn-icon" *ngIf="tabs[selectedTabIndex].showHistory">
+        <i class="material-icons mi-28">pending_actions</i>
+      </button>
+
+      <div ngbDropdown placement="bottom-right" class="btn-group ml-3">
+        <button ngbDropdownToggle class="btn btn-transparent btn-icon">
+          <i class="material-icons mi-28">import_export</i>
+        </button>
+        <div ngbDropdownMenu class="text-right">
+          <button ngbDropdownItem>Import</button>
+          <button ngbDropdownItem>Export</button>
+        </div>
+      </div> -->
+
+      <lib-search
+        [formControl]="search"
+        [placeholder]="'VIEWS.ASSET_TABS.SEARCH' | translate"
+      ></lib-search>
+
+      <button class="btn btn-primary" (click)="onBtnNavigate()">
+        <i class="material-icons">add</i>
+        <span>{{ tabs[selectedTabIndex].createBtn.label | translate }}</span>
+      </button>
+    </lib-panel-header-actions>
+  </lib-panel-header>
+
+  <lib-panel-body class="p-0">
+    <router-outlet></router-outlet>
+  </lib-panel-body>
+</lib-panel>

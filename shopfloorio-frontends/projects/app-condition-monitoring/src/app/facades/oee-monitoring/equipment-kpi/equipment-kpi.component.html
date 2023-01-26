@@ -1,0 +1,20 @@
+<app-chart-panel (click)="onClick()">
+  <app-chart-panel-header>
+    <h4 [multilang]="_asset.name"></h4>
+    <app-chart-panel-header-actions>
+      <div class="eq-status-badge" [ngStyle]="{ 'background-color': statusColor }">
+        {{ statusText | translate }}
+      </div>
+    </app-chart-panel-header-actions>
+  </app-chart-panel-header>
+  <app-chart-panel-body>
+    <div class="doughnut-chart">
+      <div class="kpi-percent" [ngStyle]="{ color: statColor }">{{ statText }}%</div>
+      <div class="kpi-label">{{ 'KPI.' + (selectedKpi$ | async) | translate }}</div>
+      <canvas #doughnutChart id="doughnutChart"></canvas>
+    </div>
+    <div class="line-chart">
+      <canvas #lineChart id="lineChart"></canvas>
+    </div>
+  </app-chart-panel-body>
+</app-chart-panel>

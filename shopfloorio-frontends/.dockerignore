@@ -1,0 +1,14 @@
+.env
+.vscode
+nbproject*
+.idea*
+**/node_modules*
+**/temp
+**/temp/*
+node_modules/**
+.angular
+.angular*
+docs/build
+docs/.docusaurus
+docs/.cache-loader
+.angular/*

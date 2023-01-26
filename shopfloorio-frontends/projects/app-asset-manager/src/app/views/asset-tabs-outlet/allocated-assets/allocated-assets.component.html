@@ -1,0 +1,131 @@
+<lib-tree-table
+  #table
+  class="asset-table"
+  [data]="assets"
+  [searchMultilangCols]="['name', 'assetType.name']"
+  [searchTerm]="searchTerm"
+  [getChildren]="getChildren"
+  [getIdentifier]="getIdentifier"
+  [elevated]="true"
+>
+  <lib-row *libHeaderRowDef class="header-row">
+    <ng-container *ngFor="let header of headers">
+      <lib-header-cell *ngIf="isColumnEnable(header.id)">
+        {{ header.text | translate }}
+      </lib-header-cell>
+    </ng-container>
+    <lib-header-cell *ngIf="isColumnEnable('CHANGE_ORDER')" class="dropdown-cell"></lib-header-cell>
+    <lib-header-cell class="actions"></lib-header-cell>
+    <div class="toggle-tree">
+      <a role="button" (click)="onExpandAll(true)">{{
+        'VIEWS.ALLOCATED_ASSETS.EXPAND_ALL' | translate
+      }}</a>
+      <a role="button" (click)="onExpandAll(false)">{{
+        'VIEWS.ALLOCATED_ASSETS.COLLAPSE_ALL' | translate
+      }}</a>
+    </div>
+  </lib-row>
+
+  <lib-row [libTreeDataRow]="node" *libTreeDataRowDef="let node">
+    <lib-tree-toggle-cell *ngIf="isColumnEnable('NAME')">
+      <div class="name-column">
+        <img
+          [src]="
+            node.value.imageId
+              ? imageIdToUrl(node.value.imageId)
+              : './assets/images/asset-thumbnail.jpg'
+          "
+          class="asset-thumbnail"
+          alt="Asset thumbnail"
+        />
+
+        <strong [multilang]="node.value.name"></strong>
+      </div>
+    </lib-tree-toggle-cell>
+
+    <lib-cell *ngIf="isColumnEnable('TYPE')" [multilang]="node.value.assetType.name"></lib-cell>
+
+    <lib-cell *ngIf="isColumnEnable('DOCUMENTS')">{{
+      node.value.documents?.length || '-'
+    }}</lib-cell>
+
+    <lib-cell *ngIf="isColumnEnable('CREATED_OR_UPDATED_AT')">{{
+      node.value.createdAt | date: 'dd.MM.yyyy | HH:mm'
+    }}</lib-cell>
+
+    <lib-cell *ngIf="isColumnEnable('CHANGE_ORDER')">
+      <button
+        class="btn btn-sm btn-transparent btn-icon"
+        [class.invisible]="node.disableReposition || node.meta.isFirst"
+        [disabled]="node.disableReposition || node.meta.isFirst"
+        (click)="swap(node, node.meta.index - 1)"
+      >
+        <i class="material-icons">arrow_upward</i>
+      </button>
+
+      <button
+        class="btn btn-sm btn-transparent btn-icon"
+        [class.invisible]="node.disableReposition || node.meta.isLast"
+        [disabled]="node.disableReposition || node.meta.isLast"
+        (click)="swap(node, node.meta.index + 1)"
+      >
+        <i class="material-icons">arrow_downward</i>
+      </button>
+    </lib-cell>
+
+    <ng-container *ngIf="isColumnEnable('CHANGE_ORDER')">
+      <lib-cell class="overflow-visible dropdown-cell">
+        <app-asset-hierarchy-dropdown
+          [node]="node"
+          [assets]="table.data"
+          [expandParents]="true"
+          placeholder="{{ 'VIEWS.ALLOCATED_ASSETS.CHANGE_PARENT_ASSET_TO' | translate }}"
+          (selected)="switchParent(node, $event)"
+        >
+        </app-asset-hierarchy-dropdown>
+      </lib-cell>
+    </ng-container>
+
+    <lib-cell class="overflow-visible actions">
+      <div
+        ngbDropdown
+        [placement]="['bottom-right', 'top-right']"
+        container="body"
+        class="btn-group"
+      >
+        <button ngbDropdownToggle class="btn btn-transparent btn-icon">
+          <i class="material-icons mi-26">more_vert</i>
+        </button>
+        <div ngbDropdownMenu class="text-right">
+          <button
+            ngbDropdownItem
+            routerLink="/assets/{{ node.id }}"
+            [queryParams]="{ deallocate: true }"
+          >
+            {{ 'VIEWS.ALLOCATED_ASSETS.EDIT' | translate }}
+          </button>
+          <button ngbDropdownItem (click)="openAssetPoolModal(node)">
+            {{ 'VIEWS.ALLOCATED_ASSETS.ADD_POOL_ASSET' | translate }}
+          </button>
+          <button ngbDropdownItem (click)="onCreateSubAsset(node)">
+            {{ 'VIEWS.ALLOCATED_ASSETS.CREATE_NEW_SUB_ASSET' | translate }}
+          </button>
+          <button ngbDropdownItem (click)="clone(node)">
+            {{ 'VIEWS.ALLOCATED_ASSETS.DUPLICATE' | translate }}
+          </button>
+          <button ngbDropdownItem (click)="deallocate(node)">
+            {{ 'VIEWS.ALLOCATED_ASSETS.DEALLOCATE' | translate }}
+          </button>
+          <button ngbDropdownItem class="text-danger" (click)="delete(node)">
+            {{ 'VIEWS.ALLOCATED_ASSETS.DELETE' | translate }}
+          </button>
+        </div>
+      </div>
+    </lib-cell>
+  </lib-row>
+
+  <lib-row libEmptyRow *libEmptyRowDef>
+    <span *ngIf="!loading">No assets found</span>
+    <lib-loader *ngIf="loading"></lib-loader>
+  </lib-row>
+</lib-tree-table>

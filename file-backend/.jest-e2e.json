@@ -1,0 +1,42 @@
+{
+  "moduleFileExtensions": [
+    "js",
+    "json",
+    "ts"
+  ],
+  "testEnvironment": "node",
+  "rootDir": "test/e2e/src/",
+  "testRegex": "\\.e2e-spec\\.ts$",
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "setupFilesAfterEnv": [
+    "<rootDir>/../setup.ts"
+  ],
+  "moduleNameMapper": {
+    "^src/(.*)": "<rootDir>/../../../src/$1",
+    "^test/(.*)": "<rootDir>/../../../test/$1",
+    "^shared/common$": "<rootDir>/../../../../shared/common/src/",
+    "^shared/common/(.*)": "<rootDir>/../../../../shared/common/src/$1",
+    "^shared/backend$": "<rootDir>/../../../../shared/backend/src/",
+    "^shared/backend/(.*)": "<rootDir>/../../../../shared/backend/src/$1",
+    "^shared/nestjs$": "<rootDir>/../../../../shared/nestjs/src/",
+    "^shared/nestjs/(.*)": "<rootDir>/../../../../shared/nestjs/src/$1"
+  },
+  "reporters": [
+    "default",
+    [
+      "jest-html-reporters",
+      {
+        "publicPath": "test-reports/e2e/html",
+        "filename": "index.html"
+      }
+    ],
+    [
+      "jest-junit",
+      {
+        "outputDirectory": "test-reports/e2e/junit"
+      }
+    ]
+  ]
+}

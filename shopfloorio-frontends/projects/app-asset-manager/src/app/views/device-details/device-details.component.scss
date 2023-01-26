@@ -1,0 +1,35 @@
+@import 'variables';
+
+.content,
+.card-body {
+  padding: 1em 2em;
+  background-color: $white;
+  border: 1px solid $gray-500;
+  color: $gray-800;
+}
+
+.card-info {
+  .card-unit {
+    margin-bottom: 1em;
+    div {
+      margin-bottom: 0.5em;
+    }
+  }
+}
+
+#navigation,
+#navigation > a {
+  color: $gray-600;
+}
+
+h3 {
+  background-color: $gray-500;
+  padding: 0.3rem;
+  padding-left: 1.5rem;
+}
+
+:host {
+  width: 100%;
+  margin: 0;
+  background-color: $light;
+}

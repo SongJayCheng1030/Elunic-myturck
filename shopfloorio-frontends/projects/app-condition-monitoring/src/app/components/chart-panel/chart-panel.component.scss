@@ -1,0 +1,73 @@
+@import 'variables';
+@import 'mixins';
+
+:host ::ng-deep {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  height: calc(100vh - (56px + 32px + 2 * 1rem));
+
+  .chart-panel {
+    display: flex;
+    flex-direction: column;
+    background-color: $white;
+    height: 100%;
+  }
+
+  .chart-panel-header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    min-height: 65px;
+    padding: $panel-padding-y $panel-padding-x;
+    border-bottom: 1px solid $border-color;
+
+    h2,
+    h4 {
+      margin-bottom: 0;
+      color: rgba($black, 87%);
+    }
+
+    .chart-panel-header-actions {
+      @media screen and (max-width: 1170px) {
+        border-top: 1px solid $border-color;
+        width: 100%;
+        margin-top: 12px;
+        justify-content: flex-end;
+        padding-top: 15px;
+      }
+
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+
+      & > * + * {
+        margin-left: 1.5rem;
+      }
+    }
+  }
+
+  .chart-panel-header + .chart-panel-body-container .chart-panel-body {
+    padding: 0 $panel-padding-x $panel-padding-y;
+  }
+
+  .chart-panel-body-container {
+    flex-grow: 1;
+
+    &.container-scrollable {
+      position: relative;
+
+      .chart-panel-body {
+        overflow-y: auto;
+        @include custom-scrollbar;
+        @include absolute-container;
+      }
+    }
+
+    .chart-panel-body {
+      display: flex;
+      height: 100%;
+      padding: $panel-padding-y $panel-padding-x;
+    }
+  }
+}

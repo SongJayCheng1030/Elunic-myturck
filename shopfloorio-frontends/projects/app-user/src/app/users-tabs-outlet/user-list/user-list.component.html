@@ -1,0 +1,37 @@
+<ng-container *ngIf="usersLoaded$ | async">
+  <lib-table class="w-100" [data]="users$ | async" [scrollable]="true">
+    <lib-row *libHeaderRowDef>
+      <lib-header-cell> </lib-header-cell>
+      <lib-header-cell libHeaderSort="name">
+        {{ 'NAME' | translate }}
+      </lib-header-cell>
+      <lib-header-cell libHeaderSort="email">
+        {{ 'EMAIL' | translate }}
+      </lib-header-cell>
+      <lib-header-cell>
+        {{ 'ROLE' | translate }}
+      </lib-header-cell>
+    </lib-row>
+
+    <lib-row libDataRow *libDataRowDef="let user" [hoverable]="true" (click)="user.action()">
+      <lib-cell>
+        <img [src]="getAvatarImageForUser(user)" class="image" />
+      </lib-cell>
+      <lib-cell>{{ user.name }}</lib-cell>
+      <lib-cell>{{ user.email }}</lib-cell>
+      <lib-cell>
+        <span
+          *ngFor="let role of user.roles"
+          class="badge text-dark"
+          [ngClass]="{ 'bg-light': role.isDefault, 'bg-info': !role.isDefault }"
+          [multilang]="role.name"
+        >
+        </span>
+      </lib-cell>
+    </lib-row>
+
+    <lib-row libEmptyRow *libEmptyRowDef>
+      <span>{{ 'EMPTY_USERS' | translate }}</span>
+    </lib-row>
+  </lib-table>
+</ng-container>

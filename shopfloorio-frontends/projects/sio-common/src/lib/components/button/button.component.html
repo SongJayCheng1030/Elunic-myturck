@@ -1,0 +1,14 @@
+<button
+  [ngClass]="{
+    primary: mode === 'primary',
+    outline: mode === 'outline',
+    transparent: mode === 'transparent'
+  }"
+  [ngStyle]="colorOptions"
+  [disabled]="mode === 'disabled'"
+  (mouseenter)="onMouseIn()"
+  (mouseleave)="onMouseOut()"
+  class="w-100 d-flex align-items-center justify-content-center"
+>
+  <ng-content></ng-content>
+</button>

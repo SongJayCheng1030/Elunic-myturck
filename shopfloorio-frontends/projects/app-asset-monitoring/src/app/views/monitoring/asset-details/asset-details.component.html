@@ -1,0 +1,77 @@
+<div class="content-scrollable" *ngIf="asset">
+  <div class="content-scroll">
+    <lib-panel class="panel-actions">
+      <lib-panel-header>
+        <app-status-legend
+          [backgroundColor]="'#d5d7d8'"
+          [bordered]="true"
+          backgroundShape="circle"
+          width="20"
+          height="20"
+        ></app-status-legend>
+        <h4 class="pl-3" [multilang]="asset.name"></h4>
+        <p class="live-status ml-auto">{{ 'VIEWS.ASSET_DETAILS.LIVE_STATUS' | translate }}</p>
+      </lib-panel-header>
+      <lib-panel-body>
+        <div class="main-wrapper mt-2">
+          <div class="grid-wrapper">
+            <div
+              class="image-container"
+              [ngStyle]="{
+                'background-image': asset.imageId
+                  ? 'url(' + imageIdToUrl(asset.imageId) + ')'
+                  : 'url(\'assets/mocks/asset-mocks/icons/sample-icon.jpg\')'
+              }"
+            ></div>
+            <div class="info-wrapper">
+              <div [ngClass]="{ info: secondHalf?.length }">
+                <div class="entry">
+                  <div class="row" *ngFor="let assetAttribute of firstHalf">
+                    <ng-template
+                      [ngTemplateOutlet]="assetInfo"
+                      [ngTemplateOutletContext]="{ item: assetAttribute }"
+                    ></ng-template>
+                  </div>
+                </div>
+                <div class="entry">
+                  <div class="row" *ngFor="let assetAttribute of secondHalf">
+                    <ng-template
+                      [ngTemplateOutlet]="assetInfo"
+                      [ngTemplateOutletContext]="{ item: assetAttribute }"
+                    ></ng-template>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </lib-panel-body>
+    </lib-panel>
+    <div class="sections">
+      <div class="kpi-wrapper">
+        <app-asset-kpi></app-asset-kpi>
+        <app-asset-throughput
+          *ngFor="let throughput of throughputs"
+          [title]="throughput.title"
+          [property]="throughput.property"
+          [unit]="throughput.unit"
+        ></app-asset-throughput>
+      </div>
+      <div class="table-wrapper">
+        <app-asset-timeline [timelines]="timelines"></app-asset-timeline>
+        <app-asset-documents [documents]="asset.documents"></app-asset-documents>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #assetInfo let-item="item">
+  <div class="col-6 name" *ngIf="item.label">{{ item.label | translate }}</div>
+  <div class="col-6 name" *ngIf="item.name" [multilang]="item.name"></div>
+  <ng-container *ngIf="!item.translate">
+    <div class="col-6 value" [style.color]="item.color || '#393939'">{{ item.value }}</div>
+  </ng-container>
+  <ng-container *ngIf="item.translate">
+    <div class="col-6 value" [style.color]="item.color || '#393939'" [multilang]="item.value"></div>
+  </ng-container>
+</ng-template>

@@ -1,0 +1,14 @@
+<div ngbDropdown container="body" placement="bottom-right">
+  <button class="dropdown-toggle" id="grid-actions-dropdown" ngbDropdownToggle>
+    <i class="material-icons">more_vert</i>
+  </button>
+  <div ngbDropdownMenu aria-labelledby="grid-actions-dropdown">
+    <button
+      *ngFor="let action of actions"
+      ngbDropdownItem
+      (click)="onActionSelection(action.callback)"
+    >
+      {{ action.name | translate }}
+    </button>
+  </div>
+</div>

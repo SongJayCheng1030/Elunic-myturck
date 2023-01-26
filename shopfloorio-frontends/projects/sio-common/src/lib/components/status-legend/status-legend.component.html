@@ -1,0 +1,23 @@
+<div class="item">
+  <span *ngIf="label && labelPlacement === 'left'" class="label-left">
+    {{ label | translate }}
+  </span>
+  <span
+    class="status {{ backgroundShape }}"
+    [ngClass]="{ bordered: bordered }"
+    [style.width.px]="width"
+    [style.height.px]="height"
+    [ngStyle]="{ 'background-color': backgroundColor }"
+  >
+    <img
+      *ngIf="icon"
+      src="assets/icons/eq-status-{{ icon }}.svg"
+      [style.width.px]="width"
+      [style.height.px]="height"
+      alt="Status"
+    />
+  </span>
+  <span *ngIf="label && labelPlacement === 'right'" class="label label-right">
+    {{ label | translate }}
+  </span>
+</div>

@@ -1,0 +1,5 @@
+{
+  "lib/**/*.{ts,js}": [
+    "eslint -c lib/.eslintrc.fix.json --no-eslintrc --fix"
+  ]
+}

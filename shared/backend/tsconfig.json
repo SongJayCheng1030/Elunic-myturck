@@ -1,0 +1,29 @@
+{
+  "extends": "../../node_modules/@elunic/ecs-tsconfig/tsconfig.json",
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "removeComments": true,
+    "lib": [
+      "esnext"
+    ],
+    "target": "es2019",
+    "skipLibCheck": true,
+    "rootDirs": [
+      "./src/"
+    ],
+    "baseUrl": "./",
+    "paths": {
+      "shared/common": [
+        "../common/src"
+      ],
+      "shared/common/*": [
+        "../common/src/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "../common/src/**/*.ts",
+  ]
+}

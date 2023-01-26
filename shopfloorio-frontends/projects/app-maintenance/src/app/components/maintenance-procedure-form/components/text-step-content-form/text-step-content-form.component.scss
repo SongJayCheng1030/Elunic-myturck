@@ -1,0 +1,10 @@
+@import 'variables';
+
+:host {
+  display: block;
+}
+
+input,
+input:focus {
+  background-color: $white;
+}

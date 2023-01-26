@@ -1,0 +1,10 @@
+<input
+  type="text"
+  class="form-control"
+  [value]="currentValue"
+  placeholder="Search ..."
+  (input)="setFilterValue($event.target.value)"
+/>
+<div class="icon-container">
+  <i class="material-icons mi-20">search</i>
+</div>

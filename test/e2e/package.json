@@ -1,0 +1,36 @@
+{
+  "name": "e2e",
+  "version": "1.0.0",
+  "description": "E2E UI Automation tests of myTurck project",
+  "main": "index.js",
+  "scripts": {
+    "test": "QASE_REPORT=1 npx cypress run",
+    "dashboard": "npx cypress open",
+    "lint": "npx prettier -w .",
+    "lint:check": "npx prettier -c ."
+  },
+  "keywords": [
+    "qa",
+    "e2e",
+    "ui",
+    "cypress",
+    "turck"
+  ],
+  "author": "QA Elunic team",
+  "license": "ISC",
+  "dependencies": {
+    "@elunic/ecs-prettier": "^0.2.2",
+    "cypress": "10.3.1",
+    "cypress-qase-reporter": "^1.4.1",
+    "cypress-xpath": "^1.6.2",
+    "dotenv": "^16.0.2",
+    "prettier": "^2.6.2",
+    "typescript": "^4.6.3"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^6.1.2",
+    "@types/cypress": "^1.1.3",
+    "cypress-file-upload": "^5.0.8",
+    "superagent": "^7.1.2"
+  }
+}

@@ -1,0 +1,258 @@
+{
+  "GENERAL": {
+    "TRUE": "True",
+    "FALSE": "False",
+    "ROOT_NODE": "Root"
+  },
+  "MODALS": {
+    "DELETE_ASSET_MESSAGE": {
+      "TITLE": "Invalid action",
+      "BODY": "This action cannot be completed because the asset contains one or more children",
+      "DISMISS": "Close"
+    },
+    "DELETE_ASSET_CONFIRM": {
+      "TITLE": "Delete asset?",
+      "BODY": "Deleting an asset will permanently remove it from your asset pool",
+      "CONFIRM": "Delete",
+      "ABORT": "Cancel"
+    },
+    "ADD_ALIAS": {
+      "TITLE": "Add new alias",
+      "CONFIRM": "Submit",
+      "ABORT": "Cancel"
+    },
+    "ASSET_QR_CODE": {
+      "TITLE": "Asset QR-Code"
+    },
+    "DOCUMENT": {
+      "TITLE": "Add new document",
+      "TITLE_EDIT": "Edit document",
+      "CONFIRM": "Submit",
+      "CONFIRM_EDIT": "Save",
+      "ABORT": "Cancel"
+    },
+    "DELETE_ASSET_TYPE_CONFIRM": {
+      "TITLE": "Delete asset type?",
+      "BODY": "Deleting an asset type will permanently remove it from the list",
+      "CONFIRM": "Delete",
+      "ABORT": "Cancel"
+    },
+    "DELETE_ASSET_MAPS_CONFIRM": {
+      "TITLE": "Delete asset map?",
+      "BODY": "Deleting an asset map will permanently remove it from the list",
+      "CONFIRM": "Delete",
+      "ABORT": "Cancel"
+    },
+    "DELETE_ASSET_MAPS_ERROR_MESSAGE": {
+      "TITLE": "Invalid action",
+      "BODY": "This action cannot be completed",
+      "DISMISS": "Close"
+    },
+    "DELETE_ASSET_TYPE_ERROR_MESSAGE": {
+      "TITLE": "Invalid action",
+      "BODY": "This action cannot be completed",
+      "DISMISS": "Close"
+    },
+    "ASSET_POOL": {
+      "TITLE": "Select assets to assign",
+      "NAME": "Name",
+      "TYPE": "Type",
+      "UPDATED_AT": "Updated at",
+      "CONFIRM": "Assign assets",
+      "ABORT": "Cancel",
+      "NO_ASSETS_FOUND": "No assets found"
+    },
+    "PROPERTY": {
+      "TITLE": "Add new property",
+      "TITLE_EDIT": "Edit property",
+      "CONFIRM": "Submit",
+      "CONFIRM_EDIT": "Save",
+      "ABORT": "Cancel"
+    },
+    "DELETE_PROPERTY_CONFIRM": {
+      "TITLE": "Delete property?",
+      "BODY": "Deleting an property will permanently remove it from the list",
+      "CONFIRM": "Delete",
+      "ABORT": "Cancel"
+    },
+    "EDIT_DEVICE_VARIABLES": {
+      "NAME": "Name",
+      "UNIT": "Unit",
+      "UPDATE_MACHINE_VARIABLE": "Update machine variable",
+      "UPDATE_MACHINE_VARIABLE_BUTTON": "UPDATE MACHINE VARIABLE"
+    }
+  },
+  "VIEWS": {
+    "ASSET_MAPS": {
+      "ID": "ID",
+      "BACKGROUND_IMAGE": "Background image",
+      "ASSOCIATED_ASSET": "Associated asset",
+      "NUMBER_OF_ASSETS": "Number of assets",
+      "EDIT": "Edit",
+      "CANCEL": "Cancel",
+      "DELETE": "Delete",
+      "SAVE_CHANGES": "Save changes",
+      "CREATE_ASSET_MAP": "Create asset map",
+      "ASSET_MAPS_DETAILS": "Image map details",
+      "NO_ASSET_MAPS_FOUND": "No asset maps found",
+      "PARENT_ASSET": "Parent asset",
+      "ALLOCATE_ASSET_TO": "Allocate asset to"
+    },
+    "ASSET_TABS": {
+      "ASSETS": "Assets",
+      "ALLOCATED_ASSETS": "Allocated assets",
+      "MAPS": "Maps",
+      "ASSET_POOL": "Asset pool",
+      "ASSET_TYPES": "Asset types",
+      "DEVICE_MANAGEMENT": "Device management",
+      "MACHINE_VARIABLES": "Machine variables",
+      "CREATE_NEW_ASSET": "Create new asset",
+      "CREATE_NEW_ASSET_TYPE": "Create new asset type",
+      "CREATE_NEW_MAP": "Create new map",
+      "CREATE_NEW_DEVICE": "Create new device",
+      "CREATE_NEW_MACHINE_VARIABLE": "Create new machine variable",
+      "SEARCH": "Search..."
+    },
+    "ALLOCATED_ASSETS": {
+      "NAME": "Name",
+      "TYPE": "Type",
+      "ID": "ID",
+      "DOCUMENTS": "Documents",
+      "CREATED_OR_UPDATED_AT": "Created/Updated at",
+      "CHANGE_ORDER": "Change order",
+      "CHANGE_PARENT_ASSET_TO": "Change parent asset to",
+      "EDIT": "Edit",
+      "ADD_POOL_ASSET": "Add pool asset",
+      "CREATE_NEW_SUB_ASSET": "Create new sub-asset",
+      "DUPLICATE": "Duplicate",
+      "DEALLOCATE": "Deallocate",
+      "DELETE": "Delete",
+      "EXPAND_ALL": "Expand all",
+      "COLLAPSE_ALL": "Collapse all"
+    },
+    "ASSET_POOL": {
+      "NAME": "Name",
+      "TYPE": "Type",
+      "ID": "ID",
+      "DOCUMENTS": "Documents",
+      "CREATED_OR_UPDATED_AT": "Created/Updated at",
+      "ALLOCATE_ASSET_TO": "Allocate asset to",
+      "EDIT": "Edit",
+      "ADD_POOL_ASSET": "Add pool asset",
+      "CREATE_NEW_SUB_ASSET": "Create new sub-asset",
+      "DUPLICATE": "Duplicate",
+      "DELETE": "Delete"
+    },
+    "ASSET_DETAILS": {
+      "EDIT": "Edit",
+      "REMOVE": "Remove",
+      "CANCEL": "Cancel",
+      "SAVE_CHANGES": "Save changes",
+      "DOCUMENTS": "Documents",
+      "ADD_DOCUMENT": "Add document",
+      "ASSET_HISTORY": "Asset history",
+      "CHANGE_IMAGE": "Change image",
+      "ASSET_NAME": "Asset name",
+      "ASSET_TYPE": "Asset type",
+      "DESCRIPTION": "Description",
+      "ISA95_TYPE": "ISA95 type",
+      "PARENT_ASSET": "Parent asset",
+      "ASSET_DETAILS": "Asset details",
+      "ASSET_ALIASES": "Asset aliases",
+      "ALIAS": "Alias",
+      "ADD_ALIAS": "Add alias",
+      "DEALLOCATE": "Deallocate",
+      "NAME": "Name",
+      "TYPE": "Type",
+      "DATE_UPLOADED": "Date uploaded",
+      "UPLOADED_BY": "Uploaded by",
+      "RENAME": "Rename",
+      "DELETE": "Delete",
+      "DATE_OR_TIME": "Date/time",
+      "CHANGES_MADE": "Changes made",
+      "CHANGED_BY": "Changed by",
+      "CREATED_AT": "Created at",
+      "CREATED_BY": "Created by",
+      "ACTIVITY_TYPE": "Activity type",
+      "DOCUMENT": "Document",
+      "DOCUMENT_ID": "Document ID",
+      "SELECT_FILE_TO_UPLOAD": "Select file to upload",
+      "CREATE_ASSET": "Create asset",
+      "UPLOAD_IMAGE": "Upload image",
+      "PLEASE_CHOOSE": "Please choose",
+      "NONE": "None",
+      "DYNAMIC_PROPERTIES": "Dynamic properties",
+      "GLOBAL_PROPERTIES": "Global properties"
+    },
+    "ASSET_TYPES": {
+      "NAME": "Name",
+      "CANCEL": "Cancel",
+      "ISA95_TYPE": "ISA95 type",
+      "PARENT_ASSET_TYPE": "Parent asset type",
+      "LAST_CHANGED": "Last changed",
+      "LAST_CHANGED_BY": "Last changed by",
+      "EDIT": "Edit",
+      "DELETE": "Delete",
+      "NO_ASSET_TYPES_FOUND": "No asset types found"
+    },
+    "ASSET_ALIAS_TYPES": {
+      "GENERAL": "General",
+      "QR_CODE": "QR-Code"
+    },
+    "ASSET_TYPE_DETAILS": {
+      "ASSET_TYPE_DETAILS": "Asset type details",
+      "ASSET_TYPE_NAME": "Asset type name",
+      "PARENT_ASSET": "Parent asset",
+      "ISA95_TYPE": "ISA95 type",
+      "DESCRIPTION": "Description",
+      "DYNAMIC_PROPERTIES": "Dynamic properties",
+      "GLOBAL_PROPERTIES": "Global properties",
+      "ASSIGNED_ASSETS": "Assigned assets",
+      "MANDATORY": "Mandatory",
+      "DISPLAY": "Display",
+      "ADD_NEW_PROPERTY": "Add new property",
+      "PROPERTY_NAME": "Property name",
+      "NAME": "Name",
+      "TYPE": "Type",
+      "KEY": "Key",
+      "DEFAULT_VALUE": "Default Value",
+      "CHECKED": "Checked",
+      "HIDDEN": "Hidden",
+      "REQUIRED": "Required",
+      "UPDATED_AT": "Updated at",
+      "SAVE_CHANGES": "Save changes",
+      "CANCEL": "Cancel",
+      "PLEASE_CHOOSE": "Please choose",
+      "CREATE_ASSET_TYPE": "Create asset type",
+      "NONE": "None",
+      "EDIT": "Edit",
+      "DELETE": "Delete"
+    },
+    "DEVICE_MANAGEMENT": {
+      "DELETE": "Delete device",
+      "DEVICE_IDENTIFIER": "Device identifier",
+      "AGGREGATION": "Aggregation",
+      "RETENTION": "Retention",
+      "ASSIGN": "Assign to asset",
+      "UNASSIGN": "Unassign from asset",
+      "ASSIGNED_ASSET": "Assigned asset",
+      "NOT_ASSIGNED": "Device is not assigned"
+    }
+  },
+  "MESSAGES": {
+    "CHANGES_SAVED": "Changes are saved",
+    "CHANGES_ARE_NOT_SAVED_DUE_TO_SOME_ERROR": "Changes are not saved due to some error",
+    "ERROR": "Error",
+    "SUCCESS": "Success",
+    "DEVICE_REGISTERED": "Device registered",
+    "ASSET_ASSIGNED": "Asset assigned",
+    "MACHINE_VARIABLE_CREATED": "Created machine variable",
+    "MACHINE_VARIABLE_UPDATED": "Updated machine variable"
+  },
+  "SETTINGS_ITEMS": {
+    "TENANTS": "Tenants",
+    "USERS": "Users",
+    "ASSETS": "Assets",
+    "ASSET_QR_CODES": "Asset QR-Codes"
+  }
+}

@@ -1,0 +1,25 @@
+<div class="app-body">
+  <lib-sidebar
+    *ngIf="treeNodes$ | async as nodes"
+    class="sidebar"
+    [title]="'Equipment'"
+    [treeNode]="nodes"
+    [activeTreeNode]="selectedTreeNode$ | async"
+    (treeNodeSelect)="onTreeNodeSelect($event)"
+  ></lib-sidebar>
+  <main class="main">
+    <div class="executions-counts">
+      <div class="executions-item">
+        <p class="title">{{ 'EXECUTION_COUNTS.COMPLETED' | translate }}</p>
+        <p class="count">{{ completedCount$ | async }}</p>
+      </div>
+      <div class="executions-item">
+        <p class="title">{{ 'EXECUTION_COUNTS.PARTIALLY_COMPLETED' | translate }}</p>
+        <p class="count">{{ partiallyCompletedCount$ | async }}</p>
+      </div>
+    </div>
+    <mnt-maintenance-executions-archive-table
+      [executions]="executions$ | async"
+    ></mnt-maintenance-executions-archive-table>
+  </main>
+</div>
